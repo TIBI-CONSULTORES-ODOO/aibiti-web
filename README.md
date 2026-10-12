@@ -5,8 +5,8 @@ Landing de **AiBiTi Consultores** (aibiti.com.mx). Sitio estático para GitHub P
 ## Estructura
 ```
 index.html            página principal (todas las secciones)
-privacidad.html       aviso de privacidad (BORRADOR, noindex)
-aviso-legal.html      aviso legal (BORRADOR, noindex)
+privacidad.html       aviso de privacidad (aprobado)
+aviso-legal.html      aviso legal (aprobado)
 404.html              página de error (la usa GitHub Pages)
 CNAME                 dominio personalizado: aibiti.com.mx
 .nojekyll             publica los archivos tal cual
@@ -22,7 +22,6 @@ assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
 |---|---|
 | `assets/js/main.js` → `CONFIG.web3formsKey` | access_key **pública** de https://web3forms.com (se crea con tu correo). Restríngela a `aibiti.com.mx` en su panel. |
 | `assets/js/main.js` → `CONFIG.whatsapp` | Número con código de país y sin signos, p. ej. `5215512345678` |
-| `privacidad.html`, `aviso-legal.html` | Razón social, domicilio, fechas y jurisdicción. **Revisión de un abogado antes de publicar.** Luego quita `noindex` y agrégalas a `sitemap.xml`. |
 | `assets/img/logo-aibiti.svg` | Logo vectorial definitivo (hoy es un marcador de texto). El sitio usa `logo-aibiti.jpg` mientras tanto. |
 | `index.html` → JSON-LD | Dirección cuando exista (hoy no se inventa). El teléfono ya está. |
 
@@ -49,7 +48,7 @@ y abre http://localhost:4173. (Abrir `index.html` con doble clic también funcio
 - [ ] Navegación solo con teclado (Tab, Enter, Escape) y foco visible.
 - [ ] Lighthouse (Chrome → DevTools → Lighthouse): rendimiento, accesibilidad, buenas prácticas y SEO.
 - [ ] Vista previa al compartir el enlace en WhatsApp o LinkedIn (imagen `og-image.jpg`).
-- [ ] Avisos legales revisados por un abogado y `noindex` retirado.
+- [x] Avisos legales revisados por un abogado y `noindex` retirado (12 oct 2026).
 
 ## Reglas de contenido
 Sin testimonios, logos de clientes, cifras ni certificaciones que no se puedan comprobar. Todo lo que el sitio promete debe poder entregarse hoy.
