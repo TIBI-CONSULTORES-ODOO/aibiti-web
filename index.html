@@ -29,10 +29,10 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261012">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261012d">
   <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Datos estructurados (sin dirección ni teléfono: se agregan cuando existan) -->
+  <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,13 +43,15 @@
         "name": "AiBiTi Consultores",
         "url": "https://aibiti.com.mx/",
         "logo": "https://aibiti.com.mx/assets/img/logo-aibiti.jpg",
-        "email": "irwin.martinez@aibiti.com.mx"
+        "email": "contacto@aibiti.com.mx",
+        "telephone": "+525641340392"
       },
       {
         "@type": "ProfessionalService",
         "@id": "https://aibiti.com.mx/#service",
         "name": "AiBiTi Consultores",
         "url": "https://aibiti.com.mx/",
+        "telephone": "+525641340392",
         "description": "Consultoría tecnológica: implementación y desarrollo de Odoo para México, inteligencia artificial aplicada, inteligencia de negocios y tecnologías de la información.",
         "areaServed": { "@type": "Country", "name": "México" },
         "parentOrganization": { "@id": "https://aibiti.com.mx/#organization" },
@@ -303,10 +305,10 @@
           <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
           <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin compromiso.</p>
           <ul class="contact-list">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:irwin.martinez@aibiti.com.mx">irwin.martinez@aibiti.com.mx</a></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
           </ul>
           <!-- TODO: el número de WhatsApp se configura en assets/js/main.js (CONFIG.whatsapp) -->
-          <a class="btn btn--ghost" id="btn-whatsapp" href="mailto:irwin.martinez@aibiti.com.mx" rel="noopener">
+          <a class="btn btn--ghost" id="btn-whatsapp" href="mailto:contacto@aibiti.com.mx" rel="noopener">
             <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
           </a>
         </div>
@@ -392,7 +394,7 @@
         <div>
           <h3>Contacto y legal</h3>
           <ul>
-            <li><a href="mailto:irwin.martinez@aibiti.com.mx">irwin.martinez@aibiti.com.mx</a></li>
+            <li><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
             <li><a href="privacidad.html">Aviso de privacidad</a></li>
             <li><a href="aviso-legal.html">Aviso legal</a></li>
           </ul>
@@ -402,6 +404,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261012c" defer></script>
+  <script src="assets/js/main.js?v=20261012d" defer></script>
 </body>
 </html>

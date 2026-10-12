@@ -24,7 +24,7 @@ assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
 | `assets/js/main.js` → `CONFIG.whatsapp` | Número con código de país y sin signos, p. ej. `5215512345678` |
 | `privacidad.html`, `aviso-legal.html` | Razón social, domicilio, fechas y jurisdicción. **Revisión de un abogado antes de publicar.** Luego quita `noindex` y agrégalas a `sitemap.xml`. |
 | `assets/img/logo-aibiti.svg` | Logo vectorial definitivo (hoy es un marcador de texto). El sitio usa `logo-aibiti.jpg` mientras tanto. |
-| `index.html` → JSON-LD | Dirección y teléfono cuando existan (hoy no se inventan). |
+| `index.html` → JSON-LD | Dirección cuando exista (hoy no se inventa). El teléfono ya está. |
 
 Mientras no haya clave de Web3Forms, el formulario valida y ofrece un enlace `mailto:` de respaldo; mientras no haya número, el botón de WhatsApp abre el correo. Nada queda roto.
 

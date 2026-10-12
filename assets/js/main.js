@@ -12,7 +12,7 @@
        vaya en el código; no es una contraseña). Restríngela a tu dominio en su panel.
      - whatsapp: número con código de país y sin signos, p. ej. 5215512345678. */
   var CONFIG = {
-    email: 'irwin.martinez@aibiti.com.mx',
+    email: 'contacto@aibiti.com.mx',
     web3formsKey: 'TODO_WEB3FORMS_ACCESS_KEY',
     whatsapp: '525641340392',
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
