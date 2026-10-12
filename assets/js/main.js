@@ -13,7 +13,7 @@
      - whatsapp: número con código de país y sin signos, p. ej. 5215512345678. */
   var CONFIG = {
     email: 'contacto@aibiti.com.mx',
-    web3formsKey: 'TODO_WEB3FORMS_ACCESS_KEY',
+    web3formsKey: 'cb075f15-5f40-48ce-afd1-38ef0a3283c8',
     whatsapp: '525641340392',
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
   };
