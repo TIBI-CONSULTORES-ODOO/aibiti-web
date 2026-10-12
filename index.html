@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AiBiTi Consultores | Odoo, IA, BI y TI para empresas en México</title>
   <meta name="description" content="Implementamos y desarrollamos Odoo 19 para México (CFDI 4.0) y unimos IA, BI y TI en un solo equipo. Agenda un diagnóstico de 30 minutos.">
-  <meta name="theme-color" content="#0b1f3f">
+  <meta name="theme-color" content="#060912">
+  <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://aibiti.com.mx/">
 
   <!-- Redes sociales -->
@@ -27,6 +28,7 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
+  <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>document.documentElement.classList.add('js');</script>
 
@@ -61,23 +63,14 @@
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-  <!-- Iconos (sprite SVG reutilizable con <use>) -->
+  <!-- Iconos mínimos (sprite SVG, un solo trazo de 1.75) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-    <symbol id="i-erp" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
-    <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13.5 6l-3 12"/></symbol>
-    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="7" y="12" width="3" height="5"/><rect x="12" y="8" width="3" height="9"/><rect x="17" y="5" width="3" height="12"/></symbol>
-    <symbol id="i-ai" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="12" r="2.5"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/><path d="M7.5 7.5l3 3M16.5 7.5l-3 3M7.5 16.5l3-3M16.5 16.5l-3-3"/></symbol>
-    <symbol id="i-ti" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
-    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.2c2.8.3 5 2.6 5 5.8"/></symbol>
-    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
-    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
-    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
-    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20.5 5.5 16A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></symbol>
-    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
-    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20.5 5.5 16A8 8 0 1 1 21 12z"/></symbol>
   </svg>
 
   <!-- ============================ HEADER ============================ -->
@@ -86,7 +79,6 @@
       <a class="brand" href="#inicio" aria-label="AiBiTi Consultores, ir al inicio">
         <span class="brand-name" aria-hidden="true">Ai<span class="dim">B</span>i<span class="dim">T</span>i</span>
         <span class="brand-sub" aria-hidden="true">Consultores</span>
-        <span class="sr-only">AiBiTi Consultores</span>
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
@@ -96,7 +88,7 @@
 
       <nav id="menu-principal" class="nav-menu" aria-label="Principal">
         <a href="#servicios">Servicios</a>
-        <a href="#por-que-nosotros">Por qué nosotros</a>
+        <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
         <a href="#contacto">Contacto</a>
         <a class="btn btn--primary btn--sm" href="#contacto">Agendar diagnóstico</a>
@@ -108,159 +100,214 @@
 
     <!-- ============================ HERO ============================ -->
     <section id="inicio" class="hero" aria-labelledby="titulo-hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">IA · BI · TI · Odoo</span>
-          <h1 id="titulo-hero">Tu operación, tus datos y tu tecnología, trabajando como un solo sistema</h1>
-          <p class="lead">Desarrollamos e implementamos Odoo a la medida para México y lo combinamos con analítica de negocio, inteligencia artificial aplicada y TI, para que tu empresa decida con datos y automatice lo repetitivo.</p>
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="#contacto">Solicitar consultoría <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="btn btn--ghost" href="#servicios">Explorar servicios</a>
-          </div>
-          <ul class="trust" aria-label="Especialización">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Facturación electrónica mexicana (CFDI 4.0)</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Analítica de negocio y automatización</li>
-          </ul>
-        </div>
+      <div class="hero-viz" id="hero-viz">
+        <canvas id="red-neuronal" aria-hidden="true"></canvas>
+      </div>
+      <p class="sr-only">Visualización decorativa: tres nodos conectados, Ai de inteligencia artificial, Bi de inteligencia de negocios y Ti de tecnologías de la información, intercambiando señales como una red neuronal.</p>
 
-        <div class="hero-visual">
-          <div class="logo-card">
-            <img src="assets/img/logo-aibiti.jpg" width="1178" height="560" alt="Logotipo de AiBiTi Consultores: la A con un cerebro de red neuronal, la B con gráficas y la T con circuitos">
-          </div>
-          <ul class="pillars" aria-label="Los tres pilares de AiBiTi">
-            <li class="pillar"><span class="tag" aria-hidden="true">Ai</span><div><strong>Inteligencia Artificial</strong><span>Automatiza y consulta tus datos con reglas de seguridad</span></div></li>
-            <li class="pillar"><span class="tag" aria-hidden="true">Bi</span><div><strong>Inteligencia de Negocios</strong><span>Una sola versión de la verdad para decidir</span></div></li>
-            <li class="pillar"><span class="tag" aria-hidden="true">Ti</span><div><strong>Tecnologías de la Información</strong><span>La base segura que mantiene todo funcionando</span></div></li>
-          </ul>
+      <div class="container hero-copy">
+        <h1 id="titulo-hero">Odoo, datos e IA como un solo sistema</h1>
+        <p class="lead">Implementamos y desarrollamos Odoo para México y lo conectamos con analítica de negocio, inteligencia artificial y TI.</p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#contacto">Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
         </div>
       </div>
     </section>
 
     <!-- ============================ SERVICIOS ============================ -->
-    <section id="servicios" class="section section--light" aria-labelledby="titulo-servicios">
+    <section id="servicios" class="section" aria-labelledby="titulo-servicios">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Servicios</span>
-          <h2 id="titulo-servicios">Cinco frentes, un solo equipo responsable</h2>
-          <p>Desde el ERP hasta los tableros y la inteligencia artificial, trabajamos sobre un mismo modelo de datos para que nada quede aislado.</p>
+          <h2 id="titulo-servicios">Cinco frentes sobre un mismo modelo de datos</h2>
+          <p>Del ERP a los tableros y la inteligencia artificial, nada queda aislado y un solo equipo responde por todo.</p>
         </div>
 
-        <div class="cards">
-          <article class="card reveal">
-            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-erp"/></svg></div>
+        <div class="bento">
+          <article class="tile tile--odoo reveal">
             <h3>Odoo 19 para México</h3>
             <p>Implementamos Odoo con la localización mexicana como punto de partida, módulo por módulo y con tu equipo.</p>
-            <ul>
-              <li>Ventas, CRM, Compras, Inventario y Punto de venta</li>
-              <li>Proyectos, Recursos Humanos y Gastos</li>
-              <li>Contabilidad y facturación CFDI 4.0, con complemento de pago</li>
-              <li>Migración desde otro sistema o Excel, con revisión humana</li>
-              <li>Capacitación y acompañamiento</li>
+            <ul class="ticks">
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Ventas, CRM, Compras, Inventario y Punto de venta</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Contabilidad y facturación CFDI 4.0, con complemento de pago</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Migración desde otro sistema o Excel, con revisión humana</li>
+              <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Capacitación y acompañamiento</li>
             </ul>
           </article>
 
-          <article class="card reveal">
-            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></div>
-            <h3>Desarrollo a la medida en Odoo</h3>
-            <p>Cuando lo estándar no alcanza, lo extendemos con módulos pequeños, probados y documentados.</p>
-            <ul>
-              <li>Módulos propios, reportes PDF y automatizaciones</li>
-              <li>Addendas y ajustes de CFDI por cliente</li>
-              <li>Flujos de aprobación y validaciones de negocio</li>
-              <li>Integraciones con terceros por API</li>
-              <li>Despliegue ordenado: desarrollo, staging y producción, con respaldo</li>
-            </ul>
+          <article class="tile tile--dev reveal">
+            <h3>Desarrollo a la medida</h3>
+            <p>Módulos pequeños, probados y documentados cuando lo estándar no alcanza.</p>
           </article>
 
-          <article class="card card--bi reveal">
-            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-chart"/></svg></div>
-            <h3>Business Intelligence y analítica</h3>
-            <p>Convertimos los datos de tu operación en tableros que Dirección sí usa.</p>
-            <ul>
-              <li>Tableros ejecutivos de ventas, inventario y finanzas</li>
-              <li>Modelo de datos único desde Odoo, Excel y otras fuentes</li>
-              <li>Indicadores (KPIs) definidos contigo</li>
-              <li>Reportes automáticos por correo</li>
-              <li>Rentabilidad por cliente, producto o unidad de negocio</li>
-            </ul>
+          <article class="tile tile--bi reveal">
+            <h3>Business Intelligence</h3>
+            <p>Tableros de ventas, inventario y finanzas que Dirección sí usa.</p>
           </article>
 
-          <article class="card card--ai reveal">
-            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-ai"/></svg></div>
+          <article class="tile tile--ai reveal">
             <h3>Inteligencia Artificial aplicada</h3>
-            <p>IA que trabaja dentro de tus procesos, con controles claros y revisión humana.</p>
-            <ul>
-              <li>Asistentes que consultan tus datos en lenguaje natural</li>
-              <li>Automatización de tareas repetitivas</li>
-              <li>Limpieza y clasificación de contactos, catálogos y documentos</li>
-              <li>Primero solo lectura; una persona revisa antes de modificar datos</li>
-            </ul>
+            <p>Asistentes que consultan tus datos y automatizan lo repetitivo. Primero solo lectura; una persona revisa antes de modificar datos.</p>
           </article>
 
-          <article class="card card--ti reveal">
-            <div class="card-icon"><svg class="icon" aria-hidden="true"><use href="#i-ti"/></svg></div>
+          <article class="tile tile--ti reveal">
             <h3>TI y optimización operativa</h3>
-            <p>La base tecnológica y los procesos que hacen que todo lo anterior funcione.</p>
-            <ul>
-              <li>Microsoft 365: correo, SharePoint y OneDrive con permisos claros</li>
-              <li>Respaldos, continuidad de la operación y soporte</li>
-              <li>Integraciones entre tus sistemas, sin capturar dos veces</li>
-              <li>Rediseño de flujos y automatización administrativa</li>
-              <li>Gestión de proyectos de TI</li>
-            </ul>
+            <p>Microsoft 365, respaldos, integraciones entre sistemas y gestión de proyectos de TI.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ============================ POR QUÉ NOSOTROS ============================ -->
-    <section id="por-que-nosotros" class="section section--navy" aria-labelledby="titulo-porque">
+    <!-- ============================ DESARROLLO ODOO ============================ -->
+    <section id="desarrollo" class="section section--tinted" aria-labelledby="titulo-desarrollo">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Por qué nosotros</span>
+          <h2 id="titulo-desarrollo">Lo que Odoo no trae de fábrica, lo construimos</h2>
+          <p>Parches, addendas y facturación electrónica para que tu operación en México funcione sin parches manuales.</p>
+        </div>
+
+        <div class="tabs reveal" data-tabs>
+          <div class="tablist" role="tablist" aria-label="Desarrollos en Odoo" aria-orientation="vertical">
+            <button class="tab" role="tab" id="tab-parches" aria-controls="panel-parches" aria-selected="true" type="button">Parches y correcciones</button>
+            <button class="tab" role="tab" id="tab-addendas" aria-controls="panel-addendas" aria-selected="false" tabindex="-1" type="button">Addendas</button>
+            <button class="tab" role="tab" id="tab-cfdi" aria-controls="panel-cfdi" aria-selected="false" tabindex="-1" type="button">CFDI 4.0</button>
+            <button class="tab" role="tab" id="tab-pagos" aria-controls="panel-pagos" aria-selected="false" tabindex="-1" type="button">Complementos de pago</button>
+            <button class="tab" role="tab" id="tab-modulos" aria-controls="panel-modulos" aria-selected="false" tabindex="-1" type="button">Módulos a la medida</button>
+          </div>
+
+          <div class="tabpanels">
+            <div class="tabpanel" role="tabpanel" id="panel-parches" aria-labelledby="tab-parches" tabindex="0">
+              <h3>Parches y correcciones</h3>
+              <p>Cuando Odoo no se comporta como debe, lo corregimos con un módulo pequeño y probado, sin tocar el núcleo del sistema.</p>
+              <ul class="ticks">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Columnas o botones duplicados en las vistas</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cálculos y totales que no cuadran</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Automatizaciones que no disparan o notifican de más</li>
+              </ul>
+            </div>
+
+            <div class="tabpanel" role="tabpanel" id="panel-addendas" aria-labelledby="tab-addendas" tabindex="0" hidden>
+              <h3>Addendas</h3>
+              <p>Cada cliente exige su formato. Generamos la addenda que pide tu receptor y la validamos antes de timbrar.</p>
+              <ul class="ticks">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Addendas para cadenas comerciales y corporativos</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Atributos y ajustes de CFDI por cliente</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Validación previa al timbrado</li>
+              </ul>
+            </div>
+
+            <div class="tabpanel" role="tabpanel" id="panel-cfdi" aria-labelledby="tab-cfdi" tabindex="0" hidden>
+              <h3>CFDI 4.0</h3>
+              <p>Facturación electrónica con la localización mexicana como base, y diagnóstico puntual cuando el PAC o el SAT rechazan un comprobante.</p>
+              <ul class="ticks">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Facturas y notas de crédito</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Diagnóstico de errores de timbrado</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Datos fiscales de clientes: RFC, régimen y código postal</li>
+              </ul>
+            </div>
+
+            <div class="tabpanel" role="tabpanel" id="panel-pagos" aria-labelledby="tab-pagos" tabindex="0" hidden>
+              <h3>Complementos de pago</h3>
+              <p>Complementos de pago (REP) correctamente relacionados con sus facturas y listos para timbrar.</p>
+              <ul class="ticks">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Relación entre pagos y facturas</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Corrección de rechazos del PAC o del SAT</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Seguimiento de pagos sin complemento</li>
+              </ul>
+            </div>
+
+            <div class="tabpanel" role="tabpanel" id="panel-modulos" aria-labelledby="tab-modulos" tabindex="0" hidden>
+              <h3>Módulos a la medida</h3>
+              <p>Reportes PDF, flujos de aprobación, validaciones de negocio e integraciones por API, documentados y desplegados por etapas.</p>
+              <ul class="ticks">
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Módulos propios y automatizaciones</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Integraciones con terceros por API</li>
+                <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Sitios y aplicaciones web a la medida</li>
+              </ul>
+            </div>
+
+            <p class="tab-note">Siempre en staging primero, con tu autorización antes de pasar a producción.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EQUIPO ============================ -->
+    <section id="equipo" class="section" aria-labelledby="titulo-equipo">
+      <div class="container team">
+        <div class="team-copy reveal">
+          <h2 id="titulo-equipo">Tres nodos, un solo cerebro</h2>
+          <p>AiBiTi nace de la suma de tres capacidades que se alimentan entre sí. Elige un nodo.</p>
+          <div class="team-detail" data-team-detail aria-live="polite">
+            <h3 data-team-title>Ai: Inteligencia Artificial</h3>
+            <p data-team-text>Claude Code trabaja con nosotros: acelera el desarrollo, la documentación y la revisión de cada entrega. Toda modificación a tus datos la aprueba una persona.</p>
+          </div>
+        </div>
+
+        <div class="team-diagram reveal" role="tablist" aria-label="Los tres nodos de AiBiTi">
+          <svg viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+            <g class="links">
+              <line class="link" x1="300" y1="100" x2="500" y2="400"/>
+              <line class="link" x1="500" y1="400" x2="100" y2="400"/>
+              <line class="link" x1="100" y1="400" x2="300" y2="100"/>
+            </g>
+            <g class="links links--flow">
+              <line class="flow" x1="300" y1="100" x2="500" y2="400"/>
+              <line class="flow flow--b" x1="500" y1="400" x2="100" y2="400"/>
+              <line class="flow flow--c" x1="100" y1="400" x2="300" y2="100"/>
+            </g>
+          </svg>
+          <button class="node node--ai" type="button" role="tab" aria-selected="true" data-node="ai" style="left:50%;top:19.2%"><span class="node-letters">Ai</span><span class="node-role">Inteligencia artificial</span></button>
+          <button class="node node--bi" type="button" role="tab" aria-selected="false" tabindex="-1" data-node="bi" style="left:83.3%;top:76.9%"><span class="node-letters">Bi</span><span class="node-role">Inteligencia de negocios</span></button>
+          <button class="node node--ti" type="button" role="tab" aria-selected="false" tabindex="-1" data-node="ti" style="left:16.7%;top:76.9%"><span class="node-letters">Ti</span><span class="node-role">Tecnologías de la información</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ COMPROMISOS ============================ -->
+    <section id="por-que-nosotros" class="section section--tinted" aria-labelledby="titulo-porque">
+      <div class="container">
+        <div class="section-head reveal">
           <h2 id="titulo-porque">Cuatro compromisos que no negociamos</h2>
           <p>No prometemos cifras que no podemos garantizar. Prometemos una forma de trabajar.</p>
         </div>
-        <div class="why">
-          <article class="why-item reveal"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg><h3>Un solo equipo</h3><p>IA, BI, TI y Odoo con un mismo responsable, sin repartir culpas entre proveedores.</p></article>
-          <article class="why-item reveal"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><h3>Staging primero</h3><p>Nada toca producción sin pasar por pruebas y sin tu autorización.</p></article>
-          <article class="why-item reveal"><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><h3>Tus datos, bajo tu control</h3><p>Credenciales en bóvedas seguras, accesos mínimos y solo lectura cuando basta.</p></article>
-          <article class="why-item reveal"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><h3>Todo documentado</h3><p>Cada decisión y cada cambio queda por escrito, para que no dependas de una sola persona.</p></article>
+        <div class="pledges">
+          <article class="pledge reveal"><h3>Un solo equipo</h3><p>IA, BI, TI y Odoo con un mismo responsable, sin repartir culpas entre proveedores.</p></article>
+          <article class="pledge reveal"><h3>Staging primero</h3><p>Nada toca producción sin pasar por pruebas y sin tu autorización.</p></article>
+          <article class="pledge reveal"><h3>Tus datos, bajo tu control</h3><p>Credenciales en bóvedas seguras, accesos mínimos y solo lectura cuando basta.</p></article>
+          <article class="pledge reveal"><h3>Todo documentado</h3><p>Cada decisión y cada cambio queda por escrito, para que no dependas de una sola persona.</p></article>
         </div>
       </div>
     </section>
 
     <!-- ============================ METODOLOGÍA ============================ -->
-    <section id="metodologia" class="section section--light" aria-labelledby="titulo-metodo">
+    <section id="metodologia" class="section" aria-labelledby="titulo-metodo">
       <div class="container">
         <div class="section-head reveal">
-          <span class="eyebrow">Metodología</span>
-          <h2 id="titulo-metodo">Cuatro pasos, sin sorpresas</h2>
-          <p>Cada etapa termina con un entregable que puedes revisar antes de pasar a la siguiente.</p>
+          <h2 id="titulo-metodo">Cuatro etapas, cada una con un entregable</h2>
+          <p>Revisas el resultado de una etapa antes de pasar a la siguiente.</p>
         </div>
-        <ol class="steps">
-          <li class="step reveal"><h3>Diagnóstico inicial</h3><p>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual.</p></li>
-          <li class="step reveal"><h3>Arquitectura y propuesta técnica</h3><p>Informe priorizado con hallazgos, alcance, tiempos y costo antes de empezar.</p></li>
-          <li class="step reveal"><h3>Implementación ágil</h3><p>Construcción y parametrización en un ambiente de pruebas (staging), validadas contigo.</p></li>
-          <li class="step reveal"><h3>Capacitación y acompañamiento</h3><p>Formación a tu equipo, documentación y seguimiento después del arranque.</p></li>
+        <ol class="steps" data-steps>
+          <li class="step"><h3>Diagnóstico</h3><p>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual.</p></li>
+          <li class="step"><h3>Propuesta técnica</h3><p>Informe priorizado con hallazgos, alcance, tiempos y costo antes de empezar.</p></li>
+          <li class="step"><h3>Implementación</h3><p>Construcción y parametrización en un ambiente de pruebas (staging), validadas contigo.</p></li>
+          <li class="step"><h3>Acompañamiento</h3><p>Formación a tu equipo, documentación y seguimiento después del arranque.</p></li>
         </ol>
       </div>
     </section>
 
     <!-- ============================ CONTACTO ============================ -->
-    <section id="contacto" class="section section--dark" aria-labelledby="titulo-contacto">
+    <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
       <div class="container contact-grid">
         <div class="contact-info reveal">
-          <span class="eyebrow">Contacto</span>
           <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
           <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin compromiso.</p>
-          <ul>
+          <ul class="contact-list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:irwin.martinez@aibiti.com.mx">irwin.martinez@aibiti.com.mx</a></li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg><span>Respuesta rápida por WhatsApp</span></li>
           </ul>
           <!-- TODO: el número de WhatsApp se configura en assets/js/main.js (CONFIG.whatsapp) -->
-          <a class="btn btn--light" id="btn-whatsapp" href="mailto:irwin.martinez@aibiti.com.mx" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> Escribir por WhatsApp
+          <a class="btn btn--ghost" id="btn-whatsapp" href="mailto:irwin.martinez@aibiti.com.mx" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
           </a>
         </div>
 
@@ -312,7 +359,7 @@
             <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="err-consentimiento">
             <span>He leído el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a> y acepto que AiBiTi use mis datos para responder esta solicitud.</span>
           </label>
-          <span class="field-error" id="err-consentimiento" style="grid-column:1/-1"></span>
+          <span class="field-error field-error--full" id="err-consentimiento"></span>
 
           <div class="form-actions">
             <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -327,15 +374,17 @@
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div>
-          <p class="brand-name" style="font-size:1.4rem;margin-bottom:8px">Ai<span class="dim">B</span>i<span class="dim">T</span>i <span style="font-size:.7rem;letter-spacing:.3em;font-weight:600;color:var(--gray)">CONSULTORES</span></p>
+        <div class="footer-brand">
+          <div class="logo-plate">
+            <img src="assets/img/logo-aibiti.jpg" width="1178" height="560" alt="Logotipo de AiBiTi Consultores: la A con un cerebro de red neuronal, la B con gráficas y la T con circuitos" loading="lazy">
+          </div>
           <p>Inteligencia artificial, inteligencia de negocios, tecnologías de la información y Odoo para empresas en México.</p>
         </div>
         <div>
           <h3>Navegación</h3>
           <ul>
             <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#por-que-nosotros">Por qué nosotros</a></li>
+            <li><a href="#equipo">Equipo</a></li>
             <li><a href="#metodologia">Metodología</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>

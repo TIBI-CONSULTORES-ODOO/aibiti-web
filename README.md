@@ -12,7 +12,8 @@ CNAME                 dominio personalizado: aibiti.com.mx
 .nojekyll             publica los archivos tal cual
 robots.txt, sitemap.xml, site.webmanifest
 assets/css/styles.css estilos (tokens de color arriba del archivo)
-assets/js/main.js     menú, animaciones y formulario (CONFIG al inicio)
+assets/fonts/        Geist (SIL OFL 1.1), autoalojada; licencia en Geist-OFL.txt
+assets/js/main.js     menú, formulario (CONFIG al inicio), pestañas, equipo y red neuronal (canvas)
 assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
 ```
 
