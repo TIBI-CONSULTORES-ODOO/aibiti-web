@@ -14,7 +14,7 @@
   var CONFIG = {
     email: 'irwin.martinez@aibiti.com.mx',
     web3formsKey: 'TODO_WEB3FORMS_ACCESS_KEY',
-    whatsapp: 'TODO_NUMERO_WHATSAPP',
+    whatsapp: '525641340392',
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
