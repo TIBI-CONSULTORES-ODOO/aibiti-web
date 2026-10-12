@@ -403,3 +403,6 @@ button { font: inherit; color: inherit; }
 .page-404 { min-height: 100dvh; display: grid; place-items: center; text-align: center; padding: 60px 20px; }
 .page-404 h1 { font-size: clamp(3rem, 12vw, 6rem); margin-bottom: 8px; color: var(--steel-hi); }
 .page-404 .btn { margin-top: 12px; }
+.draft-note p, .draft-note li { color: #f1dca0; margin-top: 0.5em; }
+.draft-note p:first-child { margin-top: 0; }
+.draft-note ul { margin-bottom: 0; }
