@@ -262,15 +262,22 @@
 
         <div class="team-diagram reveal" role="tablist" aria-label="Los tres nodos de AiBiTi">
           <svg viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+            <!-- Tres haces de luz (Ai, Bi, Ti) convergen en un único centro: tus datos en Odoo -->
             <g class="links">
-              <path class="link" d="M300 100 Q482 168 500 400"/>
-              <path class="link" d="M500 400 Q300 472 100 400"/>
-              <path class="link" d="M100 400 Q118 168 300 100"/>
+              <path class="link" d="M300 100 C420 110 420 250 300 310"/>
+              <path class="link" d="M500 400 C440 380 360 340 300 310"/>
+              <path class="link" d="M100 400 C160 380 240 340 300 310"/>
             </g>
-            <g class="links links--flow">
-              <path class="flow" d="M300 100 Q482 168 500 400"/>
-              <path class="flow flow--b" d="M500 400 Q300 472 100 400"/>
-              <path class="flow flow--c" d="M100 400 Q118 168 300 100"/>
+            <g class="beams">
+              <path class="beam is-active" data-beam="ai" pathLength="100" d="M300 100 C420 110 420 250 300 310"/>
+              <path class="beam beam--b" data-beam="bi" pathLength="100" d="M500 400 C440 380 360 340 300 310"/>
+              <path class="beam beam--c" data-beam="ti" pathLength="100" d="M100 400 C160 380 240 340 300 310"/>
+            </g>
+            <g class="core">
+              <circle class="core-ring" cx="300" cy="310" r="74"/>
+              <circle class="core-disc" cx="300" cy="310" r="62"/>
+              <text class="core-name" x="300" y="308" text-anchor="middle">Odoo</text>
+              <text class="core-sub" x="300" y="332" text-anchor="middle">tus datos</text>
             </g>
           </svg>
           <button class="node node--ai" type="button" role="tab" aria-selected="true" data-node="ai" style="left:50%;top:19.2%"><span class="node-letters">Ai</span><span class="node-role">Inteligencia artificial</span></button>

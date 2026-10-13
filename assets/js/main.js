@@ -276,6 +276,7 @@
     if (!nodes.length || !box) return;
     var title = box.querySelector('[data-team-title]');
     var text = box.querySelector('[data-team-text]');
+    var beams = document.querySelectorAll('[data-beam]');
     var DATA = {
       ai: {
         t: 'Ai: Inteligencia Artificial',
@@ -297,7 +298,9 @@
         n.setAttribute('aria-selected', String(on));
         n.tabIndex = on ? 0 : -1;
       });
-      var d = DATA[nodes[i].getAttribute('data-node')];
+      var key = nodes[i].getAttribute('data-node');
+      beams.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-beam') === key); });
+      var d = DATA[key];
       title.textContent = d.t;
       text.textContent = d.p;
       box.classList.remove('is-changing');
