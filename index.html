@@ -98,7 +98,7 @@
         <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
         <a href="#contacto">Contacto</a>
-        <a class="btn btn--primary btn--sm" href="#contacto">Agendar diagnóstico</a>
+        <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico</a>
       </nav>
     </div>
   </header>
@@ -116,7 +116,7 @@
         <h1 id="titulo-hero">Odoo, datos e IA como un solo sistema</h1>
         <p class="lead">Implementamos y desarrollamos Odoo para México y lo conectamos con analítica de negocio, inteligencia artificial y TI.</p>
         <div class="hero-actions">
-          <a class="btn btn--primary" href="#contacto">Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--primary" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
         </div>
         <ul class="hero-signals" aria-label="Lo que puedes esperar">
@@ -326,10 +326,87 @@
 
     <!-- ============================ CONTACTO ============================ -->
     <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
-      <div class="container contact-grid">
-        <div class="contact-info reveal">
+      <div class="container">
+        <div class="contact-intro reveal">
           <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
           <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin compromiso.</p>
+        </div>
+
+        <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, la columna del calendario queda oculta y el formulario ocupa todo el ancho. -->
+        <div class="contact-cols contact-cols--solo" data-contact-cols>
+          <div class="contact-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
+            <h3 id="titulo-agendar">Elige tu horario · 30 min</h3>
+            <div class="cal-embed" id="cal-embed"><p class="cal-loading">Cargando calendario…</p></div>
+          </div>
+
+          <div class="contact-write">
+            <h3>¿Prefieres que te escribamos?</h3>
+            <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
+              <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
+                   valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
+              <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
+              <input type="hidden" name="redirect" value="https://aibiti.com.mx/gracias.html">
+              <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
+              <input type="hidden" name="from_name" value="Sitio AiBiTi">
+              <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
+
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="err-nombre">
+                <span class="field-error" id="err-nombre"></span>
+              </div>
+              <div class="field">
+                <label for="correo">Correo empresarial</label>
+                <input id="correo" name="correo" type="email" autocomplete="email" required aria-describedby="err-correo">
+                <span class="field-error" id="err-correo"></span>
+              </div>
+              <div class="field field--full">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
+                <span class="field-error" id="err-mensaje"></span>
+              </div>
+
+              <details class="more field--full">
+                <summary>Agregar más datos <span class="opt">(opcional)</span></summary>
+                <div class="more-grid">
+                  <div class="field">
+                    <label for="telefono">Teléfono o WhatsApp</label>
+                    <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel">
+                  </div>
+                  <div class="field">
+                    <label for="empresa">Empresa</label>
+                    <input id="empresa" name="empresa" type="text" autocomplete="organization">
+                  </div>
+                  <div class="field field--full">
+                    <label for="servicio">Tipo de servicio</label>
+                    <select id="servicio" name="servicio">
+                      <option value="">Selecciona una opción</option>
+                      <option>Odoo (implementación o desarrollo)</option>
+                      <option>Business Intelligence</option>
+                      <option>Inteligencia Artificial</option>
+                      <option>TI (Microsoft 365, integraciones)</option>
+                      <option>Varios de los anteriores</option>
+                      <option>Otro</option>
+                    </select>
+                  </div>
+                </div>
+              </details>
+
+              <label class="consent">
+                <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="err-consentimiento">
+                <span>He leído el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a> y acepto que AiBiTi use mis datos para responder esta solicitud.</span>
+              </label>
+              <span class="field-error field-error--full" id="err-consentimiento"></span>
+
+              <div class="form-actions">
+                <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+              <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="contact-direct reveal">
           <ul class="contact-list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
           </ul>
@@ -338,65 +415,6 @@
             <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
           </a>
         </div>
-
-        <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
-          <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
-               valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
-          <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
-          <input type="hidden" name="redirect" value="https://aibiti.com.mx/gracias.html">
-          <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
-          <input type="hidden" name="from_name" value="Sitio AiBiTi">
-          <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
-
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="err-nombre">
-            <span class="field-error" id="err-nombre"></span>
-          </div>
-          <div class="field">
-            <label for="correo">Correo empresarial</label>
-            <input id="correo" name="correo" type="email" autocomplete="email" required aria-describedby="err-correo">
-            <span class="field-error" id="err-correo"></span>
-          </div>
-          <div class="field">
-            <label for="telefono">Teléfono o WhatsApp</label>
-            <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="err-telefono">
-            <span class="field-error" id="err-telefono"></span>
-          </div>
-          <div class="field">
-            <label for="empresa">Empresa <span class="opt">(opcional)</span></label>
-            <input id="empresa" name="empresa" type="text" autocomplete="organization">
-          </div>
-          <div class="field field--full">
-            <label for="servicio">Tipo de servicio</label>
-            <select id="servicio" name="servicio" required aria-describedby="err-servicio">
-              <option value="">Selecciona una opción</option>
-              <option>Odoo (implementación o desarrollo)</option>
-              <option>Business Intelligence</option>
-              <option>Inteligencia Artificial</option>
-              <option>TI (Microsoft 365, integraciones)</option>
-              <option>Varios de los anteriores</option>
-              <option>Otro</option>
-            </select>
-            <span class="field-error" id="err-servicio"></span>
-          </div>
-          <div class="field field--full">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
-            <span class="field-error" id="err-mensaje"></span>
-          </div>
-
-          <label class="consent">
-            <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="err-consentimiento">
-            <span>He leído el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a> y acepto que AiBiTi use mis datos para responder esta solicitud.</span>
-          </label>
-          <span class="field-error field-error--full" id="err-consentimiento"></span>
-
-          <div class="form-actions">
-            <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          </div>
-          <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
-        </form>
       </div>
     </section>
   </main>

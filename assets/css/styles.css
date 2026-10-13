@@ -304,8 +304,15 @@ button { font: inherit; color: inherit; }
 
 /* ============ Contacto ============ */
 .section--contact { background: linear-gradient(180deg, var(--bg-2), #1C2644); border-top: 1px solid var(--line-soft); }
-.contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
-.contact-list { margin: 28px 0 24px; display: grid; gap: 12px; }
+.contact-intro { max-width: 46rem; margin-bottom: clamp(32px, 4vw, 48px); }
+.contact-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
+.contact-cols--solo { grid-template-columns: 1fr; }
+.contact-cols--solo .contact-write { max-width: 52rem; }
+.contact-cal h3, .contact-write h3 { margin-bottom: 16px; font-size: 1.3rem; letter-spacing: -0.015em; }
+.cal-embed { min-height: 520px; padding: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: auto; }
+.cal-loading { padding: 24px; color: var(--muted); }
+.contact-direct { margin-top: clamp(28px, 4vw, 44px); padding-top: 28px; border-top: 1px solid var(--line-soft); display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; }
+.contact-list { display: grid; gap: 12px; }
 .contact-list li { display: flex; gap: 12px; align-items: center; }
 .contact-list .icon { color: var(--steel-soft); }
 .contact-list a { color: var(--text); }
@@ -334,6 +341,11 @@ button { font: inherit; color: inherit; }
 .form-status[data-state="error"] { color: var(--danger); }
 .form-status[data-state="ok"] { color: var(--steel-soft); font-weight: 600; }
 .form-status a { color: var(--text); }
+.more { grid-column: 1 / -1; }
+.more > summary { cursor: pointer; width: fit-content; min-height: 32px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; font-weight: 600; color: var(--steel-soft); }
+.more > summary:hover { color: var(--text); }
+.more[open] > summary { margin-bottom: 16px; }
+.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ============ Footer ============ */
@@ -403,8 +415,8 @@ button { font: inherit; color: inherit; }
   .steps::before { left: 11px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
   .steps::after { display: none; }
   .step::before { left: -44px; top: 2px; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .form { grid-template-columns: 1fr; }
+  .contact-cols { grid-template-columns: 1fr; }
+  .form, .more-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
 }
 

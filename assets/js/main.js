@@ -1,7 +1,7 @@
 /* =====================================================================
    AiBiTi Consulting — comportamiento del sitio (sin dependencias)
    1 Configuración · 2 Menú móvil · 3 Aparición al scroll · 4 WhatsApp
-   5 Formulario de contacto
+   4b Calendario Cal.com · 5 Formulario de contacto
    ===================================================================== */
 (function () {
   'use strict';
@@ -15,6 +15,7 @@
     email: 'contacto@aibiti.com.mx',
     web3formsKey: 'cb075f15-5f40-48ce-afd1-38ef0a3283c8',
     whatsapp: '525641340392',
+    calLink: 'PENDIENTE/diagnostico-30min', // enlace de Cal.com (usuario/evento); mientras diga PENDIENTE o esté vacío no se muestra el calendario
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
@@ -71,6 +72,77 @@
     botonWa.href = 'https://wa.me/' + encodeURIComponent(CONFIG.whatsapp) +
       '?text=' + encodeURIComponent(CONFIG.whatsappMensaje);
     botonWa.target = '_blank';
+  }
+
+  /* 4b. CALENDARIO (Cal.com) ----------------------------------------------
+     Solo se activa si CONFIG.calLink es un enlace real ("usuario/evento"). El script de
+     Cal.com se carga cuando #contacto se acerca al viewport. Si falla, o no hay enlace,
+     la columna del calendario se oculta y el formulario ocupa todo el ancho. */
+  var calCol = document.getElementById('agendar');
+  var calCols = document.querySelector('[data-contact-cols]');
+  var calEnlaces = document.querySelectorAll('[data-agendar]');
+  var mostrarCal = function (activo) {
+    if (!calCol) { return; }
+    calCol.hidden = !activo;
+    if (calCols) { calCols.classList.toggle('contact-cols--solo', !activo); }
+    // Los botones "Agendar diagnóstico" bajan al calendario solo si existe; si no, al formulario.
+    calEnlaces.forEach(function (a) { a.setAttribute('href', activo ? '#agendar' : '#contacto'); });
+  };
+  if (calCol && CONFIG.calLink && !/PENDIENTE|TODO/.test(CONFIG.calLink)) {
+    mostrarCal(true);
+    var calCargado = false;
+    var cargarCal = function () {
+      if (calCargado) { return; }
+      calCargado = true;
+      var fallo = function () { mostrarCal(false); };
+      // Fragmento oficial de Cal.com; el único cambio es que el <script> se crea aquí para detectar errores de carga.
+      (function (C, A, L) {
+        var p = function (a, ar) { a.q.push(ar); };
+        var d = C.document;
+        C.Cal = C.Cal || function () {
+          var cal = C.Cal, ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {}; cal.q = cal.q || [];
+            var s = d.createElement('script');
+            s.src = A; s.async = true; s.onerror = fallo;
+            d.head.appendChild(s);
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            var api = function () { p(api, arguments); };
+            var ns = ar[1];
+            api.q = api.q || [];
+            if (typeof ns === 'string') {
+              cal.ns[ns] = cal.ns[ns] || api;
+              p(cal.ns[ns], ar);
+              p(cal, ['initNamespace', ns]);
+            } else { p(cal, ar); }
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+      window.Cal('init', 'diagnostico', { origin: 'https://app.cal.com' });
+      var cal = window.Cal.ns.diagnostico;
+      cal('inline', { elementOrSelector: '#cal-embed', calLink: CONFIG.calLink, config: { layout: 'month_view', theme: 'dark' } });
+      cal('ui', { theme: 'dark', hideEventTypeDetails: false, layout: 'month_view',
+        cssVarsPerTheme: { light: { 'cal-brand': '#E9EFF6' }, dark: { 'cal-brand': '#E9EFF6' } } });
+      cal('on', { action: 'linkFailed', callback: fallo });
+      cal('on', { action: 'linkReady', callback: function () {
+        var aviso = calCol.querySelector('.cal-loading');
+        if (aviso) { aviso.remove(); }
+      } });
+    };
+    var seccionContacto = document.getElementById('contacto');
+    if ('IntersectionObserver' in window && seccionContacto) {
+      var ioCal = new IntersectionObserver(function (entradas) {
+        if (entradas[0].isIntersecting) { ioCal.disconnect(); cargarCal(); }
+      }, { rootMargin: '600px 0px' });
+      ioCal.observe(seccionContacto);
+    } else {
+      cargarCal();
+    }
   }
 
   /* 5. FORMULARIO DE CONTACTO --------------------------------------------
