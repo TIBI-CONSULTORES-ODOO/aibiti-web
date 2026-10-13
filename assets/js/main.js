@@ -234,6 +234,39 @@
         if (to !== null) { e.preventDefault(); select(to, true); }
       });
     });
+
+    /* Móvil (<768 px): los mismos paneles se envuelven en <details>, sin duplicar contenido. */
+    var tablist = root.querySelector('[role="tablist"]');
+    var mq = window.matchMedia('(max-width: 767px)');
+    function toAccordion() {
+      root.classList.add('tabs--acc');
+      tablist.hidden = true;
+      tabEls.forEach(function (t, i) {
+        var p = panels[i], d = document.createElement('details'), s = document.createElement('summary');
+        d.className = 'acc'; s.textContent = t.textContent;
+        p.parentNode.insertBefore(d, p);
+        d.appendChild(s); d.appendChild(p);
+        p.hidden = false;
+        p.removeAttribute('role'); p.removeAttribute('aria-labelledby'); p.removeAttribute('tabindex');
+        d.open = i === 0;
+      });
+    }
+    function toTabs() {
+      root.classList.remove('tabs--acc');
+      tablist.hidden = false;
+      var cur = 0;
+      tabEls.forEach(function (t, i) {
+        var p = panels[i], d = p.parentNode;
+        if (t.getAttribute('aria-selected') === 'true') cur = i;
+        d.parentNode.insertBefore(p, d); d.remove();
+        p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', t.id); p.tabIndex = 0;
+      });
+      select(cur, false);
+    }
+    function sync() { var acc = root.classList.contains('tabs--acc'); if (mq.matches && !acc) toAccordion(); else if (!mq.matches && acc) toTabs(); }
+    if (mq.addEventListener) mq.addEventListener('change', sync); else mq.addListener(sync);
+    window.addEventListener('resize', sync);
+    sync();
   })();
 
   /* ---------- Equipo: tres nodos ---------- */
