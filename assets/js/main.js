@@ -1,7 +1,7 @@
 /* =====================================================================
    AiBiTi Consulting — comportamiento del sitio (sin dependencias)
    1 Configuración · 2 Menú móvil · 3 Aparición al scroll · 4 WhatsApp
-   5 Formulario de contacto
+   4b Calendario Cal.com · 5 Formulario de contacto
    ===================================================================== */
 (function () {
   'use strict';
@@ -15,6 +15,7 @@
     email: 'contacto@aibiti.com.mx',
     web3formsKey: 'cb075f15-5f40-48ce-afd1-38ef0a3283c8',
     whatsapp: '525641340392',
+    calLink: 'PENDIENTE/diagnostico-30min', // enlace de Cal.com (usuario/evento); mientras diga PENDIENTE o esté vacío no se muestra el calendario
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
@@ -73,10 +74,82 @@
     botonWa.target = '_blank';
   }
 
+  /* 4b. CALENDARIO (Cal.com) ----------------------------------------------
+     Solo se activa si CONFIG.calLink es un enlace real ("usuario/evento"). El script de
+     Cal.com se carga cuando #contacto se acerca al viewport. Si falla, o no hay enlace,
+     la columna del calendario se oculta y el formulario ocupa todo el ancho. */
+  var calCol = document.getElementById('agendar');
+  var calCols = document.querySelector('[data-contact-cols]');
+  var calEnlaces = document.querySelectorAll('[data-agendar]');
+  var mostrarCal = function (activo) {
+    if (!calCol) { return; }
+    calCol.hidden = !activo;
+    if (calCols) { calCols.classList.toggle('contact-cols--solo', !activo); }
+    // Los botones "Agendar diagnóstico" bajan al calendario solo si existe; si no, al formulario.
+    calEnlaces.forEach(function (a) { a.setAttribute('href', activo ? '#agendar' : '#contacto'); });
+  };
+  if (calCol && CONFIG.calLink && !/PENDIENTE|TODO/.test(CONFIG.calLink)) {
+    mostrarCal(true);
+    var calCargado = false;
+    var cargarCal = function () {
+      if (calCargado) { return; }
+      calCargado = true;
+      var fallo = function () { mostrarCal(false); };
+      // Fragmento oficial de Cal.com; el único cambio es que el <script> se crea aquí para detectar errores de carga.
+      (function (C, A, L) {
+        var p = function (a, ar) { a.q.push(ar); };
+        var d = C.document;
+        C.Cal = C.Cal || function () {
+          var cal = C.Cal, ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {}; cal.q = cal.q || [];
+            var s = d.createElement('script');
+            s.src = A; s.async = true; s.onerror = fallo;
+            d.head.appendChild(s);
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            var api = function () { p(api, arguments); };
+            var ns = ar[1];
+            api.q = api.q || [];
+            if (typeof ns === 'string') {
+              cal.ns[ns] = cal.ns[ns] || api;
+              p(cal.ns[ns], ar);
+              p(cal, ['initNamespace', ns]);
+            } else { p(cal, ar); }
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, 'https://app.cal.com/embed/embed.js', 'init');
+
+      window.Cal('init', 'diagnostico', { origin: 'https://app.cal.com' });
+      var cal = window.Cal.ns.diagnostico;
+      cal('inline', { elementOrSelector: '#cal-embed', calLink: CONFIG.calLink, config: { layout: 'month_view', theme: 'dark' } });
+      cal('ui', { theme: 'dark', hideEventTypeDetails: false, layout: 'month_view',
+        cssVarsPerTheme: { light: { 'cal-brand': '#E9EFF6' }, dark: { 'cal-brand': '#E9EFF6' } } });
+      cal('on', { action: 'linkFailed', callback: fallo });
+      cal('on', { action: 'linkReady', callback: function () {
+        var aviso = calCol.querySelector('.cal-loading');
+        if (aviso) { aviso.remove(); }
+      } });
+    };
+    var seccionContacto = document.getElementById('contacto');
+    if ('IntersectionObserver' in window && seccionContacto) {
+      var ioCal = new IntersectionObserver(function (entradas) {
+        if (entradas[0].isIntersecting) { ioCal.disconnect(); cargarCal(); }
+      }, { rootMargin: '600px 0px' });
+      ioCal.observe(seccionContacto);
+    } else {
+      cargarCal();
+    }
+  }
+
   /* 5. FORMULARIO DE CONTACTO --------------------------------------------
      Envía a Web3Forms. Si falla o aún no hay clave, ofrece el correo como respaldo. */
   var form = document.getElementById('form-contacto');
   if (!form) { return; }
+  form.noValidate = true; // con JS se usa la validación propia; sin JS queda la nativa del navegador
   var estado = document.getElementById('estado-form');
   var botonEnviar = document.getElementById('btn-enviar');
   var campos = form.querySelectorAll('input[required], select[required], textarea[required]');
@@ -145,7 +218,7 @@
     botonEnviar.disabled = true;
     mostrarEstado('', 'Enviando…');
     var datos = new FormData(form);
-    datos.append('access_key', CONFIG.web3formsKey);
+    datos.set('access_key', CONFIG.web3formsKey); // CONFIG manda sobre el input oculto
 
     fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: datos })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.success, json: j }; }); })
@@ -194,6 +267,18 @@
     io.observe(steps);
   })();
 
+  /* ---------- Spotlight de las tarjetas del bento ---------- */
+  (function spotlight() {
+    if (reduceMotion || !window.matchMedia('(hover: hover)').matches) return;
+    document.querySelectorAll('.tile').forEach(function (tile) {
+      tile.addEventListener('pointermove', function (e) {
+        var r = tile.getBoundingClientRect();
+        tile.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        tile.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  })();
+
   /* ---------- Tabs accesibles (desarrollo en Odoo) ---------- */
   (function tabs() {
     var root = document.querySelector('[data-tabs]');
@@ -221,6 +306,39 @@
         if (to !== null) { e.preventDefault(); select(to, true); }
       });
     });
+
+    /* Móvil (<768 px): los mismos paneles se envuelven en <details>, sin duplicar contenido. */
+    var tablist = root.querySelector('[role="tablist"]');
+    var mq = window.matchMedia('(max-width: 767px)');
+    function toAccordion() {
+      root.classList.add('tabs--acc');
+      tablist.hidden = true;
+      tabEls.forEach(function (t, i) {
+        var p = panels[i], d = document.createElement('details'), s = document.createElement('summary');
+        d.className = 'acc'; s.textContent = t.textContent;
+        p.parentNode.insertBefore(d, p);
+        d.appendChild(s); d.appendChild(p);
+        p.hidden = false;
+        p.removeAttribute('role'); p.removeAttribute('aria-labelledby'); p.removeAttribute('tabindex');
+        d.open = i === 0;
+      });
+    }
+    function toTabs() {
+      root.classList.remove('tabs--acc');
+      tablist.hidden = false;
+      var cur = 0;
+      tabEls.forEach(function (t, i) {
+        var p = panels[i], d = p.parentNode;
+        if (t.getAttribute('aria-selected') === 'true') cur = i;
+        d.parentNode.insertBefore(p, d); d.remove();
+        p.setAttribute('role', 'tabpanel'); p.setAttribute('aria-labelledby', t.id); p.tabIndex = 0;
+      });
+      select(cur, false);
+    }
+    function sync() { var acc = root.classList.contains('tabs--acc'); if (mq.matches && !acc) toAccordion(); else if (!mq.matches && acc) toTabs(); }
+    if (mq.addEventListener) mq.addEventListener('change', sync); else mq.addListener(sync);
+    window.addEventListener('resize', sync);
+    sync();
   })();
 
   /* ---------- Equipo: tres nodos ---------- */
@@ -230,6 +348,7 @@
     if (!nodes.length || !box) return;
     var title = box.querySelector('[data-team-title]');
     var text = box.querySelector('[data-team-text]');
+    var beams = document.querySelectorAll('[data-beam]');
     var DATA = {
       ai: {
         t: 'Ai: Inteligencia Artificial',
@@ -251,7 +370,9 @@
         n.setAttribute('aria-selected', String(on));
         n.tabIndex = on ? 0 : -1;
       });
-      var d = DATA[nodes[i].getAttribute('data-node')];
+      var key = nodes[i].getAttribute('data-node');
+      beams.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-beam') === key); });
+      var d = DATA[key];
       title.textContent = d.t;
       text.textContent = d.p;
       box.classList.remove('is-changing');
@@ -297,7 +418,7 @@
     };
 
     var MAIN = [
-      { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.30, y: 0.28 },
+      { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.36, y: 0.28 },
       { id: 'bi', label: 'Bi', role: 'Inteligencia de negocios', x: 0.78, y: 0.42 },
       { id: 'ti', label: 'Ti', role: 'Tecnologías de la información', x: 0.46, y: 0.76 }
     ];

@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261013e">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261013f">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -72,6 +72,10 @@
     <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16"/></symbol>
     <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14.5c2.2 0 4 1.8 4 4"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 0 0 6.2 21.5h11.6a2 2 0 0 0 1.7-3L14 9V3M7.5 15h9"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3M12 15v2"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.8 7L4 20.5 5.5 16A8 8 0 1 1 21 12z"/></symbol>
   </svg>
 
@@ -94,7 +98,7 @@
         <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
         <a href="#contacto">Contacto</a>
-        <a class="btn btn--primary btn--sm" href="#contacto">Agendar diagnóstico</a>
+        <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico</a>
       </nav>
     </div>
   </header>
@@ -112,9 +116,12 @@
         <h1 id="titulo-hero">Odoo, datos e IA como un solo sistema</h1>
         <p class="lead">Implementamos y desarrollamos Odoo para México y lo conectamos con analítica de negocio, inteligencia artificial y TI.</p>
         <div class="hero-actions">
-          <a class="btn btn--primary" href="#contacto">Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--primary" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
         </div>
+        <ul class="hero-signals" aria-label="Lo que puedes esperar">
+          <li>Odoo 19</li><li>CFDI 4.0</li><li>Staging primero</li><li>Diagnóstico de 30 min</li>
+        </ul>
       </div>
     </section>
 
@@ -187,6 +194,8 @@
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Cálculos y totales que no cuadran</li>
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Automatizaciones que no disparan o notifican de más</li>
               </ul>
+              <!-- REVISAR COPY -->
+              <div class="beforeafter"><p class="ba-before"><span class="ba-label">Antes</span>Totales que no cuadran en la factura</p><p class="ba-after"><span class="ba-label">Después</span>Corregido sin tocar el núcleo, probado en staging</p></div>
             </div>
 
             <div class="tabpanel" role="tabpanel" id="panel-addendas" aria-labelledby="tab-addendas" tabindex="0" hidden>
@@ -197,6 +206,8 @@
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Atributos y ajustes de CFDI por cliente</li>
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Validación previa al timbrado</li>
               </ul>
+              <!-- REVISAR COPY -->
+              <div class="beforeafter"><p class="ba-before"><span class="ba-label">Antes</span>Tu cadena comercial rechaza la factura por falta de addenda</p><p class="ba-after"><span class="ba-label">Después</span>Addenda generada y validada antes de timbrar</p></div>
             </div>
 
             <div class="tabpanel" role="tabpanel" id="panel-cfdi" aria-labelledby="tab-cfdi" tabindex="0" hidden>
@@ -207,6 +218,8 @@
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Diagnóstico de errores de timbrado</li>
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Datos fiscales de clientes: RFC, régimen y código postal</li>
               </ul>
+              <!-- REVISAR COPY -->
+              <div class="beforeafter"><p class="ba-before"><span class="ba-label">Antes</span>El PAC rechaza el comprobante y no sabes por qué</p><p class="ba-after"><span class="ba-label">Después</span>Causa identificada, corregida y factura timbrada</p></div>
             </div>
 
             <div class="tabpanel" role="tabpanel" id="panel-pagos" aria-labelledby="tab-pagos" tabindex="0" hidden>
@@ -217,6 +230,8 @@
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Corrección de rechazos del PAC o del SAT</li>
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Seguimiento de pagos sin complemento</li>
               </ul>
+              <!-- REVISAR COPY -->
+              <div class="beforeafter"><p class="ba-before"><span class="ba-label">Antes</span>Pagos recibidos sin complemento y sin relacionar con sus facturas</p><p class="ba-after"><span class="ba-label">Después</span>Complementos relacionados y listos para timbrar</p></div>
             </div>
 
             <div class="tabpanel" role="tabpanel" id="panel-modulos" aria-labelledby="tab-modulos" tabindex="0" hidden>
@@ -227,6 +242,8 @@
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Integraciones con terceros por API</li>
                 <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Sitios y aplicaciones web a la medida</li>
               </ul>
+              <!-- REVISAR COPY -->
+              <div class="beforeafter"><p class="ba-before"><span class="ba-label">Antes</span>Aprobaciones y reportes armados a mano en Excel</p><p class="ba-after"><span class="ba-label">Después</span>Flujo y PDF dentro de Odoo, documentados y desplegados por etapas</p></div>
             </div>
 
             <p class="tab-note">Siempre en staging primero, con tu autorización antes de pasar a producción.</p>
@@ -249,15 +266,22 @@
 
         <div class="team-diagram reveal" role="tablist" aria-label="Los tres nodos de AiBiTi">
           <svg viewBox="0 0 600 520" aria-hidden="true" focusable="false">
+            <!-- Tres haces de luz (Ai, Bi, Ti) convergen en un único centro: tus datos en Odoo -->
             <g class="links">
-              <path class="link" d="M300 100 Q482 168 500 400"/>
-              <path class="link" d="M500 400 Q300 472 100 400"/>
-              <path class="link" d="M100 400 Q118 168 300 100"/>
+              <path class="link" d="M300 100 C420 110 420 250 300 310"/>
+              <path class="link" d="M500 400 C440 380 360 340 300 310"/>
+              <path class="link" d="M100 400 C160 380 240 340 300 310"/>
             </g>
-            <g class="links links--flow">
-              <path class="flow" d="M300 100 Q482 168 500 400"/>
-              <path class="flow flow--b" d="M500 400 Q300 472 100 400"/>
-              <path class="flow flow--c" d="M100 400 Q118 168 300 100"/>
+            <g class="beams">
+              <path class="beam is-active" data-beam="ai" pathLength="100" d="M300 100 C420 110 420 250 300 310"/>
+              <path class="beam beam--b" data-beam="bi" pathLength="100" d="M500 400 C440 380 360 340 300 310"/>
+              <path class="beam beam--c" data-beam="ti" pathLength="100" d="M100 400 C160 380 240 340 300 310"/>
+            </g>
+            <g class="core">
+              <circle class="core-ring" cx="300" cy="310" r="74"/>
+              <circle class="core-disc" cx="300" cy="310" r="62"/>
+              <text class="core-name" x="300" y="308" text-anchor="middle">Odoo</text>
+              <text class="core-sub" x="300" y="332" text-anchor="middle">tus datos</text>
             </g>
           </svg>
           <button class="node node--ai" type="button" role="tab" aria-selected="true" data-node="ai" style="left:50%;top:19.2%"><span class="node-letters">Ai</span><span class="node-role">Inteligencia artificial</span></button>
@@ -275,10 +299,10 @@
           <p>No prometemos cifras que no podemos garantizar. Prometemos una forma de trabajar.</p>
         </div>
         <div class="pledges">
-          <article class="pledge reveal"><h3>Un solo equipo</h3><p>IA, BI, TI y Odoo con un mismo responsable, sin repartir culpas entre proveedores.</p></article>
-          <article class="pledge reveal"><h3>Staging primero</h3><p>Nada toca producción sin pasar por pruebas y sin tu autorización.</p></article>
-          <article class="pledge reveal"><h3>Tus datos, bajo tu control</h3><p>Credenciales en bóvedas seguras, accesos mínimos y solo lectura cuando basta.</p></article>
-          <article class="pledge reveal"><h3>Todo documentado</h3><p>Cada decisión y cada cambio queda por escrito, para que no dependas de una sola persona.</p></article>
+          <article class="pledge reveal"><svg class="icon pledge-icon" aria-hidden="true"><use href="#i-team"/></svg><h3>Un solo equipo</h3><p>IA, BI, TI y Odoo con un mismo responsable, sin repartir culpas entre proveedores.</p></article>
+          <article class="pledge reveal"><svg class="icon pledge-icon" aria-hidden="true"><use href="#i-flask"/></svg><h3>Staging primero</h3><p>Nada toca producción sin pasar por pruebas y sin tu autorización.</p></article>
+          <article class="pledge reveal"><svg class="icon pledge-icon" aria-hidden="true"><use href="#i-lock"/></svg><h3>Tus datos, bajo tu control</h3><p>Credenciales en bóvedas seguras, accesos mínimos y solo lectura cuando basta.</p></article>
+          <article class="pledge reveal"><svg class="icon pledge-icon" aria-hidden="true"><use href="#i-doc"/></svg><h3>Todo documentado</h3><p>Cada decisión y cada cambio queda por escrito, para que no dependas de una sola persona.</p></article>
         </div>
       </div>
     </section>
@@ -290,21 +314,99 @@
           <h2 id="titulo-metodo">Cuatro etapas, cada una con un entregable</h2>
           <p>Revisas el resultado de una etapa antes de pasar a la siguiente.</p>
         </div>
+        <!-- REVISAR: tiempos y entregables de cada etapa ("30 min · sin costo", etc.) -->
         <ol class="steps" data-steps>
-          <li class="step"><h3>Diagnóstico</h3><p>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual.</p></li>
-          <li class="step"><h3>Propuesta técnica</h3><p>Informe priorizado con hallazgos, alcance, tiempos y costo antes de empezar.</p></li>
-          <li class="step"><h3>Implementación</h3><p>Construcción y parametrización en un ambiente de pruebas (staging), validadas contigo.</p></li>
-          <li class="step"><h3>Acompañamiento</h3><p>Formación a tu equipo, documentación y seguimiento después del arranque.</p></li>
+          <li class="step"><h3>Diagnóstico</h3><p>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual.</p><span class="step-badge">30 min · sin costo</span></li>
+          <li class="step"><h3>Propuesta técnica</h3><p>Informe priorizado con hallazgos, alcance, tiempos y costo antes de empezar.</p><span class="step-badge">Informe priorizado</span></li>
+          <li class="step"><h3>Implementación</h3><p>Construcción y parametrización en un ambiente de pruebas (staging), validadas contigo.</p><span class="step-badge">En staging</span></li>
+          <li class="step"><h3>Acompañamiento</h3><p>Formación a tu equipo, documentación y seguimiento después del arranque.</p><span class="step-badge">Documentación + seguimiento</span></li>
         </ol>
       </div>
     </section>
 
     <!-- ============================ CONTACTO ============================ -->
     <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
-      <div class="container contact-grid">
-        <div class="contact-info reveal">
+      <div class="container">
+        <div class="contact-intro reveal">
           <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
           <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin compromiso.</p>
+        </div>
+
+        <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, la columna del calendario queda oculta y el formulario ocupa todo el ancho. -->
+        <div class="contact-cols contact-cols--solo" data-contact-cols>
+          <div class="contact-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
+            <h3 id="titulo-agendar">Elige tu horario · 30 min</h3>
+            <div class="cal-embed" id="cal-embed"><p class="cal-loading">Cargando calendario…</p></div>
+          </div>
+
+          <div class="contact-write">
+            <h3>¿Prefieres que te escribamos?</h3>
+            <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
+              <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
+                   valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
+              <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
+              <input type="hidden" name="redirect" value="https://aibiti.com.mx/gracias.html">
+              <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
+              <input type="hidden" name="from_name" value="Sitio AiBiTi">
+              <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1"></label></div>
+
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="err-nombre">
+                <span class="field-error" id="err-nombre"></span>
+              </div>
+              <div class="field">
+                <label for="correo">Correo empresarial</label>
+                <input id="correo" name="correo" type="email" autocomplete="email" required aria-describedby="err-correo">
+                <span class="field-error" id="err-correo"></span>
+              </div>
+              <div class="field field--full">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
+                <span class="field-error" id="err-mensaje"></span>
+              </div>
+
+              <details class="more field--full">
+                <summary>Agregar más datos <span class="opt">(opcional)</span></summary>
+                <div class="more-grid">
+                  <div class="field">
+                    <label for="telefono">Teléfono o WhatsApp</label>
+                    <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel">
+                  </div>
+                  <div class="field">
+                    <label for="empresa">Empresa</label>
+                    <input id="empresa" name="empresa" type="text" autocomplete="organization">
+                  </div>
+                  <div class="field field--full">
+                    <label for="servicio">Tipo de servicio</label>
+                    <select id="servicio" name="servicio">
+                      <option value="">Selecciona una opción</option>
+                      <option>Odoo (implementación o desarrollo)</option>
+                      <option>Business Intelligence</option>
+                      <option>Inteligencia Artificial</option>
+                      <option>TI (Microsoft 365, integraciones)</option>
+                      <option>Varios de los anteriores</option>
+                      <option>Otro</option>
+                    </select>
+                  </div>
+                </div>
+              </details>
+
+              <label class="consent">
+                <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="err-consentimiento">
+                <span>He leído el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a> y acepto que AiBiTi use mis datos para responder esta solicitud.</span>
+              </label>
+              <span class="field-error field-error--full" id="err-consentimiento"></span>
+
+              <div class="form-actions">
+                <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+              <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+        </div>
+
+        <div class="contact-direct reveal">
           <ul class="contact-list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
           </ul>
@@ -313,62 +415,6 @@
             <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
           </a>
         </div>
-
-        <form class="form reveal" id="form-contacto" novalidate aria-describedby="estado-form">
-          <!-- TODO: access_key pública de Web3Forms (se configura en assets/js/main.js, CONFIG.web3formsKey) -->
-          <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
-          <input type="hidden" name="from_name" value="Sitio AiBiTi">
-          <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
-
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input id="nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="err-nombre">
-            <span class="field-error" id="err-nombre"></span>
-          </div>
-          <div class="field">
-            <label for="correo">Correo empresarial</label>
-            <input id="correo" name="correo" type="email" autocomplete="email" required aria-describedby="err-correo">
-            <span class="field-error" id="err-correo"></span>
-          </div>
-          <div class="field">
-            <label for="telefono">Teléfono o WhatsApp</label>
-            <input id="telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="err-telefono">
-            <span class="field-error" id="err-telefono"></span>
-          </div>
-          <div class="field">
-            <label for="empresa">Empresa <span class="opt">(opcional)</span></label>
-            <input id="empresa" name="empresa" type="text" autocomplete="organization">
-          </div>
-          <div class="field field--full">
-            <label for="servicio">Tipo de servicio</label>
-            <select id="servicio" name="servicio" required aria-describedby="err-servicio">
-              <option value="">Selecciona una opción</option>
-              <option>Odoo (implementación o desarrollo)</option>
-              <option>Business Intelligence</option>
-              <option>Inteligencia Artificial</option>
-              <option>TI (Microsoft 365, integraciones)</option>
-              <option>Varios de los anteriores</option>
-              <option>Otro</option>
-            </select>
-            <span class="field-error" id="err-servicio"></span>
-          </div>
-          <div class="field field--full">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
-            <span class="field-error" id="err-mensaje"></span>
-          </div>
-
-          <label class="consent">
-            <input type="checkbox" id="consentimiento" name="consentimiento" required aria-describedby="err-consentimiento">
-            <span>He leído el <a href="privacidad.html" target="_blank" rel="noopener">aviso de privacidad</a> y acepto que AiBiTi use mis datos para responder esta solicitud.</span>
-          </label>
-          <span class="field-error field-error--full" id="err-consentimiento"></span>
-
-          <div class="form-actions">
-            <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-          </div>
-          <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
-        </form>
       </div>
     </section>
   </main>
@@ -403,6 +449,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261013e" defer></script>
+  <script src="assets/js/main.js?v=20261013f" defer></script>
 </body>
 </html>
