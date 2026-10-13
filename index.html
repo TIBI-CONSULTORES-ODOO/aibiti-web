@@ -314,8 +314,11 @@
           </a>
         </div>
 
-        <form class="form reveal" id="form-contacto" novalidate aria-describedby="estado-form">
-          <!-- TODO: access_key pública de Web3Forms (se configura en assets/js/main.js, CONFIG.web3formsKey) -->
+        <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
+          <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
+               valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
+          <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
+          <input type="hidden" name="redirect" value="https://aibiti.com.mx/gracias.html">
           <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
           <input type="hidden" name="from_name" value="Sitio AiBiTi">
           <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>

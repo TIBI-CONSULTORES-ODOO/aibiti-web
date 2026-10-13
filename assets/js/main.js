@@ -77,6 +77,7 @@
      Envía a Web3Forms. Si falla o aún no hay clave, ofrece el correo como respaldo. */
   var form = document.getElementById('form-contacto');
   if (!form) { return; }
+  form.noValidate = true; // con JS se usa la validación propia; sin JS queda la nativa del navegador
   var estado = document.getElementById('estado-form');
   var botonEnviar = document.getElementById('btn-enviar');
   var campos = form.querySelectorAll('input[required], select[required], textarea[required]');
@@ -145,7 +146,7 @@
     botonEnviar.disabled = true;
     mostrarEstado('', 'Enviando…');
     var datos = new FormData(form);
-    datos.append('access_key', CONFIG.web3formsKey);
+    datos.set('access_key', CONFIG.web3formsKey); // CONFIG manda sobre el input oculto
 
     fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { Accept: 'application/json' }, body: datos })
       .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.success, json: j }; }); })
