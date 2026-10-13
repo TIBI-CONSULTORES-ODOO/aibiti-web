@@ -298,7 +298,7 @@
     };
 
     var MAIN = [
-      { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.30, y: 0.28 },
+      { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.36, y: 0.28 },
       { id: 'bi', label: 'Bi', role: 'Inteligencia de negocios', x: 0.78, y: 0.42 },
       { id: 'ti', label: 'Ti', role: 'Tecnologías de la información', x: 0.46, y: 0.76 }
     ];
