@@ -1,5 +1,5 @@
 /* =====================================================================
-   AiBiTi Consultores — comportamiento del sitio (sin dependencias)
+   AiBiTi Consulting — comportamiento del sitio (sin dependencias)
    1 Configuración · 2 Menú móvil · 3 Aparición al scroll · 4 WhatsApp
    5 Formulario de contacto
    ===================================================================== */
@@ -280,19 +280,20 @@
     var css = getComputedStyle(document.documentElement);
     function token(n, fb) { return (css.getPropertyValue(n) || fb).trim() || fb; }
     var C = {
-      ink: token('--ink', '#131F35'),
+      ink: token('--deep', '#131F35'),
+      light: token('--btn', '#E9EFF6'),
       navy: token('--navy', '#2B3A5F'),
       steel: token('--steel', '#8CA6BC'),
       steelDeep: token('--steel-deep', '#5A6E86'),
       slate: token('--slate', '#6F7680'),
-      muted: token('--muted', '#566176'),
+      muted: token('--muted', '#B4C0D2'),
       display: token('--font-display', 'sans-serif')
     };
     // Cada nodo principal toma un color del logotipo: Ai azul marino, Bi azul acero, Ti gris pizarra.
     var FILL = {
-      ai: ['#4A5E8C', C.navy, C.ink],
-      bi: ['#B5C9DA', C.steel, C.steelDeep],
-      ti: ['#A0A6B0', C.slate, '#4A4F5C']
+      ai: ['#6A83B8', C.navy, '#17213B'],
+      bi: ['#C3D4E3', C.steel, C.steelDeep],
+      ti: ['#B5BBC6', '#7E8696', '#4A4F5C']
     };
 
     var MAIN = [
@@ -374,6 +375,7 @@
     }
 
     function step(dt, now) {
+      if (mains.length < 3) return; // lienzo aún sin medir
       for (var i = 0; i < nodes.length; i++) {
         var n = nodes[i];
         var amp = n.main ? 4 : n.amp, sp = n.main ? 0.00022 : n.sp;
@@ -412,7 +414,7 @@
           var d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
           if (d < linkDist) {
             var al = (1 - d / linkDist) * 0.3 + (nodes[i].glow + nodes[j].glow) * 0.16;
-            ctx.strokeStyle = 'rgba(90,110,134,' + Math.min(0.6, al).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(157,184,206,' + Math.min(0.6, al).toFixed(3) + ')';
             ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
           }
         }
@@ -423,8 +425,8 @@
       for (i = 0; i < 3; i++) {
         var p = mains[i], q = mains[(i + 1) % 3], c = ctrl(p, q);
         var grad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
-        grad.addColorStop(0, 'rgba(43,58,95,0.75)');
-        grad.addColorStop(1, 'rgba(140,166,188,0.85)');
+        grad.addColorStop(0, 'rgba(157,184,206,0.8)');
+        grad.addColorStop(1, 'rgba(233,239,246,0.85)');
         ctx.strokeStyle = grad;
         ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.quadraticCurveTo(c.x, c.y, q.x, q.y); ctx.stroke();
       }
@@ -434,7 +436,7 @@
         for (i = 3; i < nodes.length; i++) {
           var dd = Math.hypot(nodes[i].x - pointer.x, nodes[i].y - pointer.y);
           if (dd < 120) {
-            ctx.strokeStyle = 'rgba(43,58,95,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(233,239,246,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(pointer.x, pointer.y); ctx.lineTo(nodes[i].x, nodes[i].y); ctx.stroke();
           }
@@ -447,18 +449,18 @@
         var curved = g.from < 3 && g.to < 3;
         var head = pointOn(a, b, g.t, curved), tail = pointOn(a, b, Math.max(0, g.t - 0.14), curved);
         var tg = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
-        tg.addColorStop(0, 'rgba(43,58,95,0)');
-        tg.addColorStop(1, 'rgba(43,58,95,0.9)');
+        tg.addColorStop(0, 'rgba(233,239,246,0)');
+        tg.addColorStop(1, 'rgba(233,239,246,0.95)');
         ctx.strokeStyle = tg; ctx.lineWidth = 2.4;
         ctx.beginPath(); ctx.moveTo(tail.x, tail.y); ctx.lineTo(head.x, head.y); ctx.stroke();
-        ctx.fillStyle = C.navy;
+        ctx.fillStyle = C.light;
         ctx.beginPath(); ctx.arc(head.x, head.y, 3, 0, 6.2832); ctx.fill();
       }
 
       /* Nodos ambientales */
       for (i = 3; i < nodes.length; i++) {
         var n = nodes[i];
-        ctx.fillStyle = n.glow > 0.05 ? 'rgba(43,58,95,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(111,118,128,0.6)');
+        ctx.fillStyle = n.glow > 0.05 ? 'rgba(233,239,246,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(180,192,210,0.55)');
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.8, 0, 6.2832); ctx.fill();
       }
 
@@ -467,21 +469,21 @@
         var m = mains[i];
         var breathe = 1 + Math.sin(now * 0.0016 + m.ph) * 0.035;
         var R = m.r * breathe, f = FILL[m.id];
-        ctx.strokeStyle = 'rgba(90,110,134,' + (0.22 + m.glow * 0.3).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(157,184,206,' + (0.25 + m.glow * 0.3).toFixed(3) + ')';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(m.x, m.y, R + 12 + Math.sin(now * 0.0012 + m.ph) * 3, 0, 6.2832); ctx.stroke();
 
         var rg = ctx.createRadialGradient(m.x - R * 0.3, m.y - R * 0.35, R * 0.1, m.x, m.y, R);
         rg.addColorStop(0, f[0]); rg.addColorStop(0.55, f[1]); rg.addColorStop(1, f[2]);
         ctx.save();
-        ctx.shadowColor = 'rgba(19,31,53,0.28)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 7;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 7;
         ctx.fillStyle = rg;
         ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.fill();
         ctx.restore();
         ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.5;
         ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.stroke();
 
-        ctx.fillStyle = '#FFFFFF';
+        ctx.fillStyle = m.id === 'bi' ? C.ink : '#FFFFFF';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.font = '700 ' + Math.round(R * 0.74) + 'px ' + C.display;
         ctx.fillText(m.label, m.x, m.y + 1);

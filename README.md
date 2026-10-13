@@ -1,6 +1,6 @@
 # aibiti-web
 
-Landing de **AiBiTi Consultores** (aibiti.com.mx). Sitio estático para GitHub Pages: HTML, CSS y JavaScript sin dependencias ni compilación. Costo recurrente: $0.
+Landing de **AiBiTi Consulting** (aibiti.com.mx). Sitio estático para GitHub Pages: HTML, CSS y JavaScript sin dependencias ni compilación. Costo recurrente: $0.
 
 ## Estructura
 ```
