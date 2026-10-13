@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AiBiTi Consultores | Odoo, IA, BI y TI para empresas en México</title>
   <meta name="description" content="Implementamos y desarrollamos Odoo 19 para México (CFDI 4.0) y unimos IA, BI y TI en un solo equipo. Agenda un diagnóstico de 30 minutos.">
-  <meta name="theme-color" content="#060912">
-  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#F6F8FA">
+  <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://aibiti.com.mx/">
 
   <!-- Redes sociales -->
@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261012f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261013b">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -42,7 +42,7 @@
         "@id": "https://aibiti.com.mx/#organization",
         "name": "AiBiTi Consultores",
         "url": "https://aibiti.com.mx/",
-        "logo": "https://aibiti.com.mx/assets/img/logo-aibiti.jpg",
+        "logo": "https://aibiti.com.mx/assets/img/logo-aibiti.png",
         "email": "contacto@aibiti.com.mx",
         "telephone": "+525641340392"
       },
@@ -79,8 +79,9 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#inicio" aria-label="AiBiTi Consultores, ir al inicio">
-        <span class="brand-name" aria-hidden="true">Ai<span class="dim">B</span>i<span class="dim">T</span>i</span>
-        <span class="brand-sub" aria-hidden="true">Consultores</span>
+        <img class="brand-mark" src="assets/img/aibiti-mark.png" width="640" height="516" alt="" aria-hidden="true">
+        <span class="brand-text"><span class="brand-name" aria-hidden="true">Ai<span class="dim">B</span>i<span class="dim">T</span>i</span>
+        <span class="brand-sub" aria-hidden="true">Consultores</span></span>
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menú">
@@ -249,14 +250,14 @@
         <div class="team-diagram reveal" role="tablist" aria-label="Los tres nodos de AiBiTi">
           <svg viewBox="0 0 600 520" aria-hidden="true" focusable="false">
             <g class="links">
-              <line class="link" x1="300" y1="100" x2="500" y2="400"/>
-              <line class="link" x1="500" y1="400" x2="100" y2="400"/>
-              <line class="link" x1="100" y1="400" x2="300" y2="100"/>
+              <path class="link" d="M300 100 Q482 168 500 400"/>
+              <path class="link" d="M500 400 Q300 472 100 400"/>
+              <path class="link" d="M100 400 Q118 168 300 100"/>
             </g>
             <g class="links links--flow">
-              <line class="flow" x1="300" y1="100" x2="500" y2="400"/>
-              <line class="flow flow--b" x1="500" y1="400" x2="100" y2="400"/>
-              <line class="flow flow--c" x1="100" y1="400" x2="300" y2="100"/>
+              <path class="flow" d="M300 100 Q482 168 500 400"/>
+              <path class="flow flow--b" d="M500 400 Q300 472 100 400"/>
+              <path class="flow flow--c" d="M100 400 Q118 168 300 100"/>
             </g>
           </svg>
           <button class="node node--ai" type="button" role="tab" aria-selected="true" data-node="ai" style="left:50%;top:19.2%"><span class="node-letters">Ai</span><span class="node-role">Inteligencia artificial</span></button>
@@ -377,9 +378,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo-plate">
-            <img src="assets/img/logo-aibiti.jpg" width="1178" height="560" alt="Logotipo de AiBiTi Consultores: la A con un cerebro de red neuronal, la B con gráficas y la T con circuitos" loading="lazy">
-          </div>
+          <img class="footer-logo" src="assets/img/logo-aibiti.png" width="1100" height="1152" alt="Logotipo de AiBiTi Consultores: una A con tres nodos conectados que forman Ai, Bi y Ti" loading="lazy">
           <p>Inteligencia artificial, inteligencia de negocios, tecnologías de la información y Odoo para empresas en México.</p>
         </div>
         <div>
@@ -404,6 +403,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261012e" defer></script>
+  <script src="assets/js/main.js?v=20261013b" defer></script>
 </body>
 </html>
