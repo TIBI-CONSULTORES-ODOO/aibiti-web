@@ -414,3 +414,13 @@ button { font: inherit; color: inherit; }
   .flow { animation: none; }
   .js .steps.is-visible::after { display: none; }
 }
+
+/* ============ Spotlight de las tarjetas (solo con puntero real y movimiento permitido) ============ */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .tile::before {
+    content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(157, 184, 206, 0.12), transparent 60%); /* --steel-soft al 12 % */
+    transition: opacity 0.3s var(--ease);
+  }
+  .tile:hover::before { opacity: 1; }
+}

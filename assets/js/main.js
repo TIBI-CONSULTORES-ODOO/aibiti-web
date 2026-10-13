@@ -195,6 +195,18 @@
     io.observe(steps);
   })();
 
+  /* ---------- Spotlight de las tarjetas del bento ---------- */
+  (function spotlight() {
+    if (reduceMotion || !window.matchMedia('(hover: hover)').matches) return;
+    document.querySelectorAll('.tile').forEach(function (tile) {
+      tile.addEventListener('pointermove', function (e) {
+        var r = tile.getBoundingClientRect();
+        tile.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        tile.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  })();
+
   /* ---------- Tabs accesibles (desarrollo en Odoo) ---------- */
   (function tabs() {
     var root = document.querySelector('[data-tabs]');
