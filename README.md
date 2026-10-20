@@ -12,7 +12,7 @@ CNAME                 dominio personalizado: aibiti.com.mx
 .nojekyll             publica los archivos tal cual
 robots.txt, sitemap.xml, site.webmanifest
 assets/css/styles.css estilos (tokens de color arriba del archivo)
-assets/fonts/        Geist (SIL OFL 1.1), autoalojada; licencia en Geist-OFL.txt
+assets/fonts/        Montserrat (SIL OFL 1.1, tipografía oficial de la marca), autoalojada; licencia en Montserrat-OFL.txt
 assets/js/main.js     menú, formulario (CONFIG al inicio), pestañas, equipo y red neuronal (canvas)
 assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
 ```
@@ -52,3 +52,6 @@ y abre http://localhost:4173. (Abrir `index.html` con doble clic también funcio
 
 ## Reglas de contenido
 Sin testimonios, logos de clientes, cifras ni certificaciones que no se puedan comprobar. Todo lo que el sitio promete debe poder entregarse hoy.
+
+## Marca
+La identidad visual manda y vive en el repo `aibiti-empresa` (`00-contexto/identidad-visual.md`): paleta (marino `#16213A`, azul `#2C3E63`, gris `#6B7280`, acero `#8FA9C2`, claro `#F4F6F9`, acento violeta `#8B6CF0` / `#6E55D9` / lavanda `#A996F2`), Montserrat y los logos oficiales (`00-contexto/logos/`, que nunca se redibujan). Si cambias colores, tipografía o logo en este sitio, avisa a Marketing en `00-contexto/puente-comercial-marketing.md`.

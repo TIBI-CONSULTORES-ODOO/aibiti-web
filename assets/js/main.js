@@ -352,7 +352,7 @@
     var DATA = {
       ai: {
         t: 'Ai: Inteligencia Artificial',
-        p: 'Claude Code trabaja con nosotros: acelera el desarrollo, la documentación y la revisión de cada entrega. Toda modificación a tus datos la aprueba una persona.'
+        p: 'La Ai es de los dos socios y de nuestra IA, Claude Code, que propone, ejecuta y documenta cada entrega. Toda modificación a tus datos la aprueba una persona.'
       },
       bi: {
         t: 'Bi: Inteligencia de Negocios y operación',
@@ -402,7 +402,7 @@
     function token(n, fb) { return (css.getPropertyValue(n) || fb).trim() || fb; }
     var C = {
       ink: token('--deep', '#131F35'),
-      light: token('--btn', '#E9EFF6'),
+      light: token('--btn', '#E9E4FF'),
       navy: token('--navy', '#2B3A5F'),
       steel: token('--steel', '#8CA6BC'),
       steelDeep: token('--steel-deep', '#5A6E86'),
@@ -546,8 +546,8 @@
       for (i = 0; i < 3; i++) {
         var p = mains[i], q = mains[(i + 1) % 3], c = ctrl(p, q);
         var grad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
-        grad.addColorStop(0, 'rgba(157,184,206,0.8)');
-        grad.addColorStop(1, 'rgba(233,239,246,0.85)');
+        grad.addColorStop(0, 'rgba(143,169,194,0.85)');
+        grad.addColorStop(1, 'rgba(169,150,242,0.9)');
         ctx.strokeStyle = grad;
         ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.quadraticCurveTo(c.x, c.y, q.x, q.y); ctx.stroke();
       }
@@ -557,7 +557,7 @@
         for (i = 3; i < nodes.length; i++) {
           var dd = Math.hypot(nodes[i].x - pointer.x, nodes[i].y - pointer.y);
           if (dd < 120) {
-            ctx.strokeStyle = 'rgba(233,239,246,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(233,228,255,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(pointer.x, pointer.y); ctx.lineTo(nodes[i].x, nodes[i].y); ctx.stroke();
           }
@@ -570,8 +570,8 @@
         var curved = g.from < 3 && g.to < 3;
         var head = pointOn(a, b, g.t, curved), tail = pointOn(a, b, Math.max(0, g.t - 0.14), curved);
         var tg = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
-        tg.addColorStop(0, 'rgba(233,239,246,0)');
-        tg.addColorStop(1, 'rgba(233,239,246,0.95)');
+        tg.addColorStop(0, 'rgba(233,228,255,0)');
+        tg.addColorStop(1, 'rgba(233,228,255,0.95)');
         ctx.strokeStyle = tg; ctx.lineWidth = 2.4;
         ctx.beginPath(); ctx.moveTo(tail.x, tail.y); ctx.lineTo(head.x, head.y); ctx.stroke();
         ctx.fillStyle = C.light;
@@ -581,7 +581,7 @@
       /* Nodos ambientales */
       for (i = 3; i < nodes.length; i++) {
         var n = nodes[i];
-        ctx.fillStyle = n.glow > 0.05 ? 'rgba(233,239,246,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(180,192,210,0.55)');
+        ctx.fillStyle = n.glow > 0.05 ? 'rgba(233,228,255,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(180,192,210,0.55)');
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.8, 0, 6.2832); ctx.fill();
       }
 
@@ -590,7 +590,7 @@
         var m = mains[i];
         var breathe = 1 + Math.sin(now * 0.0016 + m.ph) * 0.035;
         var R = m.r * breathe, f = FILL[m.id];
-        ctx.strokeStyle = 'rgba(157,184,206,' + (0.25 + m.glow * 0.3).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(169,150,242,' + (0.28 + m.glow * 0.3).toFixed(3) + ')';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(m.x, m.y, R + 12 + Math.sin(now * 0.0012 + m.ph) * 3, 0, 6.2832); ctx.stroke();
 
@@ -647,7 +647,7 @@
     resize();
     start();
     if (document.fonts && document.fonts.load) {
-      document.fonts.load("700 24px Geist").then(function () { if (!running) { frame(performance.now(), true); } });
+      document.fonts.load("800 24px Montserrat").then(function () { if (!running) { frame(performance.now(), true); } });
     }
   })();
 })();
