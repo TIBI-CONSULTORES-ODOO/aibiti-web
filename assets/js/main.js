@@ -149,6 +149,24 @@
      Envía a Web3Forms. Si falla o aún no hay clave, ofrece el correo como respaldo. */
   var form = document.getElementById('form-contacto');
   if (!form) { return; }
+  // Origen de la campaña (UTM): se toma del enlace, se recuerda en la pestaña y viaja como campo oculto.
+  // Solo se guarda de dónde llegó la visita, nunca datos personales. Sin valor, el campo se desactiva y no se envía.
+  (function utm() {
+    var llaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var vistos = {};
+    try { vistos = JSON.parse(sessionStorage.getItem('aibiti-utm') || '{}') || {}; } catch (e) { vistos = {}; }
+    var query = new URLSearchParams(window.location.search);
+    var nuevo = false;
+    llaves.forEach(function (k) {
+      var v = (query.get(k) || '').trim().slice(0, 100);
+      if (v) { vistos[k] = v; nuevo = true; }
+    });
+    if (nuevo) { try { sessionStorage.setItem('aibiti-utm', JSON.stringify(vistos)); } catch (e) { /* sin almacenamiento: se usa solo esta visita */ } }
+    form.querySelectorAll('input[data-utm]').forEach(function (campo) {
+      var v = vistos[campo.name];
+      if (v) { campo.value = v; } else { campo.disabled = true; }
+    });
+  })();
   form.noValidate = true; // con JS se usa la validación propia; sin JS queda la nativa del navegador
   var estado = document.getElementById('estado-form');
   var botonEnviar = document.getElementById('btn-enviar');

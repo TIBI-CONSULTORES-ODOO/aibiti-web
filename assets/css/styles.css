@@ -224,6 +224,20 @@ button { font: inherit; color: inherit; }
 .pain-cta { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; color: var(--muted); }
 .pain .section-head { margin-bottom: 28px; }
 
+/* Landing del diagnóstico (diagnostico.html) */
+.lp { padding-block: clamp(32px, 6vw, 80px); }
+.lp-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(28px, 5vw, 72px); align-items: start; }
+.orbe--lp { width: 112px; margin-bottom: 18px; }
+@media (prefers-reduced-motion: no-preference) { .orbe--lp { animation: orbe-float 5.5s ease-in-out infinite; } .orbe--lp.is-swap { animation: orbe-pop 0.35s var(--ease), orbe-float 5.5s ease-in-out 0.35s infinite; } }
+.lp h1 { font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.07; letter-spacing: -0.02em; font-weight: 900; }
+.lp .lead { margin-top: 18px; color: var(--muted); font-size: 1.1rem; max-width: 34rem; }
+.lp .ticks { max-width: 34rem; }
+.lp-note { margin-top: 24px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; color: var(--steel-soft); }
+.lp-form h2 { margin-bottom: 16px; font-size: 1.3rem; letter-spacing: -0.015em; }
+.lp-alt { margin-top: 16px; color: var(--muted); font-size: 0.95rem; }
+.lp-alt a { color: var(--text); }
+@media (max-width: 960px) { .lp-grid { grid-template-columns: 1fr; } .orbe--lp { width: 88px; } }
+
 /* Orbe del diagnóstico */
 .contact-intro { position: relative; }
 .orbe--contacto { width: 96px; margin-bottom: 14px; }
