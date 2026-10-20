@@ -234,6 +234,7 @@ button { font: inherit; color: inherit; }
 .lp .ticks { max-width: 34rem; }
 .lp-note { margin-top: 24px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.02em; color: var(--steel-soft); }
 .lp-form h2 { margin-bottom: 16px; font-size: 1.3rem; letter-spacing: -0.015em; }
+.lp-cal { margin-bottom: 32px; }
 .lp-alt { margin-top: 16px; color: var(--muted); font-size: 0.95rem; }
 .lp-alt a { color: var(--text); }
 @media (max-width: 960px) { .lp-grid { grid-template-columns: 1fr; } .orbe--lp { width: 88px; } }

@@ -87,6 +87,8 @@
     if (calCols) { calCols.classList.toggle('contact-cols--solo', !activo); }
     // Los botones "Agendar diagnóstico" bajan al calendario solo si existe; si no, al formulario.
     calEnlaces.forEach(function (a) { a.setAttribute('href', activo ? '#agendar' : '#contacto'); });
+    var tituloForm = document.querySelector('[data-form-titulo]');
+    if (tituloForm) { tituloForm.textContent = activo ? '¿Prefieres que te escribamos?' : 'Cuéntanos qué necesitas'; }
   };
   if (calCol && CONFIG.calLink && !/PENDIENTE|TODO/.test(CONFIG.calLink)) {
     mostrarCal(true);
