@@ -198,37 +198,35 @@ button { font: inherit; color: inherit; }
 .tile--ai { grid-area: ai; background: linear-gradient(120deg, #3A4F78, #2C3E63); }
 .tile--ti { grid-area: ti; background: var(--surface); }
 
-/* Texturas del mundo del logotipo: curvas con nodos, circuitos y columnas */
-.tile--odoo::after, .tile--ti::after, .tile--bi::after, .tile--ai::after, .tile--dev::after { content: ""; position: absolute; pointer-events: none; z-index: 0; }
-.tile--odoo::after {
-  inset: auto -20px -20px auto; width: 66%; height: 62%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 220' fill='none' stroke='%238CA6BC' stroke-width='1.6' stroke-linecap='round'%3E%3Cpath d='M0 190C80 190 120 130 170 100S270 70 320 20'/%3E%3Cpath d='M20 210C100 200 150 160 200 140S290 120 320 80' opacity='.6'/%3E%3Cpath d='M60 220C140 210 190 190 240 170S300 160 320 140' opacity='.35'/%3E%3Ccircle cx='170' cy='100' r='9' fill='%238CA6BC' stroke='none'/%3E%3Ccircle cx='270' cy='70' r='9' fill='%238CA6BC' stroke='none'/%3E%3Ccircle cx='240' cy='170' r='9' fill='%238CA6BC' stroke='none'/%3E%3C/svg%3E") no-repeat right bottom / contain;
-  opacity: 0.6;
+/* Hologramas oficiales del orbe (assets/img/orbe): uno por servicio, sin recrearlos */
+.tile .holo { display: block; width: 72px; height: auto; margin-bottom: 16px; opacity: 0.95; }
+.tile--odoo .holo { width: 96px; }
+
+/* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
+.orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.orbe.is-swap { animation: orbe-pop 0.35s var(--ease); }
+@keyframes orbe-pop { 0% { transform: scale(0.9); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: no-preference) {
+  .pain-guide .orbe, .orbe--contacto { animation: orbe-float 5.5s ease-in-out infinite; }
+  .pain-guide .orbe.is-swap, .orbe--contacto.is-swap { animation: orbe-pop 0.35s var(--ease), orbe-float 5.5s ease-in-out 0.35s infinite; }
 }
-.tile--ti::after {
-  inset: 0 0 0 auto; width: 44%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 160' fill='none' stroke='%239DB8CE' stroke-width='1.3' stroke-linecap='round'%3E%3Cpath d='M200 20h-70l-14 14h-40M200 70h-50l-20 20M200 120h-80l-16-16h-30M200 150h-30'/%3E%3Cg fill='%232C3960'%3E%3Ccircle cx='76' cy='34' r='4'/%3E%3Ccircle cx='130' cy='90' r='4'/%3E%3Ccircle cx='74' cy='104' r='4'/%3E%3C/g%3E%3C/svg%3E") no-repeat right center / contain;
-  opacity: 0.32;
-}
-.tile--bi::after {
-  inset: auto 24px 0 auto; width: 120px; height: 96px;
-  background:
-    linear-gradient(var(--steel-deep), var(--steel-deep)) 0 100% / 18px 32% no-repeat,
-    linear-gradient(var(--steel-deep), var(--steel-deep)) 34px 100% / 18px 52% no-repeat,
-    linear-gradient(var(--steel), var(--steel)) 68px 100% / 18px 76% no-repeat,
-    linear-gradient(var(--btn), var(--btn)) 102px 100% / 18px 100% no-repeat;
-  opacity: 0.32;
-}
-.tile--ai::after {
-  inset: 0 0 0 auto; width: 46%;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 180' fill='none' stroke='%23C9D6E4' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M40 30C90 30 100 70 110 70S170 30 190 40 230 100 230 100 190 150 160 150 90 150 70 140 40 30 40 30M110 70l-30 70M190 40l-20 110'/%3E%3Cg fill='%23C9D6E4' stroke='none'%3E%3Ccircle cx='40' cy='30' r='5'/%3E%3Ccircle cx='110' cy='70' r='6'/%3E%3Ccircle cx='190' cy='40' r='5'/%3E%3Ccircle cx='230' cy='100' r='5'/%3E%3Ccircle cx='160' cy='150' r='6'/%3E%3Ccircle cx='70' cy='140' r='5'/%3E%3C/g%3E%3C/svg%3E") no-repeat right center / contain;
-  opacity: 0.3;
-}
-.tile--dev::after {
-  inset: auto 20px 14px auto; width: 120px; height: 56px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 56' fill='none' stroke='%239DB8CE' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M28 14L10 28l18 14M92 14l18 14-18 14M70 8L50 48'/%3E%3C/svg%3E") no-repeat center / contain;
-  opacity: 0.5;
-}
+@keyframes orbe-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+
+/* ¿Te suena? */
+.pain { display: grid; grid-template-columns: minmax(140px, 220px) 1fr; gap: clamp(24px, 5vw, 72px); align-items: center; }
+.pain-guide { max-width: 220px; justify-self: center; width: 100%; }
+.pain-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pain-item { padding: 22px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); transition: border-color 0.3s var(--ease), transform 0.4s var(--ease); }
+.pain-item:hover { border-color: var(--lavender); transform: translateY(-3px); }
+.pain-item .holo { display: block; width: 72px; height: auto; margin-bottom: 14px; }
+.pain-item h3 { font-size: 1.1rem; letter-spacing: -0.01em; }
+.pain-item p { margin-top: 8px; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+.pain-cta { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; color: var(--muted); }
+.pain .section-head { margin-bottom: 28px; }
+
+/* Orbe del diagnóstico */
+.contact-intro { position: relative; }
+.orbe--contacto { width: 96px; margin-bottom: 14px; }
 
 /* ============ Tabs de desarrollo ============ */
 .tabs { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
@@ -419,6 +417,9 @@ button { font: inherit; color: inherit; }
   .hero-copy { order: 1; padding-block: 36px 8px; }
   .hero h1 { font-size: clamp(2rem, 7.6vw, 2.7rem); }
 
+  .pain { grid-template-columns: 1fr; }
+  .pain-guide { max-width: 120px; }
+  .pain-list { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr; grid-template-areas: "odoo" "dev" "bi" "ai" "ti"; }
   .tile--odoo { min-height: 0; }
   .tabs { grid-template-columns: 1fr; }

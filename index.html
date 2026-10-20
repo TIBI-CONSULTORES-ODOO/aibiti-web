@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261020a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261020b">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -125,6 +125,39 @@
       </div>
     </section>
 
+    <!-- ============================ ¿TE SUENA? ============================ -->
+    <section id="problemas" class="section section--pain" aria-labelledby="titulo-problemas">
+      <div class="container pain">
+        <div class="pain-guide reveal">
+          <img class="orbe" data-orbe-guia src="assets/img/orbe/nocuadra.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+        </div>
+        <div class="pain-body">
+          <div class="section-head reveal">
+            <h2 id="titulo-problemas">¿Te <span class="kw">suena</span>?</h2>
+            <p>Son los problemas que más vemos en las empresas que usan Odoo, o que todavía no lo usan.</p>
+          </div>
+          <div class="pain-list">
+            <article class="pain-item reveal" data-cara="nocuadra">
+              <img class="holo" src="assets/img/orbe/holo-factura.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
+              <h3>Las facturas no se timbran</h3>
+              <p>Aparece un rechazo del PAC o del SAT y nadie sabe por qué. La factura se queda en el limbo.</p>
+            </article>
+            <article class="pain-item reveal" data-cara="confundido">
+              <img class="holo" src="assets/img/orbe/holo-inventario.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
+              <h3>El inventario no cuadra</h3>
+              <p>Lo que dice el sistema no es lo que hay en el almacén, y no se sabe en qué momento se descuadró.</p>
+            </article>
+            <article class="pain-item reveal" data-cara="mareado">
+              <img class="holo" src="assets/img/orbe/holo-archivos.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
+              <h3>Todo vive en Excel</h3>
+              <p>Archivos que se copian, versiones que se pisan y reportes armados a mano cada semana.</p>
+            </article>
+          </div>
+          <p class="pain-cta reveal">Si te suena alguna, la revisamos contigo en el diagnóstico de 30 minutos. <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================ SERVICIOS ============================ -->
     <section id="servicios" class="section" aria-labelledby="titulo-servicios">
       <div class="container">
@@ -135,6 +168,7 @@
 
         <div class="bento">
           <article class="tile tile--odoo reveal">
+            <img class="holo" src="assets/img/orbe/holo-compras.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
             <h3>Odoo 19 para México</h3>
             <p>Implementamos Odoo con la localización mexicana como punto de partida, módulo por módulo y con tu equipo.</p>
             <ul class="ticks">
@@ -146,21 +180,25 @@
           </article>
 
           <article class="tile tile--dev reveal">
+            <img class="holo" src="assets/img/orbe/holo-web.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
             <h3>Desarrollo a la medida</h3>
             <p>Módulos pequeños, probados y documentados cuando lo estándar no alcanza.</p>
           </article>
 
           <article class="tile tile--bi reveal">
+            <img class="holo" src="assets/img/orbe/holo-grafica.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
             <h3>Business Intelligence</h3>
             <p>Reportes de ventas, inventario y cobranza dentro de Odoo, y resúmenes automáticos por correo para Dirección.</p>
           </article>
 
           <article class="tile tile--ai reveal">
+            <img class="holo" src="assets/img/orbe/holo-lupa.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
             <h3>Inteligencia Artificial aplicada</h3>
             <p>Automatización de tareas repetitivas y limpieza de contactos y datos, siempre con revisión humana. Primero solo lectura; una persona revisa antes de modificar datos.</p>
           </article>
 
           <article class="tile tile--ti reveal">
+            <img class="holo" src="assets/img/orbe/holo-soporte.png" width="340" height="263" alt="" aria-hidden="true" loading="lazy">
             <h3>TI y optimización operativa</h3>
             <p>Microsoft 365 con permisos claros, integraciones entre sistemas y gestión de proyectos de TI.</p>
           </article>
@@ -328,6 +366,7 @@
     <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
       <div class="container">
         <div class="contact-intro reveal">
+          <img class="orbe orbe--contacto" data-orbe-contacto src="assets/img/orbe/dejamever.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
           <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
           <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin costo y sin compromiso.</p>
         </div>
@@ -449,6 +488,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261020a" defer></script>
+  <script src="assets/js/main.js?v=20261020b" defer></script>
 </body>
 </html>

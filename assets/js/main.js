@@ -152,6 +152,18 @@
   form.noValidate = true; // con JS se usa la validación propia; sin JS queda la nativa del navegador
   var estado = document.getElementById('estado-form');
   var botonEnviar = document.getElementById('btn-enviar');
+  // Orbe de la marca: cambia de cara con el envío (no habla; el texto de estado sigue siendo el que se anuncia)
+  var orbe = document.querySelector('[data-orbe-contacto]');
+  var cara = function (nombre) {
+    if (!orbe) { return; }
+    var src = 'assets/img/orbe/' + nombre + '.png';
+    if (orbe.getAttribute('src') === src) { return; }
+    orbe.setAttribute('src', src);
+    orbe.classList.remove('is-swap'); void orbe.offsetWidth; orbe.classList.add('is-swap');
+  };
+  form.addEventListener('focusin', function () {
+    ['cargando', 'yaquedo', 'confundido'].forEach(function (n) { var i = new Image(); i.src = 'assets/img/orbe/' + n + '.png'; });
+  }, { once: true });
   var campos = form.querySelectorAll('input[required], select[required], textarea[required]');
 
   var mostrarEstado = function (tipo, html) {
@@ -217,6 +229,7 @@
 
     botonEnviar.disabled = true;
     mostrarEstado('', 'Enviando…');
+    cara('cargando');
     var datos = new FormData(form);
     datos.set('access_key', CONFIG.web3formsKey); // CONFIG manda sobre el input oculto
 
@@ -225,12 +238,14 @@
       .then(function (res) {
         if (res.ok) {
           form.reset();
+          cara('yaquedo');
           mostrarEstado('ok', '¡Gracias! Recibimos tu solicitud y te responderemos pronto.');
         } else {
+          cara('confundido');
           mostrarEstado('error', respaldo);
         }
       })
-      .catch(function () { mostrarEstado('error', respaldo); })
+      .catch(function () { cara('confundido'); mostrarEstado('error', respaldo); })
       .then(function () { botonEnviar.disabled = false; });
   });
 })();
@@ -243,6 +258,26 @@
 (function () {
   'use strict';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ORBE en "¿Te suena?": cambia de cara según el problema (pasar el cursor o tocar) */
+  (function orbeProblemas() {
+    var guia = document.querySelector('[data-orbe-guia]');
+    var items = document.querySelectorAll('.pain-item[data-cara]');
+    if (!guia || !items.length) { return; }
+    var actual = 'nocuadra';
+    function poner(nombre) {
+      if (nombre === actual) { return; }
+      actual = nombre;
+      guia.setAttribute('src', 'assets/img/orbe/' + nombre + '.png');
+      guia.classList.remove('is-swap'); void guia.offsetWidth; guia.classList.add('is-swap');
+    }
+    items.forEach(function (el) {
+      var n = el.getAttribute('data-cara');
+      var pre = new Image(); pre.src = 'assets/img/orbe/' + n + '.png';
+      el.addEventListener('pointerenter', function () { poner(n); });
+      el.addEventListener('click', function () { poner(n); });
+    });
+  })();
 
   /* 8. METODOLOGÍA: cada etapa se enciende al entrar en pantalla ------------ */
   (function metodologia() {
