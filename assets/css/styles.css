@@ -221,6 +221,8 @@ button { font: inherit; color: inherit; }
 .pain-item .holo { display: block; width: 72px; height: auto; margin-bottom: 14px; }
 .pain-item h3 { font-size: 1.1rem; letter-spacing: -0.01em; }
 .pain-item p { margin-top: 8px; color: var(--muted); font-size: 0.95rem; line-height: 1.55; }
+.pain-list--2 { grid-template-columns: repeat(2, 1fr); }
+.pain-foot { margin-top: 14px; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--steel-soft); }
 .pain-cta { margin-top: 24px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; color: var(--muted); }
 .pain .section-head { margin-bottom: 28px; }
 
@@ -439,7 +441,7 @@ button { font: inherit; color: inherit; }
 
   .pain { grid-template-columns: 1fr; }
   .pain-guide { max-width: 120px; }
-  .pain-list { grid-template-columns: 1fr; }
+  .pain-list, .pain-list--2 { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr; grid-template-areas: "odoo" "dev" "bi" "ai" "ti"; }
   .tile--odoo { min-height: 0; }
   .tabs { grid-template-columns: 1fr; }
