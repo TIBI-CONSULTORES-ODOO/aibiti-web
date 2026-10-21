@@ -202,6 +202,72 @@ button { font: inherit; color: inherit; }
 .tile .holo { display: block; width: 72px; height: auto; margin-bottom: 16px; opacity: 0.95; }
 .tile--odoo .holo { width: 96px; }
 
+/* ============ Ritmo de color: sección clara (identidad: lámina "claro") ============ */
+.section--light {
+  --text: #16213A; --muted: #2C3E63; --line: rgba(22, 33, 58, 0.14); --line-soft: rgba(22, 33, 58, 0.08);
+  background: #F4F6F9; color: var(--text); border-block: 0;
+}
+.section--light .kw { color: #6E55D9; }
+.section--light .pledge::before { background: linear-gradient(90deg, #6E55D9, #A996F2); }
+.section--light .pledge-icon { color: #6E55D9; }
+
+/* ============ Franja violeta de cierre (identidad: lámina "violeta", solo para el CTA) ============ */
+.btn--light { background: #fff; color: #16213A; }
+.btn--light:hover { background: #E9E4FF; }
+.cta-band { background: linear-gradient(160deg, #8B6CF0 0%, #6E55D9 100%); color: #fff; overflow: hidden; }
+.cta-band-in { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: clamp(40px, 6vw, 72px); }
+.cta-band h2 { color: #fff; font-size: clamp(1.9rem, 4vw, 3rem); font-weight: 900; line-height: 1.08; letter-spacing: -0.025em; }
+.cta-band p { margin: 12px 0 28px; font-size: 1.2rem; font-weight: 700; color: #fff; }
+.cta-orbe { width: clamp(120px, 16vw, 200px); height: auto; flex: none; margin-block: -12px; filter: drop-shadow(0 16px 24px rgba(22, 33, 58, 0.35)); }
+@media (prefers-reduced-motion: no-preference) { .cta-orbe { animation: orbe-float 5.5s ease-in-out infinite; } }
+@media (max-width: 600px) { .cta-orbe { width: 96px; align-self: flex-end; } .cta-band-in { align-items: flex-end; } }
+
+/* ============ Carrusel de servicios ============ */
+.carousel { position: relative; }
+.carousel-track {
+  position: relative; display: flex; gap: 16px; overflow-x: auto; padding: 4px 2px 18px;
+  scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track.is-drag { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.carousel-track:focus-visible { outline-offset: 6px; }
+.carousel .tile { flex: 0 0 min(360px, 82%); scroll-snap-align: start; display: flex; flex-direction: column; }
+.carousel .tile--odoo { flex-basis: min(560px, 88%); min-height: 0; }
+.carousel .tile:hover { transform: none; }
+.carousel-ctrl { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+.carousel-btn { width: 46px; height: 46px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--text); cursor: pointer; transition: background-color 0.2s, border-color 0.2s, opacity 0.2s; }
+.carousel-btn:hover:not(:disabled) { border-color: var(--lavender); background: var(--navy); }
+.carousel-btn:disabled { opacity: 0.35; cursor: default; }
+.carousel-btn--prev .icon { transform: scaleX(-1); }
+.carousel-dots { display: inline-flex; gap: 8px; }
+.carousel-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background-color 0.25s, width 0.25s var(--ease); }
+.carousel-dots span.is-on { width: 26px; border-radius: 4px; background: var(--lavender); }
+.carousel-hint { margin-left: auto; font-size: 0.875rem; font-weight: 700; color: var(--lavender); }
+@media (hover: none) { .carousel-btn { display: none; } }
+
+/* ============ Portada: orbe en el centro de la red y hologramas con profundidad ============ */
+.hero-orbe { position: absolute; left: 50%; top: 52%; width: clamp(170px, 19vw, 260px); height: auto; transform: translate(-50%, -50%); pointer-events: none; z-index: 1; }
+.hero-holo { position: absolute; width: clamp(60px, 6.5vw, 92px); height: auto; pointer-events: none; z-index: 1; opacity: 0.92; translate: calc(var(--px, 0) * var(--d, 0) * 1px) calc(var(--py, 0) * var(--d, 0) * 1px); transition: translate 0.35s ease-out; }
+.hero-holo--a { left: 40%; top: 10%; }
+.hero-holo--b { right: 6%; top: 60%; }
+.hero-holo--c { left: 14%; bottom: 22%; }
+@keyframes holo-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-holo { animation: holo-float 7s ease-in-out infinite; }
+  .hero-holo--b { animation-duration: 8.5s; animation-delay: -2s; }
+  .hero-holo--c { animation-duration: 6.5s; animation-delay: -4s; }
+}
+@media (max-width: 960px) { .hero-orbe { left: 42%; top: 54%; width: clamp(110px, 30vw, 170px); } .hero-holo--a { left: 8%; top: 8%; } .hero-holo--c { left: 10%; bottom: 6%; } .hero-holo--b { right: 6%; top: 62%; } }
+
+/* ============ Orbe guía (solo pantallas anchas) ============ */
+.guia { position: fixed; left: 8px; bottom: 18px; width: 56px; z-index: 40; display: grid; justify-items: center; gap: 2px; opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.5s var(--ease); pointer-events: none; }
+.guia.is-on { opacity: 1; transform: none; }
+.guia img { height: auto; }
+.guia-holo { width: 52px; }
+.guia-cara { width: 56px; }
+@media (prefers-reduced-motion: no-preference) { .guia.is-on .guia-cara { animation: orbe-float 5.5s ease-in-out infinite; } }
+@media (max-width: 1099px) { .guia { display: none; } }
+
 /* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
 .orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .pain-guide--video { max-width: 340px; }
