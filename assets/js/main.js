@@ -315,6 +315,32 @@
     });
   })();
 
+  /* ORBE en video (clip 3D ya renderizado, 320 KB): solo se reproduce a la vista y sin "reducir movimiento" */
+  (function orbeVideo() {
+    var videos = document.querySelectorAll('video[data-orbe-video]');
+    // WebM con transparencia: Chrome, Edge y Firefox. Safari lo pintaría con fondo negro, así que usa la imagen.
+    var ua = navigator.userAgent;
+    var esSafari = /safari|applewebkit/i.test(ua) && !/chrome|chromium|crios|android|edg|firefox|fxios/i.test(ua);
+    var sinAlfa = esSafari || !document.createElement('video').canPlayType('video/webm');
+    videos.forEach(function (v) {
+      v.muted = true;
+      if (sinAlfa || reduceMotion) {
+        var img = document.createElement('img');
+        img.className = v.className; img.src = v.getAttribute('data-fallback');
+        img.width = 256; img.height = 256; img.alt = ''; img.setAttribute('aria-hidden', 'true');
+        v.parentNode.replaceChild(img, v);
+        return;
+      }
+      if (!('IntersectionObserver' in window)) { v.removeAttribute('autoplay'); return; }
+      v.preload = 'auto';
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { var p = v.play(); if (p && p.catch) { p.catch(function () {}); } } else { v.pause(); }
+        });
+      }, { threshold: 0.25 }).observe(v);
+    });
+  })();
+
   /* 8. METODOLOGÍA: cada etapa se enciende al entrar en pantalla ------------ */
   (function metodologia() {
     var steps = document.querySelector('[data-steps]');

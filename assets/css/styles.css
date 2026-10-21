@@ -204,6 +204,8 @@ button { font: inherit; color: inherit; }
 
 /* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
 .orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
+.pain-guide--video { max-width: 340px; }
+video.orbe { object-fit: contain; background: transparent; pointer-events: none; }
 .orbe.is-swap { animation: orbe-pop 0.35s var(--ease); }
 @keyframes orbe-pop { 0% { transform: scale(0.9); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: no-preference) {
@@ -441,6 +443,7 @@ button { font: inherit; color: inherit; }
 
   .pain { grid-template-columns: 1fr; }
   .pain-guide { max-width: 120px; }
+  .pain-guide--video { max-width: 240px; margin-block: -24px; }
   .pain-list, .pain-list--2 { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr; grid-template-areas: "odoo" "dev" "bi" "ai" "ti"; }
   .tile--odoo { min-height: 0; }
