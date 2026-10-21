@@ -5,6 +5,7 @@ Landing de **AiBiTi Consulting** (aibiti.com.mx). Sitio estático para GitHub Pa
 ## Estructura
 ```
 index.html            página principal (todas las secciones)
+diagnostico.html      landing para campañas (noindex, fuera del sitemap); mide el origen con UTM
 privacidad.html       aviso de privacidad (aprobado)
 aviso-legal.html      aviso legal (aprobado)
 404.html              página de error (la usa GitHub Pages)
@@ -13,8 +14,10 @@ CNAME                 dominio personalizado: aibiti.com.mx
 robots.txt, sitemap.xml, site.webmanifest
 assets/css/styles.css estilos (tokens de color arriba del archivo)
 assets/fonts/        Montserrat (SIL OFL 1.1, tipografía oficial de la marca), autoalojada; licencia en Montserrat-OFL.txt
-assets/js/main.js     menú, formulario (CONFIG al inicio), pestañas, equipo y red neuronal (canvas)
-assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
+assets/js/main.js     menú, formulario y UTM (CONFIG al inicio), carrusel, pestañas, equipo, red neuronal (canvas) y orbe
+assets/img/           logos oficiales (solo escalados), favicon, íconos e imagen para redes (og-banner.jpg, el banner oficial)
+assets/img/orbe/      caritas y hologramas oficiales del orbe en WebP (recortados y reducidos, sin recrearlos)
+assets/video/         orbe-flota.webm: clip 3D ya renderizado (320 KB), con respaldo en imagen
 ```
 
 ## Qué debes completar (busca `TODO` en el código)
@@ -22,17 +25,22 @@ assets/img/           logo, favicon, íconos e imagen para redes (og-image.jpg)
 |---|---|
 | `assets/js/main.js` → `CONFIG.web3formsKey` | access_key **pública** de https://web3forms.com (se crea con tu correo). Restríngela a `aibiti.com.mx` en su panel. |
 | `assets/js/main.js` → `CONFIG.whatsapp` | Número con código de país y sin signos, p. ej. `5215512345678` |
-| `assets/img/logo-aibiti.svg` | Logo vectorial definitivo (hoy es un marcador de texto). El sitio usa `logo-aibiti.jpg` mientras tanto. |
-| `index.html` → JSON-LD | Dirección cuando exista (hoy no se inventa). El teléfono ya está. |
+| `assets/js/main.js` → `CONFIG.calLink` | Enlace de Cal.com (`usuario/evento`). Con él se activa el calendario del inicio y de la landing. |
+| `assets/js/main.js` → `CONFIG.redes` | URL de los perfiles (ya puestas). El pie y el JSON-LD (`sameAs`) deben coincidir. |
+| `index.html` → JSON-LD | Dirección cuando exista (hoy no se inventa). Teléfono y redes ya están. |
+
+Los logos oficiales solo se escalan; no se redibujan ni se recrean.
 
 Mientras no haya clave de Web3Forms, el formulario valida y ofrece un enlace `mailto:` de respaldo; mientras no haya número, el botón de WhatsApp abre el correo. Nada queda roto.
 
 ## Probar en local
-Con Node instalado, desde la carpeta que contiene `serve.js` y `aibiti-web/`:
-```
-node serve.js
-```
-y abre http://localhost:4173. (Abrir `index.html` con doble clic también funciona, pero el formulario y las rutas se prueban mejor con servidor.)
+Con Node instalado, un servidor estático mínimo sobre esta carpeta (el sitio no necesita compilación). Abrir `index.html` con doble clic no sirve del todo: las rutas, el WebM y los módulos se prueban mejor con servidor. Para ver la landing con UTM: `/diagnostico.html?utm_source=instagram&utm_medium=bio&utm_campaign=lanzamiento`.
+
+## Caché y versiones
+GitHub Pages + Cloudflare guardan todo hasta 4 horas. Al cambiar `styles.css` o `main.js`, sube el `?v=` en todos los HTML. Si cambias una imagen que ya existe, ponle `?v=` en el HTML o usa otro nombre. No pidas por `curl` una URL nueva antes de que termine el despliegue: la CDN guarda la respuesta vacía.
+
+## Medir con Lighthouse
+`npm install lighthouse` en una carpeta temporal (fuera del repo), abre Edge o Chrome con `--headless=new --remote-debugging-port=9333` y corre `npx lighthouse https://aibiti.com.mx/ --port=9333` (agrega `--preset=desktop` para escritorio). Último resultado (20-oct-2026): 99 móvil y 100 escritorio; accesibilidad, mejores prácticas y SEO en 100.
 
 ## Publicar en GitHub Pages con tu dominio
 1. Copia el contenido de esta carpeta a la raíz del repositorio `aibiti-web`, haz commit y push a `main`.
@@ -46,8 +54,8 @@ y abre http://localhost:4173. (Abrir `index.html` con doble clic también funcio
 - [ ] Menú móvil, enlaces internos y página 404 (`/una-ruta-inexistente`).
 - [ ] Anchos 360, 768 y 1280 px sin desbordes.
 - [ ] Navegación solo con teclado (Tab, Enter, Escape) y foco visible.
-- [ ] Lighthouse (Chrome → DevTools → Lighthouse): rendimiento, accesibilidad, buenas prácticas y SEO.
-- [ ] Vista previa al compartir el enlace en WhatsApp o LinkedIn (imagen `og-image.jpg`).
+- [x] Lighthouse: rendimiento, accesibilidad, buenas prácticas y SEO (20 oct 2026).
+- [ ] Vista previa al compartir el enlace en WhatsApp o LinkedIn (imagen `og-banner.jpg`).
 - [x] Avisos legales revisados por un abogado y `noindex` retirado (12 oct 2026).
 
 ## Reglas de contenido
