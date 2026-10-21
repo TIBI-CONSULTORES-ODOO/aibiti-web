@@ -256,7 +256,8 @@ button { font: inherit; color: inherit; }
 @media (hover: none) { .carousel-btn { display: none; } }
 
 /* ============ Portada: orbe en el centro de la red y hologramas con profundidad ============ */
-.hero-orbe { position: absolute; left: 50%; top: 52%; width: clamp(170px, 19vw, 260px); height: auto; transform: translate(-50%, -50%); pointer-events: none; z-index: 1; }
+.hero-orbe { position: absolute; left: 50%; top: 52%; width: clamp(110px, 11vw, 150px); height: auto; translate: 0 0; transform: translate(-50%, -50%); pointer-events: none; z-index: 1; }
+@media (prefers-reduced-motion: no-preference) { .hero-orbe { animation: orbe-float 5.5s ease-in-out infinite; } }
 .hero-holo { position: absolute; width: clamp(60px, 6.5vw, 92px); height: auto; pointer-events: none; z-index: 1; opacity: 0.92; translate: calc(var(--px, 0) * var(--d, 0) * 1px) calc(var(--py, 0) * var(--d, 0) * 1px); transition: translate 0.35s ease-out; }
 .hero-holo--a { left: 40%; top: 10%; }
 .hero-holo--b { right: 6%; top: 60%; }
@@ -267,7 +268,7 @@ button { font: inherit; color: inherit; }
   .hero-holo--b { animation-duration: 8.5s; animation-delay: -2s; }
   .hero-holo--c { animation-duration: 6.5s; animation-delay: -4s; }
 }
-@media (max-width: 960px) { .hero-orbe { left: 42%; top: 54%; width: clamp(110px, 30vw, 170px); } .hero-holo--a { left: 8%; top: 8%; } .hero-holo--c { left: 10%; bottom: 6%; } .hero-holo--b { right: 6%; top: 62%; } }
+@media (max-width: 960px) { .hero-orbe { left: 42%; top: 54%; width: clamp(80px, 22vw, 112px); } .hero-holo--a { left: 8%; top: 8%; } .hero-holo--c { left: 10%; bottom: 6%; } .hero-holo--b { right: 6%; top: 62%; } }
 
 /* ============ Orbe guía (solo pantallas anchas) ============ */
 .guia { position: fixed; left: 8px; bottom: 18px; width: 56px; z-index: 40; display: grid; justify-items: center; gap: 2px; opacity: 0; transform: translateY(18px); transition: opacity 0.4s var(--ease), transform 0.5s var(--ease); pointer-events: none; }
@@ -330,7 +331,7 @@ button { font: inherit; color: inherit; }
 /* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
 .orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .pain-guide--video { max-width: 340px; }
-video.orbe { object-fit: contain; background: transparent; pointer-events: none; }
+.pain-guide--video > img.orbe { width: 150px; margin-bottom: 4px; }
 .orbe.is-swap { animation: orbe-pop 0.35s var(--ease); }
 @keyframes orbe-pop { 0% { transform: scale(0.9); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: no-preference) {
@@ -637,7 +638,8 @@ video.orbe { object-fit: contain; background: transparent; pointer-events: none;
 
   .pain { grid-template-columns: 1fr; }
   .pain-guide { max-width: 120px; }
-  .pain-guide--video { max-width: 240px; margin-block: -24px; }
+  .pain-guide--video { max-width: 240px; }
+  .pain-guide--video > img.orbe { width: 112px; }
   #cerebro .pain { grid-template-columns: 1fr; }
   .pain-list, .pain-list--2 { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr; grid-template-areas: "odoo" "dev" "bi" "ai" "ti"; }

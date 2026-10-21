@@ -14,10 +14,9 @@ CNAME                 dominio personalizado: aibiti.com.mx
 robots.txt, sitemap.xml, site.webmanifest
 assets/css/styles.css estilos (tokens de color arriba del archivo)
 assets/fonts/        Montserrat (SIL OFL 1.1, tipografía oficial de la marca), autoalojada; licencia en Montserrat-OFL.txt
-assets/js/main.js     menú, formulario y UTM (CONFIG al inicio), carrusel, pestañas, equipo, red neuronal (canvas) y orbe
+assets/js/main.js     menú, formulario y UTM (CONFIG al inicio), carrusel, pestañas, equipo, red neuronal (canvas), carpeta de cristal y orbe
 assets/img/           logos oficiales (solo escalados), favicon, íconos e imagen para redes (og-banner.jpg, el banner oficial)
-assets/img/orbe/      caritas y hologramas oficiales del orbe en WebP (recortados y reducidos, sin recrearlos)
-assets/video/         orbe-flota.webm: clip 3D ya renderizado (320 KB), con respaldo en imagen
+assets/img/orbe/      caritas y hologramas oficiales del orbe en WebP (recortados y reducidos, sin recrearlos); solo la cabeza, sin manos
 ```
 
 ## Qué debes completar (busca `TODO` en el código)

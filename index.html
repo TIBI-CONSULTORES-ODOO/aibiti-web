@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261020v">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261021a">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -115,9 +115,7 @@
     <section id="inicio" class="hero" aria-labelledby="titulo-hero">
       <div class="hero-viz" id="hero-viz">
         <canvas id="red-neuronal" aria-hidden="true"></canvas>
-        <video class="hero-orbe" data-orbe-video autoplay muted loop playsinline preload="none" data-fallback="assets/img/orbe/yaquedo.webp" width="900" height="900" aria-hidden="true" tabindex="-1" disablepictureinpicture>
-          <source src="assets/video/orbe-flota.webm" type="video/webm">
-        </video>
+        <img class="hero-orbe" src="assets/img/orbe/neutral-l.webp" width="384" height="384" alt="" aria-hidden="true">
         <img class="hero-holo hero-holo--a" style="--d:30" src="assets/img/orbe/holo-factura.webp" width="200" height="155" alt="" aria-hidden="true">
         <img class="hero-holo hero-holo--b" style="--d:-22" src="assets/img/orbe/holo-grafica.webp" width="200" height="155" alt="" aria-hidden="true">
         <img class="hero-holo hero-holo--c" style="--d:18" src="assets/img/orbe/holo-proyectos.webp" width="200" height="155" alt="" aria-hidden="true">
@@ -386,9 +384,7 @@
     <section id="cerebro" class="section section--tinted" aria-labelledby="titulo-cerebro">
       <div class="container pain">
         <div class="pain-guide pain-guide--video reveal">
-          <video class="orbe" data-orbe-video autoplay muted loop playsinline preload="none" data-fallback="assets/img/orbe/yaquedo.webp" width="900" height="900" aria-hidden="true" tabindex="-1" disablepictureinpicture>
-            <source src="assets/video/orbe-flota.webm" type="video/webm">
-          </video>
+          <img class="orbe" src="assets/img/orbe/yaquedo-l.webp" width="384" height="384" alt="" aria-hidden="true" loading="lazy">
           <!-- Carpeta de cristal: se inclina al pasar el cursor y se abre con clic, Enter o Espacio. Adaptada de un patrón de 21st.dev a HTML y CSS sin dependencias. -->
           <div class="gf" data-folder>
             <div class="gf-stage"><div class="gf-tilt">
@@ -618,6 +614,6 @@
     <img class="guia-cara" alt="" width="56" height="56">
   </div>
 
-  <script src="assets/js/main.js?v=20261020v" defer></script>
+  <script src="assets/js/main.js?v=20261021a" defer></script>
 </body>
 </html>
