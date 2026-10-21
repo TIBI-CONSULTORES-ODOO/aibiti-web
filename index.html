@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261020f">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261020g">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -398,14 +398,15 @@
     <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
       <div class="container lp-grid">
         <div class="lp-copy reveal">
-          <img class="orbe orbe--lp" data-orbe-contacto src="assets/img/orbe/dejamever.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
-          <h2 id="titulo-contacto" class="lp-title">Empecemos por un <span class="kw">diagnóstico</span></h2>
-          <p class="lead">En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin costo y sin compromiso.</p>
+          <img class="orbe orbe--lp" data-orbe-contacto src="assets/img/orbe/guino.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+          <h2 id="titulo-contacto" class="lp-title">Un diagnóstico de 30 minutos, <span class="kw">sin costo</span> y sin compromiso</h2>
+          <p class="lead">Entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio: Odoo, reportes, automatización o TI.</p>
           <ul class="ticks">
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Te decimos qué conviene hacer primero y qué no vale la pena</li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Si después quieres avanzar, preparamos una propuesta técnica con alcance, tiempos y costo</li>
           </ul>
+          <p class="lp-note">Odoo 19 · CFDI 4.0 · Staging primero · Nada toca producción sin tu autorización</p>
         </div>
 
         <div class="lp-form">
@@ -441,8 +442,8 @@
                 <span class="field-error" id="err-correo"></span>
               </div>
               <div class="field field--full">
-                <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
+                <label for="mensaje">¿Qué te gustaría resolver?</label>
+                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Por ejemplo: facturas que no se timbran, inventario que no cuadra o reportes en Excel."></textarea>
                 <span class="field-error" id="err-mensaje"></span>
               </div>
 
@@ -479,7 +480,7 @@
               <span class="field-error field-error--full" id="err-consentimiento"></span>
 
               <div class="form-actions">
-                <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                <button class="btn btn--primary" type="submit" id="btn-enviar">Quiero mi diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
               </div>
               <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
             </form>
@@ -520,6 +521,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261020f" defer></script>
+  <script src="assets/js/main.js?v=20261020g" defer></script>
 </body>
 </html>
