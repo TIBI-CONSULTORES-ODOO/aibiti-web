@@ -239,6 +239,11 @@ button { font: inherit; color: inherit; }
 .lp-alt a { color: var(--text); }
 @media (max-width: 960px) { .lp-grid { grid-template-columns: 1fr; } .orbe--lp { width: 88px; } }
 
+/* Redes en el pie (solo si hay URL en CONFIG.redes) */
+.footer-redes { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 16px; }
+.footer-redes a { color: var(--muted); font-weight: 600; }
+.footer-redes a:hover { color: var(--text); }
+
 /* Orbe del diagnóstico */
 .contact-intro { position: relative; }
 .orbe--contacto { width: 96px; margin-bottom: 14px; }

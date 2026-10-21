@@ -16,7 +16,9 @@
     web3formsKey: 'cb075f15-5f40-48ce-afd1-38ef0a3283c8',
     whatsapp: '525641340392',
     calLink: 'PENDIENTE/diagnostico-30min', // enlace de Cal.com (usuario/evento); mientras diga PENDIENTE o esté vacío no se muestra el calendario
-    whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
+    whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.',
+    // Perfiles oficiales: se agregan aquí cuando existan las cuentas (URL completa). Vacío = no se muestra nada.
+    redes: { Instagram: '', LinkedIn: '', Facebook: '', TikTok: '' }
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
 
@@ -72,6 +74,20 @@
     botonWa.href = 'https://wa.me/' + encodeURIComponent(CONFIG.whatsapp) +
       '?text=' + encodeURIComponent(CONFIG.whatsappMensaje);
     botonWa.target = '_blank';
+  }
+
+  /* 4a. REDES SOCIALES: el pie muestra solo las que tengan URL en CONFIG.redes ------- */
+  var listaRedes = document.querySelector('[data-redes]');
+  if (listaRedes) {
+    Object.keys(CONFIG.redes).forEach(function (nombre) {
+      var url = CONFIG.redes[nombre];
+      if (!/^https:\/\//.test(url)) { return; }
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = url; a.textContent = nombre; a.target = '_blank'; a.rel = 'noopener me';
+      li.appendChild(a); listaRedes.appendChild(li);
+    });
+    listaRedes.hidden = !listaRedes.children.length;
   }
 
   /* 4b. CALENDARIO (Cal.com) ----------------------------------------------
