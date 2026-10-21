@@ -408,6 +408,37 @@
     wide.addEventListener('change', evaluar);
   })();
 
+  /* CARPETA DE CRISTAL del cerebro: se inclina con el cursor, se abre con clic, Enter o Espacio y se cierra con Escape o al tocar fuera */
+  (function carpeta() {
+    document.querySelectorAll('[data-folder]').forEach(function (root) {
+      var hit = root.querySelector('.gf-hit'), files = root.querySelector('.gf-files');
+      if (!hit || !files) { return; }
+      function abrir(si) {
+        root.toggleAttribute('data-open', si);
+        hit.setAttribute('aria-expanded', String(si));
+        hit.setAttribute('aria-label', (si ? 'Cerrar' : 'Abrir') + ' la carpeta del cerebro: juntas, decisiones y procesos');
+        files.toggleAttribute('inert', !si);
+      }
+      files.toggleAttribute('inert', true);
+      hit.addEventListener('click', function () { abrir(!root.hasAttribute('data-open')); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.hasAttribute('data-open')) { abrir(false); hit.focus(); } });
+      document.addEventListener('pointerdown', function (e) { if (root.hasAttribute('data-open') && !root.contains(e.target)) { abrir(false); } });
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(function () { root.style.setProperty('--k', (root.clientWidth / 340).toFixed(4)); }).observe(root);
+      }
+      if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        var raf = 0, px = 0, py = 0;
+        function escribir() { raf = 0; root.style.setProperty('--gf-px', px.toFixed(3)); root.style.setProperty('--gf-py', py.toFixed(3)); }
+        root.addEventListener('pointermove', function (e) {
+          var r = root.getBoundingClientRect();
+          px = ((e.clientX - r.left) / r.width) * 2 - 1; py = ((e.clientY - r.top) / r.height) * 2 - 1;
+          if (!raf) { raf = requestAnimationFrame(escribir); }
+        });
+        root.addEventListener('pointerleave', function () { px = 0; py = 0; if (!raf) { raf = requestAnimationFrame(escribir); } });
+      }
+    });
+  })();
+
   /* ORBE en video (clip 3D ya renderizado, 320 KB): solo se reproduce a la vista y sin "reducir movimiento" */
   (function orbeVideo() {
     var videos = document.querySelectorAll('video[data-orbe-video]');

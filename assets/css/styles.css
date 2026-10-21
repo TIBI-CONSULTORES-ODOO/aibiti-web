@@ -268,6 +268,50 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: no-preference) { .guia.is-on .guia-cara { animation: orbe-float 5.5s ease-in-out infinite; } }
 @media (max-width: 1099px) { .guia { display: none; } }
 
+/* ============ Carpeta de cristal (cerebro de empresa) ============ */
+.pain-guide--video { display: grid; justify-items: center; }
+#cerebro .pain { grid-template-columns: minmax(240px, 330px) 1fr; }
+#cerebro .pain-guide { max-width: 330px; }
+.gf { --k: .86; --gf-px: 0; --gf-py: 0; --gf-ease: cubic-bezier(.2,.8,.2,1); --gf-spring: cubic-bezier(.34,1.36,.5,1);
+  --gf-hinge: 0deg; --gf-lift: 42px; --gf-spread: 0px; --gf-fan: 0deg; --gf-stack: 15px;
+  position: relative; width: 100%; max-width: 300px; aspect-ratio: 340 / 326; margin-top: -26px; isolation: isolate; }
+.gf:hover, .gf:focus-within { --gf-hinge: -11deg; --gf-lift: -34px; --gf-spread: 8px; --gf-fan: 1.4deg; --gf-stack: 10px; }
+.gf[data-open] { --gf-hinge: -24deg; --gf-lift: -96px; --gf-spread: 40px; --gf-fan: 5deg; --gf-stack: 30px; }
+.gf-stage { position: absolute; left: 0; top: 0; width: 340px; height: 272px; transform-origin: 0 0; transform: translateY(calc(54px * var(--k))) scale(var(--k)); }
+.gf-tilt { position: absolute; inset: 0; transform: perspective(1400px) rotateX(calc(var(--gf-py) * -3deg)) rotateY(calc(var(--gf-px) * 4deg)); transition: transform .9s var(--gf-ease); }
+.gf-shadow { position: absolute; left: 18px; right: 18px; bottom: -6px; height: 60px; border-radius: 40px; background: rgba(0, 0, 0, .55); filter: blur(22px); transform: translateX(calc(var(--gf-px) * -8px)); transition: transform .9s var(--gf-ease); }
+.gf-back { position: absolute; inset: 0; overflow: hidden; clip-path: path('M0 56A22 22 0 0 1 22 34L146 34C170 34 172 0 198 0L318 0A22 22 0 0 1 340 22L340 250A22 22 0 0 1 318 272L22 272A22 22 0 0 1 0 250Z');
+  background: radial-gradient(120% 90% at 85% 0%, #A996F2 0%, rgba(169,150,242,0) 55%), linear-gradient(140deg, #2C3E63 0%, #6E55D9 62%, #8B6CF0 100%); }
+.gf-back-sheen { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 24%); }
+.gf-rim { position: absolute; left: 0; top: 0; max-width: none; overflow: visible; pointer-events: none; fill: none; }
+.gf-back-rim { width: 340px; height: 272px; }
+.gf-back-rim path { stroke: rgba(255,255,255,.28); stroke-width: 1; }
+.gf-files { position: absolute; inset: 0; z-index: 5; pointer-events: none; clip-path: inset(-400px -400px 10px -400px); }
+.gf-sheet { position: absolute; left: 34px; top: 96px; width: 272px; height: 184px; border-radius: 16px; overflow: hidden; transform-origin: 50% 100%;
+  background: linear-gradient(160deg, #26365a 0%, #16213A 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 0 0 .5px rgba(255,255,255,.12), 0 12px 28px -8px rgba(0,0,0,.6);
+  transform: translate(calc(var(--gf-slot) * var(--gf-spread)), calc(var(--gf-lift) + var(--gf-depth) * var(--gf-stack) * -1)) rotate(calc(var(--gf-slot) * var(--gf-fan)));
+  transition: transform .75s var(--gf-spring) calc(var(--gf-depth) * 40ms); }
+.gf-sheet-art { position: absolute; left: 50%; top: 56%; width: 150px; height: auto; max-width: none; transform: translate(-50%, -50%); opacity: .95; }
+.gf-sheet-head { position: absolute; left: 14px; right: 14px; top: 11px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; white-space: nowrap; }
+.gf-sheet-name { font-size: 13px; font-weight: 700; color: #F4F6F9; }
+.gf-sheet-meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: .02em; color: rgba(244,246,249,.62); }
+.gf-front { position: absolute; left: 0; top: 74px; width: 340px; height: 198px; z-index: 10; clip-path: path('M0 22A22 22 0 0 1 22 0L118 0C144 0 146 32 172 32L318 32A22 22 0 0 1 340 54L340 176A22 22 0 0 1 318 198L22 198A22 22 0 0 1 0 176Z');
+  -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5);
+  transform-origin: 50% 100%; transform: perspective(760px) rotateX(var(--gf-hinge)); transition: transform .8s var(--gf-spring); }
+.gf-tint { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(22,33,58,.16) 0%, rgba(22,33,58,.58) 46%, rgba(17,26,46,.94) 100%); }
+.gf-spec { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: screen; opacity: .16;
+  background: radial-gradient(260px 200px at calc(50% + var(--gf-px) * 46%) calc(30% + var(--gf-py) * 40%), rgba(255,255,255,.9), rgba(255,255,255,0) 70%); }
+.gf-front-rim { width: 340px; height: 198px; opacity: .8; }
+.gf-front-rim path { stroke-width: 2.4; }
+.gf-hit { all: unset; position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+.gf-front:has(.gf-hit:focus-visible) .gf-front-rim path { stroke-width: 5; stroke: #fff; }
+.gf-label { position: absolute; left: 28px; bottom: 30px; z-index: 2; display: flex; flex-direction: column; gap: 4px; pointer-events: none; color: var(--text); }
+.gf-title { font-size: 18px; font-weight: 800; line-height: 1.15; letter-spacing: -.012em; }
+.gf-meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: .03em; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .gf *, .gf *::before, .gf *::after { transition-duration: 0s !important; transition-delay: 0s !important; } .gf-tilt { transform: none; } }
+@media (max-width: 960px) { .gf { max-width: 260px; } }
+
 /* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
 .orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .pain-guide--video { max-width: 340px; }
@@ -513,6 +557,7 @@ video.orbe { object-fit: contain; background: transparent; pointer-events: none;
   .pain { grid-template-columns: 1fr; }
   .pain-guide { max-width: 120px; }
   .pain-guide--video { max-width: 240px; margin-block: -24px; }
+  #cerebro .pain { grid-template-columns: 1fr; }
   .pain-list, .pain-list--2 { grid-template-columns: 1fr; }
   .bento { grid-template-columns: 1fr; grid-template-areas: "odoo" "dev" "bi" "ai" "ti"; }
   .tile--odoo { min-height: 0; }

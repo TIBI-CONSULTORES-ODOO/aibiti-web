@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261020r">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261020t">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -389,6 +389,35 @@
           <video class="orbe" data-orbe-video autoplay muted loop playsinline preload="none" data-fallback="assets/img/orbe/yaquedo.webp" width="900" height="900" aria-hidden="true" tabindex="-1" disablepictureinpicture>
             <source src="assets/video/orbe-flota.webm" type="video/webm">
           </video>
+          <!-- Carpeta de cristal: se inclina al pasar el cursor y se abre con clic, Enter o Espacio. Adaptada de un patrón de 21st.dev a HTML y CSS sin dependencias. -->
+          <div class="gf" data-folder>
+            <div class="gf-stage"><div class="gf-tilt">
+              <div class="gf-shadow" aria-hidden="true"></div>
+              <div class="gf-back" aria-hidden="true"><div class="gf-back-sheen"></div></div>
+              <svg class="gf-rim gf-back-rim" viewBox="0 0 340 272" aria-hidden="true"><path d="M0 56A22 22 0 0 1 22 34L146 34C170 34 172 0 198 0L318 0A22 22 0 0 1 340 22L340 250A22 22 0 0 1 318 272L22 272A22 22 0 0 1 0 250Z"/></svg>
+              <div class="gf-files" role="list" aria-label="Contenido del cerebro: juntas, decisiones y procesos">
+              <div class="gf-sheet" role="listitem" style="--gf-slot:-1;--gf-depth:2;z-index:1">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-calendario.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Juntas</span><span class="gf-sheet-meta">minutas</span></span>
+              </div>
+              <div class="gf-sheet" role="listitem" style="--gf-slot:0;--gf-depth:1;z-index:2">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-firma.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Decisiones</span><span class="gf-sheet-meta">qué y por qué</span></span>
+              </div>
+              <div class="gf-sheet" role="listitem" style="--gf-slot:1;--gf-depth:0;z-index:3">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-proyectos.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Procesos</span><span class="gf-sheet-meta">cómo se hace</span></span>
+              </div>
+              </div>
+              <div class="gf-front">
+                <div class="gf-tint" aria-hidden="true"></div>
+                <div class="gf-spec" aria-hidden="true"></div>
+                <svg class="gf-rim gf-front-rim" viewBox="0 0 340 198" aria-hidden="true"><defs><linearGradient id="gf-rim-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".35" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient></defs><path d="M0 22A22 22 0 0 1 22 0L118 0C144 0 146 32 172 32L318 32A22 22 0 0 1 340 54L340 176A22 22 0 0 1 318 198L22 198A22 22 0 0 1 0 176Z" stroke="url(#gf-rim-g)"/></svg>
+                <button class="gf-hit" type="button" aria-expanded="false" aria-label="Abrir la carpeta del cerebro: juntas, decisiones y procesos"></button>
+                <div class="gf-label"><span class="gf-title">Tu cerebro</span><span class="gf-meta">3 carpetas</span></div>
+              </div>
+            </div></div>
+          </div>
         </div>
         <div class="pain-body">
           <div class="section-head reveal">
@@ -589,6 +618,6 @@
     <img class="guia-cara" alt="" width="56" height="56">
   </div>
 
-  <script src="assets/js/main.js?v=20261020r" defer></script>
+  <script src="assets/js/main.js?v=20261020t" defer></script>
 </body>
 </html>
