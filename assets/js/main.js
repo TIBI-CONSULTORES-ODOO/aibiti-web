@@ -18,7 +18,12 @@
     calLink: 'PENDIENTE/diagnostico-30min', // enlace de Cal.com (usuario/evento); mientras diga PENDIENTE o esté vacío no se muestra el calendario
     whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.',
     // Perfiles oficiales: se agregan aquí cuando existan las cuentas (URL completa). Vacío = no se muestra nada.
-    redes: { Instagram: '', LinkedIn: '', Facebook: '', TikTok: '' }
+    redes: {
+      Instagram: 'https://www.instagram.com/aibiti.consulting',
+      LinkedIn: 'https://www.linkedin.com/company/aibiti-consulting',
+      Facebook: 'https://www.facebook.com/aibiticonsulting',
+      TikTok: 'https://www.tiktok.com/@aibiti.consulting'
+    }
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
 
