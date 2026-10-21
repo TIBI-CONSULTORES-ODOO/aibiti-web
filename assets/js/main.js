@@ -192,13 +192,13 @@
   var orbe = document.querySelector('[data-orbe-contacto]');
   var cara = function (nombre) {
     if (!orbe) { return; }
-    var src = 'assets/img/orbe/' + nombre + '.png';
+    var src = 'assets/img/orbe/' + nombre + '.webp';
     if (orbe.getAttribute('src') === src) { return; }
     orbe.setAttribute('src', src);
     orbe.classList.remove('is-swap'); void orbe.offsetWidth; orbe.classList.add('is-swap');
   };
   form.addEventListener('focusin', function () {
-    ['cargando', 'yaquedo', 'confundido'].forEach(function (n) { var i = new Image(); i.src = 'assets/img/orbe/' + n + '.png'; });
+    ['cargando', 'yaquedo', 'confundido'].forEach(function (n) { var i = new Image(); i.src = 'assets/img/orbe/' + n + '.webp'; });
   }, { once: true });
   var campos = form.querySelectorAll('input[required], select[required], textarea[required]');
 
@@ -304,12 +304,12 @@
     function poner(nombre) {
       if (nombre === actual) { return; }
       actual = nombre;
-      guia.setAttribute('src', 'assets/img/orbe/' + nombre + '.png');
+      guia.setAttribute('src', 'assets/img/orbe/' + nombre + '.webp');
       guia.classList.remove('is-swap'); void guia.offsetWidth; guia.classList.add('is-swap');
     }
     items.forEach(function (el) {
       var n = el.getAttribute('data-cara');
-      var pre = new Image(); pre.src = 'assets/img/orbe/' + n + '.png';
+      var pre = new Image(); pre.src = 'assets/img/orbe/' + n + '.webp';
       el.addEventListener('pointerenter', function () { poner(n); });
       el.addEventListener('click', function () { poner(n); });
     });
