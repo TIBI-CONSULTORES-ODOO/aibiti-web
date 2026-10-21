@@ -320,6 +320,58 @@
     });
   })();
 
+  /* COTIZADOR: suscripción de Odoo (precios de lista para México, sin IVA) + implementación AiBiTi por hora */
+  (function cotizador() {
+    var root = document.querySelector('[data-calc]');
+    if (!root) { return; }
+    // Fuente: odoo.com/es/pricing-configurator y /pricing-packs, consultados el 21-oct-2026. Actualizar aquí si Odoo cambia su lista.
+    var ODOO = {
+      estandar: { anual: 228, mensual: 285, desc: { anual: 48, mensual: 60 } },
+      personalizado: { anual: 410, mensual: 510, desc: { anual: 80, mensual: 100 } },
+      sh: { worker: { anual: 1152, mensual: 1440 }, gb: { anual: 4, mensual: 5 }, staging: { anual: 288, mensual: 360 } },
+      // Paquetes de éxito (precio para clientes nuevos). Los desarrollos entran desde el de 50 h.
+      packs: [{ n: 'Inicial', h: 4, p: 3680, dev: false }, { n: 'Básico', h: 25, p: 19550, dev: false }, { n: 'Estándar', h: 50, p: 38080, dev: true },
+        { n: 'Personalizado', h: 100, p: 68000, dev: true }, { n: 'Profesional', h: 200, p: 136000, dev: true }]
+    };
+    var TARIFA = { consultoria: 700, desarrollo: 1000 }, IVA = 0.16;
+    var mxn = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    function valor(n) { var el = root.querySelector('[name="' + n + '"]:checked') || root.querySelector('[name="' + n + '"]'); return el ? el.value : ''; }
+    function entero(n) { return Math.max(0, parseInt(valor(n), 10) || 0); }
+    function poner(k, v) { root.querySelectorAll('[data-out="' + k + '"]').forEach(function (e) { e.textContent = v; }); }
+    root.querySelectorAll('[data-pair]').forEach(function (r) {
+      var n = root.querySelector('#' + r.getAttribute('data-pair'));
+      r.addEventListener('input', function () { n.value = r.value; calcular(); });
+      n.addEventListener('input', function () { r.value = Math.min(+r.max, Math.max(+r.min, parseInt(n.value, 10) || 0)); calcular(); });
+      n.addEventListener('change', function () { n.value = r.value; calcular(); });
+    });
+    root.addEventListener('change', calcular);
+    function calcular() {
+      var plan = valor('plan'), cobro = valor('cobro'), u = Math.max(1, entero('usuarios'));
+      var sh = plan === 'personalizado' && valor('alojamiento') === 'sh';
+      root.querySelector('[data-only="personalizado"]').hidden = plan !== 'personalizado';
+      root.querySelector('[data-only="sh"]').hidden = !sh;
+      root.querySelector('[data-row="hosting"]').hidden = !sh;
+      var P = ODOO[plan], lic = P[cobro] * u, desc = P.desc[cobro] * u;
+      var host = sh ? Math.max(1, entero('workers')) * ODOO.sh.worker[cobro] + Math.max(1, entero('gb')) * ODOO.sh.gb[cobro] + entero('staging') * ODOO.sh.staging[cobro] : 0;
+      var hc = entero('h_consultoria'), hd = entero('h_desarrollo'), impl = hc * TARIFA.consultoria + hd * TARIFA.desarrollo;
+      var anio1 = (lic - desc + host) * 12 + impl;
+      poner('usuarios', u); poner('lic', mxn.format(lic)); poner('desc', '−' + mxn.format(desc)); poner('hosting', mxn.format(host));
+      poner('mes1', mxn.format(lic - desc + host)); poner('mes2', mxn.format(lic + host));
+      poner('hc', hc); poner('hd', hd); poner('impc', mxn.format(hc * TARIFA.consultoria)); poner('impd', mxn.format(hd * TARIFA.desarrollo));
+      poner('impl', mxn.format(impl)); poner('anio1', mxn.format(anio1)); poner('anio1iva', mxn.format(anio1 * (1 + IVA)));
+      root.querySelector('[data-aviso="estandar"]').hidden = !(hd > 0 && !sh);
+      var horas = hc + hd, pack = null;
+      ODOO.packs.forEach(function (p) { if (!pack && p.h >= horas && (!hd || p.dev)) { pack = p; } });
+      var cmp = root.querySelector('[data-compare]');
+      cmp.hidden = horas === 0;
+      cmp.querySelector('[data-has-pack]').hidden = !pack;
+      cmp.querySelector('[data-no-pack]').hidden = !!pack;
+      if (pack) { poner('pack', pack.n + ' de ' + pack.h + ' h'); poner('packp', mxn.format(pack.p)); }
+      poner('nuestro', mxn.format(impl)); poner('nuestro2', mxn.format(impl));
+    }
+    calcular();
+  })();
+
   /* TÍTULOS palabra por palabra: cada palabra sube desde una máscara, escalonada, al entrar el título en pantalla */
   (function titulosPorPalabra() {
     if (reduceMotion || !('IntersectionObserver' in window)) { return; }

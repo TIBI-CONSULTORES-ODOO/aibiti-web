@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261021a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261021b">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -103,6 +103,7 @@
         <a href="#servicios">Servicios</a>
         <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
+        <a href="#precios">Precios</a>
         <a href="#contacto">Contacto</a>
         <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico</a>
       </nav>
@@ -466,6 +467,101 @@
       </div>
     </section>
 
+    <!-- ============================ COTIZADOR ============================ -->
+    <!-- Precios de lista de Odoo para México (sin IVA) consultados el 21-oct-2026 en odoo.com/es/pricing-configurator y /pricing-packs.
+         Se actualizan en assets/js/main.js (ODOO y TARIFA, módulo cotizador). -->
+    <section id="precios" data-guia-cara="guino" data-guia-holo="grafica" class="section section--tinted" aria-labelledby="titulo-precios">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="titulo-precios">Estima tu <span class="kw">inversión</span></h2>
+          <p>La suscripción de Odoo, con sus precios de lista para México, más nuestra implementación. Es una estimación: la cifra final sale del diagnóstico.</p>
+        </div>
+
+        <div class="calc" data-calc>
+          <form class="calc-form" onsubmit="return false" aria-label="Datos para estimar la inversión">
+            <fieldset class="calc-group">
+              <legend>1. Plan de Odoo</legend>
+              <div class="calc-opts">
+                <label class="calc-opt"><input type="radio" name="plan" value="estandar" checked><span class="calc-opt-title">Estándar</span><span class="calc-opt-desc">Todas las aplicaciones en Odoo Online. Sin Studio ni módulos a la medida.</span></label>
+                <label class="calc-opt"><input type="radio" name="plan" value="personalizado"><span class="calc-opt-title">Personalizado</span><span class="calc-opt-desc">Studio, API externa, multiempresa y módulos a la medida (en Odoo.sh).</span></label>
+              </div>
+              <div class="calc-opts calc-opts--sm">
+                <label class="calc-opt"><input type="radio" name="cobro" value="anual" checked><span class="calc-opt-title">Pago anual</span><span class="calc-opt-desc">Unos 20 % menos.</span></label>
+                <label class="calc-opt"><input type="radio" name="cobro" value="mensual"><span class="calc-opt-title">Pago mensual</span><span class="calc-opt-desc">Sin compromiso anual.</span></label>
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="usuarios">Usuarios</label><span><input class="calc-num" type="number" id="usuarios" name="usuarios" min="1" max="150" step="1" value="5" inputmode="numeric"> usuarios</span></div>
+                <input type="range" min="1" max="150" step="1" value="5" data-pair="usuarios" aria-hidden="true" tabindex="-1">
+              </div>
+            </fieldset>
+
+            <fieldset class="calc-group" data-only="personalizado" hidden>
+              <legend>2. Alojamiento</legend>
+              <div class="calc-opts calc-opts--sm">
+                <label class="calc-opt"><input type="radio" name="alojamiento" value="online"><span class="calc-opt-title">Odoo Online</span><span class="calc-opt-desc">Incluido. Sin módulos propios.</span></label>
+                <label class="calc-opt"><input type="radio" name="alojamiento" value="sh" checked><span class="calc-opt-title">Odoo.sh</span><span class="calc-opt-desc">Para módulos a la medida, con staging.</span></label>
+              </div>
+              <div data-only="sh">
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="workers">Workers</label><span><input class="calc-num" type="number" id="workers" name="workers" min="1" max="8" step="1" value="1" inputmode="numeric"> </span></div>
+                <input type="range" min="1" max="8" step="1" value="1" data-pair="workers" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="gb">Almacenamiento</label><span><input class="calc-num" type="number" id="gb" name="gb" min="1" max="200" step="1" value="5" inputmode="numeric"> GB</span></div>
+                <input type="range" min="1" max="200" step="1" value="5" data-pair="gb" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="staging">Entornos de prueba (staging)</label><span><input class="calc-num" type="number" id="staging" name="staging" min="0" max="5" step="1" value="1" inputmode="numeric"> </span></div>
+                <input type="range" min="0" max="5" step="1" value="1" data-pair="staging" aria-hidden="true" tabindex="-1">
+              </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="calc-group">
+              <legend>3. Implementación con AiBiTi</legend>
+              <p class="calc-help">Paquetes de horas del tamaño que necesites, desde el primero. Ajustes y personalizaciones más allá de lo estándar desde el primer alcance.</p>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="h_consultoria">Consultoría: configuración, importación de datos y capacitación ($700 / h)</label><span><input class="calc-num" type="number" id="h_consultoria" name="h_consultoria" min="0" max="300" step="5" value="25" inputmode="numeric"> h</span></div>
+                <input type="range" min="0" max="300" step="5" value="25" data-pair="h_consultoria" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="h_desarrollo">Desarrollo: módulos, addendas, reportes e integraciones ($1,000 / h)</label><span><input class="calc-num" type="number" id="h_desarrollo" name="h_desarrollo" min="0" max="300" step="5" value="10" inputmode="numeric"> h</span></div>
+                <input type="range" min="0" max="300" step="5" value="10" data-pair="h_desarrollo" aria-hidden="true" tabindex="-1">
+              </div>
+              <p class="calc-warn" data-aviso="estandar" hidden>Los desarrollos a la medida necesitan el plan Personalizado con Odoo.sh. Cámbialo arriba para ver el costo real.</p>
+            </fieldset>
+          </form>
+
+          <aside class="calc-sum" aria-label="Resumen de la estimación">
+            <h3>Suscripción de Odoo</h3>
+            <div class="sum-row"><span>Licencias (<span data-out="usuarios">5</span> usuarios)</span><strong data-out="lic">—</strong></div>
+            <div class="sum-row"><span>Descuento del primer año</span><strong data-out="desc">—</strong></div>
+            <div class="sum-row" data-row="hosting" hidden><span>Odoo.sh</span><strong data-out="hosting">—</strong></div>
+            <div class="sum-row sum-row--em"><span>Al mes, primer año</span><strong data-out="mes1">—</strong></div>
+            <div class="sum-row"><span>Al mes, desde el segundo año</span><strong data-out="mes2">—</strong></div>
+
+            <h3>Implementación AiBiTi <small>(pago por paquete)</small></h3>
+            <div class="sum-row"><span>Consultoría · <span data-out="hc">25</span> h × $700</span><strong data-out="impc">—</strong></div>
+            <div class="sum-row"><span>Desarrollo · <span data-out="hd">10</span> h × $1,000</span><strong data-out="impd">—</strong></div>
+            <div class="sum-row sum-row--em"><span>Implementación</span><strong data-out="impl">—</strong></div>
+
+            <div class="sum-total" aria-live="polite"><span>Primer año, estimado</span><strong data-out="anio1">—</strong><small>más IVA · <span data-out="anio1iva">—</span> con IVA</small></div>
+
+            <div class="calc-compare" data-compare>
+              <p data-has-pack>Referencia: con un paquete de éxito de Odoo, esas horas equivalen al paquete <strong data-out="pack">—</strong> (<strong data-out="packp">—</strong> para clientes nuevos). Con AiBiTi pagas solo tus horas: <strong data-out="nuestro">—</strong>.</p>
+              <p data-no-pack hidden>Para más de 200 horas, Odoo cotiza por días de consultoría. Con AiBiTi sigues pagando por hora: <strong data-out="nuestro2">—</strong>.</p>
+            </div>
+            <a class="btn btn--primary calc-cta" href="#contacto" data-agendar>Validar mi estimación <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </aside>
+        </div>
+
+        <div class="calc-notes reveal">
+          <p><strong>¿Por qué con nosotros?</strong> En los paquetes de éxito de Odoo, las personalizaciones entran desde el paquete de 25 horas y los desarrollos a la medida desde el de 50 horas. Con AiBiTi, los ajustes y personalizaciones mayores a los estándar van desde el primer alcance, y el desarrollo cuesta $1,000 la hora desde el primer paquete de horas, del tamaño que sea.</p>
+          <p class="calc-fine">Cifras en pesos mexicanos, sin IVA salvo donde se indica. Los precios de Odoo son su lista pública para México al 21 de octubre de 2026: los fija Odoo y pueden cambiar. Las horas son una estimación; el alcance y el costo final se acuerdan por escrito después del diagnóstico. AiBiTi es Partner de Odoo; el servicio de implementación lo presta AiBiTi, no Odoo.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================ FRANJA DE CIERRE ============================ -->
     <section class="cta-band" aria-labelledby="titulo-cta">
       <div class="container cta-band-in">
@@ -592,6 +688,7 @@
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#equipo">Equipo</a></li>
             <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#precios">Precios</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
         </div>
@@ -614,6 +711,6 @@
     <img class="guia-cara" alt="" width="56" height="56">
   </div>
 
-  <script src="assets/js/main.js?v=20261021a" defer></script>
+  <script src="assets/js/main.js?v=20261021b" defer></script>
 </body>
 </html>
