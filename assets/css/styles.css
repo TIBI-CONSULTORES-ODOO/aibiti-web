@@ -456,6 +456,9 @@ video.orbe { object-fit: contain; background: transparent; pointer-events: none;
 .site-footer { background: var(--footer-bg); border-top: 1px solid var(--line-soft); padding-block: 64px 32px; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: clamp(28px, 5vw, 72px); }
 .footer-logo { width: min(210px, 100%); height: auto; margin-bottom: 20px; }
+.footer-partner { display: flex; align-items: center; gap: 14px; margin-top: 20px; color: var(--text); font-weight: 700; }
+.footer-partner img { width: 110px; height: auto; }
+.footer-brand .footer-note { margin-top: 10px; font-size: 0.8rem; color: var(--steel-soft); }
 .footer-brand p { color: var(--muted); max-width: 26rem; font-size: 0.97rem; }
 .site-footer h3 { font-size: 0.82rem; font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); margin-bottom: 16px; }
 .site-footer li { margin-bottom: 10px; }
