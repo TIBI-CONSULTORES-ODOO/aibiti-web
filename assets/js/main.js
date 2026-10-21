@@ -364,6 +364,7 @@
         slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft - x); if (d < best) { best = d; idx = i; } });
         if (x >= max - 2) { idx = slides.length - 1; }
         [].forEach.call(dots.children, function (d, i) { d.classList.toggle('is-on', i === idx); });
+        slides.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
       }
       function ir(dir) {
         var paso = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
@@ -390,6 +391,17 @@
         down = false; track.classList.remove('is-drag');
       });
       track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+      // Inclinación 3D de la tarjeta hacia el cursor (solo ratón y con movimiento permitido)
+      if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        slides.forEach(function (s) {
+          s.addEventListener('pointermove', function (e) {
+            var r = s.getBoundingClientRect();
+            s.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 8).toFixed(2) + 'deg');
+            s.style.setProperty('--rx', ((0.5 - (e.clientY - r.top) / r.height) * 6).toFixed(2) + 'deg');
+          });
+          s.addEventListener('pointerleave', function () { s.style.setProperty('--rx', '0deg'); s.style.setProperty('--ry', '0deg'); });
+        });
+      }
       actualizar();
     });
   })();
@@ -496,14 +508,12 @@
   (function metodologia() {
     var steps = document.querySelector('[data-steps]');
     if (!steps) { return; }
-    var items = steps.querySelectorAll('.step');
-    if (!('IntersectionObserver' in window) || reduceMotion) {
-      steps.classList.add('is-visible');
-      items.forEach(function (el) { el.classList.add('is-visible'); });
-      return;
+    var items = [].slice.call(steps.querySelectorAll('.step'));
+    function todo() {
+      steps.style.setProperty('--p', 1); steps.classList.add('is-visible');
+      items.forEach(function (el) { el.classList.add('is-visible', 'is-on'); });
     }
-    steps.style.setProperty('--steps-w', steps.clientWidth + 'px');
-    window.addEventListener('resize', function () { steps.style.setProperty('--steps-w', steps.clientWidth + 'px'); });
+    if (!('IntersectionObserver' in window) || reduceMotion) { todo(); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) { return; }
@@ -513,6 +523,24 @@
     }, { threshold: 0.3, rootMargin: '0px 0px -6% 0px' });
     items.forEach(function (el, i) { el.style.transitionDelay = (i * 0.1) + 's'; io.observe(el); });
     io.observe(steps);
+    // La línea se llena al desplazarte y cada etapa se enciende cuando la línea la alcanza
+    var cerca = false, raf = 0;
+    function medir() {
+      raf = 0;
+      var r = steps.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.8 - r.top) / (r.height + vh * 0.25)));
+      steps.style.setProperty('--p', p.toFixed(3));
+      var vertical = getComputedStyle(steps).gridTemplateColumns.split(' ').length === 1;
+      items.forEach(function (el) {
+        var umbral = vertical ? (el.offsetTop + 14) / steps.offsetHeight : (el.offsetLeft + 12) / steps.offsetWidth;
+        el.classList.toggle('is-on', p >= umbral);
+      });
+    }
+    function pedir() { if (!raf) { raf = requestAnimationFrame(medir); } }
+    new IntersectionObserver(function (e) { cerca = e[0].isIntersecting; if (cerca) { pedir(); } }, { rootMargin: '200px' }).observe(steps);
+    window.addEventListener('scroll', function () { if (cerca) { pedir(); } }, { passive: true });
+    window.addEventListener('resize', pedir);
+    medir();
   })();
 
   /* ---------- Spotlight de las tarjetas del bento ---------- */
@@ -533,6 +561,18 @@
     if (!root) return;
     var tabEls = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
     var panels = tabEls.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    // Indicador que se desliza entre pestañas (decorativo)
+    var listaTabs = root.querySelector('[role="tablist"]'), pill = document.createElement('span');
+    pill.className = 'tab-pill'; pill.setAttribute('aria-hidden', 'true');
+    listaTabs.insertBefore(pill, listaTabs.firstChild); listaTabs.classList.add('has-pill');
+    function moverPill() {
+      var on = tabEls.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+      if (!on || !on.offsetHeight) { return; }
+      pill.style.setProperty('--y', on.offsetTop + 'px'); pill.style.setProperty('--h', on.offsetHeight + 'px');
+    }
+    window.addEventListener('resize', moverPill);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(moverPill); }
+    setTimeout(moverPill, 0);
 
     function select(index, focus) {
       tabEls.forEach(function (t, i) {
@@ -542,6 +582,7 @@
         panels[i].hidden = !on;
       });
       if (focus) tabEls[index].focus();
+      moverPill();
     }
     tabEls.forEach(function (t, i) {
       t.addEventListener('click', function () { select(i, false); });
