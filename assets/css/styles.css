@@ -312,6 +312,11 @@ button { font: inherit; color: inherit; }
 @media (prefers-reduced-motion: reduce) { .gf *, .gf *::before, .gf *::after { transition-duration: 0s !important; transition-delay: 0s !important; } .gf-tilt { transform: none; } }
 @media (max-width: 960px) { .gf { max-width: 260px; } }
 
+/* ============ Títulos palabra por palabra ============ */
+.js .split-ready .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.14em; margin-bottom: -0.14em; }
+.js .split-ready .wi { display: inline-block; opacity: 0; transform: translateY(105%); transition: transform 0.7s var(--ease), opacity 0.5s var(--ease); transition-delay: calc(var(--i, 0) * 55ms); }
+.js .split-ready.is-in .wi { opacity: 1; transform: none; }
+
 /* ============ El orbe de la marca (guía, sin nombre ni voz) ============ */
 .orbe { display: block; width: 100%; height: auto; user-select: none; -webkit-user-drag: none; }
 .pain-guide--video { max-width: 340px; }
@@ -409,19 +414,49 @@ video.orbe { object-fit: contain; background: transparent; pointer-events: none;
   transition: transform 0.35s var(--ease);
 }
 .node:hover { transform: translate(-50%, -50%) scale(1.04); }
+@property --pos-x { syntax: '<percentage>'; initial-value: 11.14%; inherits: false; }
+@property --pos-y { syntax: '<percentage>'; initial-value: 140%; inherits: false; }
+@property --spread-x { syntax: '<percentage>'; initial-value: 150%; inherits: false; }
+@property --spread-y { syntax: '<percentage>'; initial-value: 180.06%; inherits: false; }
+@property --color-1 { syntax: '<color>'; initial-value: #16213A; inherits: false; }
+@property --color-2 { syntax: '<color>'; initial-value: #2C3E63; inherits: false; }
+@property --color-3 { syntax: '<color>'; initial-value: #6E55D9; inherits: false; }
+@property --color-4 { syntax: '<color>'; initial-value: #8B6CF0; inherits: false; }
+@property --color-5 { syntax: '<color>'; initial-value: #A996F2; inherits: false; }
+@property --stop-1 { syntax: '<percentage>'; initial-value: 37.35%; inherits: false; }
+@property --stop-2 { syntax: '<percentage>'; initial-value: 61.36%; inherits: false; }
+@property --stop-3 { syntax: '<percentage>'; initial-value: 78.42%; inherits: false; }
+@property --stop-4 { syntax: '<percentage>'; initial-value: 89.52%; inherits: false; }
+@property --stop-5 { syntax: '<percentage>'; initial-value: 100%; inherits: false; }
+@property --border-angle { syntax: '<angle>'; initial-value: 20deg; inherits: true; }
+@property --border-color-1 { syntax: '<color>'; initial-value: rgba(255, 255, 255, 0.25); inherits: true; }
+@property --border-color-2 { syntax: '<color>'; initial-value: rgba(169, 150, 242, 0.9); inherits: true; }
 .node-letters {
-  display: grid; place-items: center;
+  position: relative; display: grid; place-items: center;
   width: clamp(76px, 12vw, 104px); aspect-ratio: 1; border-radius: 50%;
-  font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3.2vw, 2.4rem); color: #fff;
-  background: radial-gradient(circle at 35% 28%, #6A83B8, var(--navy) 55%, #17213B);
-  border: 2px solid rgba(255, 255, 255, 0.9);
+  font-family: var(--font-display); font-weight: 800; font-size: clamp(1.7rem, 3.2vw, 2.4rem); color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+  background: radial-gradient(var(--spread-x) var(--spread-y) at var(--pos-x) var(--pos-y), var(--color-1) var(--stop-1), var(--color-2) var(--stop-2), var(--color-3) var(--stop-3), var(--color-4) var(--stop-4), var(--color-5) var(--stop-5));
   box-shadow: 0 14px 28px -12px rgba(0, 0, 0, 0.6);
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s, --pos-x 0.5s, --pos-y 0.5s, --spread-x 0.5s, --spread-y 0.5s, --color-1 0.5s, --color-2 0.5s, --color-3 0.5s, --color-4 0.5s, --color-5 0.5s, --stop-1 0.5s, --stop-2 0.5s, --stop-3 0.5s, --stop-4 0.5s, --stop-5 0.5s, --border-angle 0.5s, --border-color-1 0.5s, --border-color-2 0.5s;
 }
-.node--bi .node-letters { background: radial-gradient(circle at 35% 28%, #C3D4E3, var(--steel) 55%, var(--steel-deep)); color: var(--deep); }
-.node--ti .node-letters { background: radial-gradient(circle at 35% 28%, #B5BBC6, #7E8696 55%, #4A4F5C); }
+.node-letters::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px; pointer-events: none;
+  background: linear-gradient(var(--border-angle), var(--border-color-1), var(--border-color-2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude;
+}
+.node:hover .node-letters, .node:focus-visible .node-letters, .node[aria-selected="true"] .node-letters {
+  --pos-x: 0%; --pos-y: 91.51%; --spread-x: 120.24%; --spread-y: 103.18%;
+  --color-1: #E9E4FF; --color-2: #A996F2; --color-3: #8B6CF0; --color-4: #2C3E63; --color-5: #16213A;
+  --stop-1: 0%; --stop-2: 8.8%; --stop-3: 21.44%; --stop-4: 71.34%; --stop-5: 85.76%;
+  --border-angle: 190deg; --border-color-1: rgba(233, 228, 255, 0.9); --border-color-2: rgba(255, 255, 255, 0.35);
+}
+.node--bi .node-letters { --color-3: #5A6E86; --color-4: #8FA9C2; --color-5: #C3D4E3; }
+.node--bi:hover .node-letters, .node--bi:focus-visible .node-letters, .node--bi[aria-selected="true"] .node-letters { --color-1: #F4F6F9; --color-2: #C3D4E3; --color-3: #8FA9C2; --color-4: #2C3E63; --color-5: #16213A; }
+.node--ti .node-letters { --color-1: #111A2E; --color-3: #5A6E86; --color-4: #A996F2; --color-5: #E9E4FF; }
+.node--ti:hover .node-letters, .node--ti:focus-visible .node-letters, .node--ti[aria-selected="true"] .node-letters { --color-1: #E9E4FF; --color-2: #8FA9C2; --color-3: #A996F2; --color-4: #2C3E63; --color-5: #111A2E; }
 .node-role { font-family: var(--font-display); font-size: clamp(0.78rem, 1.3vw, 0.92rem); font-weight: 600; color: var(--muted); max-width: 11rem; line-height: 1.25; transition: color 0.3s; }
-.node[aria-selected="true"] .node-letters { box-shadow: 0 0 0 6px rgba(157, 184, 206, 0.35), 0 14px 28px -12px rgba(0, 0, 0, 0.6); }
+.node[aria-selected="true"] .node-letters { box-shadow: 0 0 0 6px rgba(169, 150, 242, 0.3), 0 14px 28px -12px rgba(0, 0, 0, 0.6); }
 .node[aria-selected="true"] .node-role { color: var(--text); }
 
 /* ============ Compromisos ============ */

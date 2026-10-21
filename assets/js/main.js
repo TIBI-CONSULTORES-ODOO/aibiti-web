@@ -320,6 +320,33 @@
     });
   })();
 
+  /* TÍTULOS palabra por palabra: cada palabra sube desde una máscara, escalonada, al entrar el título en pantalla */
+  (function titulosPorPalabra() {
+    if (reduceMotion || !('IntersectionObserver' in window)) { return; }
+    var n = 0;
+    function partir(nodo) {
+      [].slice.call(nodo.childNodes).forEach(function (hijo) {
+        if (hijo.nodeType === 3) {
+          var partes = hijo.nodeValue.split(/(\s+)/), frag = document.createDocumentFragment();
+          partes.forEach(function (p) {
+            if (!p) { return; }
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+            var w = document.createElement('span'), wi = document.createElement('span');
+            w.className = 'w'; wi.className = 'wi'; wi.style.setProperty('--i', n++); wi.textContent = p;
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          nodo.replaceChild(frag, hijo);
+        } else if (hijo.nodeType === 1 && hijo.tagName !== 'BR') { partir(hijo); }
+      });
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('main h2').forEach(function (h) {
+      n = 0; partir(h); h.classList.add('split-ready'); io.observe(h);
+    });
+  })();
+
   /* CARRUSEL de servicios: desplazamiento nativo con scroll-snap (teclado y dedo), botones, puntos y arrastre con ratón */
   (function carruseles() {
     document.querySelectorAll('[data-carousel]').forEach(function (root) {
@@ -638,6 +665,17 @@
       ti: ['#B5BBC6', '#7E8696', '#4A4F5C']
     };
 
+    // Paleta de cada nodo, del reposo al "hover" (patrón gradient-button de 21st.dev con la paleta oficial)
+    var NODEPAL = {
+      ai: { rest: ['#16213A', '#2C3E63', '#6E55D9', '#8B6CF0', '#A996F2'], hover: ['#E9E4FF', '#A996F2', '#8B6CF0', '#2C3E63', '#16213A'] },
+      bi: { rest: ['#16213A', '#2C3E63', '#5A6E86', '#8FA9C2', '#C3D4E3'], hover: ['#F4F6F9', '#C3D4E3', '#8FA9C2', '#2C3E63', '#16213A'] },
+      ti: { rest: ['#111A2E', '#2C3E63', '#5A6E86', '#A996F2', '#E9E4FF'], hover: ['#E9E4FF', '#8FA9C2', '#A996F2', '#2C3E63', '#111A2E'] }
+    };
+    var STOP_REST = [37.35, 61.36, 78.42, 89.52, 100], STOP_HOVER = [0, 8.8, 21.44, 71.34, 85.76];
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function rgb(hex) { var n = parseInt(hex.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+    function mix(a, b, t) { var x = rgb(a), y = rgb(b); return 'rgb(' + Math.round(lerp(x[0], y[0], t)) + ',' + Math.round(lerp(x[1], y[1], t)) + ',' + Math.round(lerp(x[2], y[2], t)) + ')'; }
+
     var MAIN = [
       { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.36, y: 0.28 },
       { id: 'bi', label: 'Bi', role: 'Inteligencia de negocios', x: 0.78, y: 0.42 },
@@ -815,20 +853,37 @@
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(m.x, m.y, R + 12 + Math.sin(now * 0.0012 + m.ph) * 3, 0, 6.2832); ctx.stroke();
 
-        var rg = ctx.createRadialGradient(m.x - R * 0.3, m.y - R * 0.35, R * 0.1, m.x, m.y, R);
-        rg.addColorStop(0, f[0]); rg.addColorStop(0.55, f[1]); rg.addColorStop(1, f[2]);
+        // Degradado radial animado: del reposo al hover según el brillo del nodo (m.glow)
+        var th = Math.max(0, Math.min(1, m.glow * 1.1)), pal = NODEPAL[m.id], cols = [], sts = [];
+        for (var k = 0; k < 5; k++) { cols.push(mix(pal.rest[k], pal.hover[k], th)); sts.push(lerp(STOP_REST[k], STOP_HOVER[k], th) / 100); }
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 7;
-        ctx.fillStyle = rg;
+        ctx.fillStyle = cols[1];
         ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.fill();
         ctx.restore();
-        ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.5;
-        ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.stroke();
+        ctx.save();
+        ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.clip();
+        ctx.translate(m.x - R + 2 * R * lerp(0.1114, 0, th), m.y - R + 2 * R * lerp(1.4, 0.9151, th));
+        ctx.scale(2 * R * lerp(1.5, 1.2024, th), 2 * R * lerp(1.8006, 1.0318, th));
+        var rg = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+        for (k = 0; k < 5; k++) { rg.addColorStop(Math.max(0, Math.min(1, sts[k])), cols[k]); }
+        ctx.fillStyle = rg; ctx.fillRect(-12, -12, 24, 24);
+        ctx.restore();
+        // Borde con degradado lineal que gira (20° a 190°)
+        var ang = lerp(20, 190, th) * Math.PI / 180, dx = Math.sin(ang), dy = -Math.cos(ang);
+        var bg = ctx.createLinearGradient(m.x - dx * R, m.y - dy * R, m.x + dx * R, m.y + dy * R);
+        bg.addColorStop(0, 'rgba(255,255,255,' + lerp(0.35, 0.95, th).toFixed(2) + ')');
+        bg.addColorStop(1, 'rgba(169,150,242,' + lerp(0.95, 0.4, th).toFixed(2) + ')');
+        ctx.strokeStyle = bg; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(m.x, m.y, R - 1.2, 0, 6.2832); ctx.stroke();
 
-        ctx.fillStyle = m.id === 'bi' ? C.ink : '#FFFFFF';
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 8;
+        ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.font = '700 ' + Math.round(R * 0.74) + 'px ' + C.display;
+        ctx.font = '800 ' + Math.round(R * 0.74) + 'px ' + C.display;
         ctx.fillText(m.label, m.x, m.y + 1);
+        ctx.restore();
         ctx.fillStyle = C.muted;
         ctx.font = '600 ' + Math.max(12, Math.round(R * 0.32)) + 'px ' + C.display;
         ctx.fillText(m.role, m.x, m.y + R + 26);
