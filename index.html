@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261020e">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261020f">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -396,23 +396,26 @@
 
     <!-- ============================ CONTACTO ============================ -->
     <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
-      <div class="container">
-        <div class="contact-intro reveal">
-          <img class="orbe orbe--contacto" data-orbe-contacto src="assets/img/orbe/dejamever.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
-          <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
-          <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin costo y sin compromiso.</p>
+      <div class="container lp-grid">
+        <div class="lp-copy reveal">
+          <img class="orbe orbe--lp" data-orbe-contacto src="assets/img/orbe/dejamever.png" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+          <h2 id="titulo-contacto" class="lp-title">Empecemos por un <span class="kw">diagnóstico</span></h2>
+          <p class="lead">En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin costo y sin compromiso.</p>
+          <ul class="ticks">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Te decimos qué conviene hacer primero y qué no vale la pena</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Si después quieres avanzar, preparamos una propuesta técnica con alcance, tiempos y costo</li>
+          </ul>
         </div>
 
-        <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, la columna del calendario queda oculta y el formulario ocupa todo el ancho. -->
-        <div class="contact-cols contact-cols--solo" data-contact-cols>
-          <div class="contact-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
+        <div class="lp-form">
+          <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, el calendario queda oculto y solo se ve el formulario. -->
+          <div class="contact-cal lp-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
             <h3 id="titulo-agendar">Elige tu horario · 30 min</h3>
             <div class="cal-embed" id="cal-embed"><p class="cal-loading">Cargando calendario…</p></div>
           </div>
-
-          <div class="contact-write">
-            <h3>¿Prefieres que te escribamos?</h3>
-            <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
+          <h3 data-form-titulo>Cuéntanos qué necesitas</h3>
+          <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
               <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
                    valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
               <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
@@ -480,17 +483,8 @@
               </div>
               <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
             </form>
-          </div>
-        </div>
-
-        <div class="contact-direct reveal">
-          <ul class="contact-list">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
-          </ul>
           <!-- TODO: el número de WhatsApp se configura en assets/js/main.js (CONFIG.whatsapp) -->
-          <a class="btn btn--ghost" id="btn-whatsapp" href="mailto:contacto@aibiti.com.mx" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
-          </a>
+          <p class="lp-alt">¿Prefieres escribirnos? <a id="btn-whatsapp" href="mailto:contacto@aibiti.com.mx" rel="noopener">WhatsApp</a> o <a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></p>
         </div>
       </div>
     </section>
@@ -526,6 +520,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261020e" defer></script>
+  <script src="assets/js/main.js?v=20261020f" defer></script>
 </body>
 </html>
