@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261021c">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261022a">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -309,8 +309,11 @@
       </div>
     </section>
 
+    <!-- Pila de tarjetas: cada sección se queda fija y la siguiente la cubre al desplazarte -->
+    <div class="stack" data-stack>
+
     <!-- ============================ EQUIPO ============================ -->
-    <section id="equipo" data-guia-cara="guino" data-guia-holo="empleados" class="section" aria-labelledby="titulo-equipo">
+    <section id="equipo" data-guia-cara="guino" data-guia-holo="empleados" class="stack-card section" aria-labelledby="titulo-equipo">
       <div class="container team">
         <div class="team-copy reveal">
           <h2 id="titulo-equipo">Tres nodos, un solo cerebro</h2>
@@ -349,7 +352,7 @@
     </section>
 
     <!-- ============================ COMPROMISOS ============================ -->
-    <section id="por-que-nosotros" data-guia-cara="feliz" data-guia-holo="palomita" class="section section--light" aria-labelledby="titulo-porque">
+    <section id="por-que-nosotros" data-guia-cara="feliz" data-guia-holo="palomita" class="stack-card section section--light" aria-labelledby="titulo-porque">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-porque">Cuatro compromisos que no negociamos</h2>
@@ -365,7 +368,7 @@
     </section>
 
     <!-- ============================ METODOLOGÍA ============================ -->
-    <section id="metodologia" data-guia-cara="neutral" data-guia-holo="calendario" class="section" aria-labelledby="titulo-metodo">
+    <section id="metodologia" data-guia-cara="neutral" data-guia-holo="calendario" class="stack-card section" aria-labelledby="titulo-metodo">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-metodo">Cuatro etapas, cada una con un entregable</h2>
@@ -382,7 +385,7 @@
     </section>
 
     <!-- ============================ CEREBRO DE EMPRESA ============================ -->
-    <section id="cerebro" class="section section--tinted" aria-labelledby="titulo-cerebro">
+    <section id="cerebro" class="stack-card section section--tinted" aria-labelledby="titulo-cerebro">
       <div class="container pain">
         <div class="pain-guide pain-guide--video reveal">
           <img class="orbe" src="assets/img/orbe/yaquedo-l.webp" width="384" height="384" alt="" aria-hidden="true" loading="lazy">
@@ -443,7 +446,7 @@
     </section>
 
     <!-- ============================ DESPUÉS DEL ARRANQUE ============================ -->
-    <section id="seguimiento" data-guia-cara="pensando" data-guia-holo="campana" class="section" aria-labelledby="titulo-seguimiento">
+    <section id="seguimiento" data-guia-cara="pensando" data-guia-holo="campana" class="stack-card section" aria-labelledby="titulo-seguimiento">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-seguimiento">Después del arranque, <span class="kw">seguimos contigo</span></h2>
@@ -466,6 +469,8 @@
         <p class="pain-cta reveal">¿Cuál te conviene? Lo vemos en el diagnóstico de 30 minutos. <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
       </div>
     </section>
+
+    </div>
 
     <!-- ============================ COTIZADOR ============================ -->
     <!-- Precios de lista de Odoo para México (sin IVA) consultados el 21-oct-2026 en odoo.com/es/pricing-configurator y /pricing-packs.
@@ -711,6 +716,6 @@
     <img class="guia-cara" alt="" width="56" height="56">
   </div>
 
-  <script src="assets/js/main.js?v=20261021c" defer></script>
+  <script src="assets/js/main.js?v=20261022a" defer></script>
 </body>
 </html>

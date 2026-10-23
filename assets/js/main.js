@@ -399,6 +399,37 @@
     });
   })();
 
+  /* PILA de secciones: cada tarjeta se fija arriba (o por su borde de abajo si es más alta que la pantalla),
+     y se encoge y oscurece un poco mientras la siguiente la cubre */
+  (function pila() {
+    var cards = [].slice.call(document.querySelectorAll('[data-stack] > .stack-card'));
+    if (cards.length < 2) { return; }
+    var raf = 0, alto = [];
+    function header() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72; }
+    function medir() {
+      var vh = window.innerHeight, hh = header();
+      cards.forEach(function (c, i) { alto[i] = Math.min(hh, vh - c.offsetHeight); c.style.setProperty('--stick', alto[i] + 'px'); });
+      pintar();
+    }
+    function pintar() {
+      raf = 0;
+      if (reduceMotion) { return; }
+      var vh = window.innerHeight;
+      cards.forEach(function (c, i) {
+        var n = cards[i + 1];
+        if (!n) { c.style.setProperty('--p', 0); return; }
+        var t = n.getBoundingClientRect().top, p = (vh - t) / Math.max(1, vh - alto[i + 1]);
+        c.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
+      });
+    }
+    window.addEventListener('scroll', function () { if (!raf) { raf = requestAnimationFrame(pintar); } }, { passive: true });
+    window.addEventListener('resize', medir);
+    window.addEventListener('load', medir);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(medir); }
+    if ('ResizeObserver' in window) { var ro = new ResizeObserver(function () { medir(); }); cards.forEach(function (c) { ro.observe(c); }); }
+    medir();
+  })();
+
   /* CARRUSEL de servicios: desplazamiento nativo con scroll-snap (teclado y dedo), botones, puntos y arrastre con ratón */
   (function carruseles() {
     document.querySelectorAll('[data-carousel]').forEach(function (root) {
@@ -477,11 +508,13 @@
     var wide = window.matchMedia('(min-width: 1100px)');
     if (!guia || !('IntersectionObserver' in window)) { return; }
     var cara = guia.querySelector('.guia-cara'), holo = guia.querySelector('.guia-holo');
-    var secciones = [].slice.call(document.querySelectorAll('main > section'));
+    var secciones = [].slice.call(document.querySelectorAll('main > section, main > .stack > section'));
     var ratios = new Map(), actual = '';
     function evaluar() {
       var mejor = null, r = 0;
       secciones.forEach(function (s) { var v = ratios.get(s) || 0; if (v > r) { r = v; mejor = s; } });
+      // En la pila, la tarjeta de encima es la última con buena parte a la vista
+      secciones.forEach(function (s) { if ((ratios.get(s) || 0) >= 0.35) { mejor = s; } });
       var c = mejor && wide.matches ? mejor.getAttribute('data-guia-cara') : null;
       if (!c) { guia.classList.remove('is-on'); actual = ''; return; }
       var h = mejor.getAttribute('data-guia-holo');
