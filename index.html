@@ -29,7 +29,7 @@
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261022a">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261022b">
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
@@ -169,8 +169,11 @@
       </div>
     </section>
 
+    <!-- Pila de tarjetas: cada sección se queda fija y la siguiente la cubre al desplazarte -->
+    <div class="stack" data-stack>
+
     <!-- ============================ SERVICIOS ============================ -->
-    <section id="servicios" data-guia-cara="pensando" data-guia-holo="contabilidad" class="section" aria-labelledby="titulo-servicios">
+    <section id="servicios" data-guia-cara="pensando" data-guia-holo="contabilidad" class="stack-card section" aria-labelledby="titulo-servicios">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-servicios">Cinco frentes sobre un mismo modelo de datos</h2>
@@ -226,7 +229,7 @@
     </section>
 
     <!-- ============================ DESARROLLO ODOO ============================ -->
-    <section id="desarrollo" data-guia-cara="neutral" data-guia-holo="fabricacion" class="section section--tinted" aria-labelledby="titulo-desarrollo">
+    <section id="desarrollo" data-guia-cara="neutral" data-guia-holo="fabricacion" class="stack-card section section--tinted" aria-labelledby="titulo-desarrollo">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-desarrollo">Lo que Odoo no trae de fábrica, lo construimos</h2>
@@ -308,9 +311,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Pila de tarjetas: cada sección se queda fija y la siguiente la cubre al desplazarte -->
-    <div class="stack" data-stack>
 
     <!-- ============================ EQUIPO ============================ -->
     <section id="equipo" data-guia-cara="guino" data-guia-holo="empleados" class="stack-card section" aria-labelledby="titulo-equipo">
@@ -716,6 +716,6 @@
     <img class="guia-cara" alt="" width="56" height="56">
   </div>
 
-  <script src="assets/js/main.js?v=20261022a" defer></script>
+  <script src="assets/js/main.js?v=20261022b" defer></script>
 </body>
 </html>
