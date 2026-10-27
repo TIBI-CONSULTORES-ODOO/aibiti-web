@@ -16,7 +16,14 @@
     web3formsKey: 'cb075f15-5f40-48ce-afd1-38ef0a3283c8',
     whatsapp: '525641340392',
     calLink: 'PENDIENTE/diagnostico-30min', // enlace de Cal.com (usuario/evento); mientras diga PENDIENTE o esté vacío no se muestra el calendario
-    whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.'
+    whatsappMensaje: 'Hola, vi su sitio aibiti.com.mx y me gustaría agendar un diagnóstico.',
+    // Perfiles oficiales: se agregan aquí cuando existan las cuentas (URL completa). Vacío = no se muestra nada.
+    redes: {
+      Instagram: 'https://www.instagram.com/aibiti.consulting',
+      LinkedIn: 'https://www.linkedin.com/company/aibiti-consulting',
+      Facebook: 'https://www.facebook.com/aibiticonsulting',
+      TikTok: 'https://www.tiktok.com/@aibiti.consulting'
+    }
   };
   var esPendiente = function (valor) { return String(valor).indexOf('TODO') === 0; };
 
@@ -74,6 +81,20 @@
     botonWa.target = '_blank';
   }
 
+  /* 4a. REDES SOCIALES: el pie muestra solo las que tengan URL en CONFIG.redes ------- */
+  var listaRedes = document.querySelector('[data-redes]');
+  if (listaRedes) {
+    Object.keys(CONFIG.redes).forEach(function (nombre) {
+      var url = CONFIG.redes[nombre];
+      if (!/^https:\/\//.test(url)) { return; }
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = url; a.textContent = nombre; a.target = '_blank'; a.rel = 'noopener me';
+      li.appendChild(a); listaRedes.appendChild(li);
+    });
+    listaRedes.hidden = !listaRedes.children.length;
+  }
+
   /* 4b. CALENDARIO (Cal.com) ----------------------------------------------
      Solo se activa si CONFIG.calLink es un enlace real ("usuario/evento"). El script de
      Cal.com se carga cuando #contacto se acerca al viewport. Si falla, o no hay enlace,
@@ -87,6 +108,8 @@
     if (calCols) { calCols.classList.toggle('contact-cols--solo', !activo); }
     // Los botones "Agendar diagnóstico" bajan al calendario solo si existe; si no, al formulario.
     calEnlaces.forEach(function (a) { a.setAttribute('href', activo ? '#agendar' : '#contacto'); });
+    var tituloForm = document.querySelector('[data-form-titulo]');
+    if (tituloForm) { tituloForm.textContent = activo ? '¿Prefieres que te escribamos?' : 'Cuéntanos qué necesitas'; }
   };
   if (calCol && CONFIG.calLink && !/PENDIENTE|TODO/.test(CONFIG.calLink)) {
     mostrarCal(true);
@@ -149,9 +172,39 @@
      Envía a Web3Forms. Si falla o aún no hay clave, ofrece el correo como respaldo. */
   var form = document.getElementById('form-contacto');
   if (!form) { return; }
+  // Origen de la campaña (UTM): se toma del enlace, se recuerda en la pestaña y viaja como campo oculto.
+  // Solo se guarda de dónde llegó la visita, nunca datos personales. Sin valor, el campo se desactiva y no se envía.
+  (function utm() {
+    var llaves = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var vistos = {};
+    try { vistos = JSON.parse(sessionStorage.getItem('aibiti-utm') || '{}') || {}; } catch (e) { vistos = {}; }
+    var query = new URLSearchParams(window.location.search);
+    var nuevo = false;
+    llaves.forEach(function (k) {
+      var v = (query.get(k) || '').trim().slice(0, 100);
+      if (v) { vistos[k] = v; nuevo = true; }
+    });
+    if (nuevo) { try { sessionStorage.setItem('aibiti-utm', JSON.stringify(vistos)); } catch (e) { /* sin almacenamiento: se usa solo esta visita */ } }
+    form.querySelectorAll('input[data-utm]').forEach(function (campo) {
+      var v = vistos[campo.name];
+      if (v) { campo.value = v; } else { campo.disabled = true; }
+    });
+  })();
   form.noValidate = true; // con JS se usa la validación propia; sin JS queda la nativa del navegador
   var estado = document.getElementById('estado-form');
   var botonEnviar = document.getElementById('btn-enviar');
+  // Orbe de la marca: cambia de cara con el envío (no habla; el texto de estado sigue siendo el que se anuncia)
+  var orbe = document.querySelector('[data-orbe-contacto]');
+  var cara = function (nombre) {
+    if (!orbe) { return; }
+    var src = 'assets/img/orbe/' + nombre + '.webp';
+    if (orbe.getAttribute('src') === src) { return; }
+    orbe.setAttribute('src', src);
+    orbe.classList.remove('is-swap'); void orbe.offsetWidth; orbe.classList.add('is-swap');
+  };
+  form.addEventListener('focusin', function () {
+    ['cargando', 'yaquedo', 'confundido'].forEach(function (n) { var i = new Image(); i.src = 'assets/img/orbe/' + n + '.webp'; });
+  }, { once: true });
   var campos = form.querySelectorAll('input[required], select[required], textarea[required]');
 
   var mostrarEstado = function (tipo, html) {
@@ -217,6 +270,7 @@
 
     botonEnviar.disabled = true;
     mostrarEstado('', 'Enviando…');
+    cara('cargando');
     var datos = new FormData(form);
     datos.set('access_key', CONFIG.web3formsKey); // CONFIG manda sobre el input oculto
 
@@ -225,12 +279,14 @@
       .then(function (res) {
         if (res.ok) {
           form.reset();
+          cara('yaquedo');
           mostrarEstado('ok', '¡Gracias! Recibimos tu solicitud y te responderemos pronto.');
         } else {
+          cara('confundido');
           mostrarEstado('error', respaldo);
         }
       })
-      .catch(function () { mostrarEstado('error', respaldo); })
+      .catch(function () { cara('confundido'); mostrarEstado('error', respaldo); })
       .then(function () { botonEnviar.disabled = false; });
   });
 })();
@@ -244,18 +300,279 @@
   'use strict';
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ORBE en "¿Te suena?": cambia de cara según el problema (pasar el cursor o tocar) */
+  (function orbeProblemas() {
+    var guia = document.querySelector('[data-orbe-guia]');
+    var items = document.querySelectorAll('.pain-item[data-cara]');
+    if (!guia || !items.length) { return; }
+    var actual = 'nocuadra';
+    function poner(nombre) {
+      if (nombre === actual) { return; }
+      actual = nombre;
+      guia.setAttribute('src', 'assets/img/orbe/' + nombre + '.webp');
+      guia.classList.remove('is-swap'); void guia.offsetWidth; guia.classList.add('is-swap');
+    }
+    items.forEach(function (el) {
+      var n = el.getAttribute('data-cara');
+      var pre = new Image(); pre.src = 'assets/img/orbe/' + n + '.webp';
+      el.addEventListener('pointerenter', function () { poner(n); });
+      el.addEventListener('click', function () { poner(n); });
+    });
+  })();
+
+  /* COTIZADOR: suscripción de Odoo (precios de lista para México, sin IVA) + implementación AiBiTi por hora */
+  (function cotizador() {
+    var root = document.querySelector('[data-calc]');
+    if (!root) { return; }
+    // Fuente: odoo.com/es/pricing-configurator y /pricing-packs, consultados el 21-oct-2026. Actualizar aquí si Odoo cambia su lista.
+    var ODOO = {
+      estandar: { anual: 228, mensual: 285, desc: { anual: 48, mensual: 60 } },
+      personalizado: { anual: 410, mensual: 510, desc: { anual: 80, mensual: 100 } },
+      sh: { worker: { anual: 1152, mensual: 1440 }, gb: { anual: 4, mensual: 5 }, staging: { anual: 288, mensual: 360 } },
+      // Paquetes de éxito (precio para clientes nuevos). Los desarrollos entran desde el de 50 h.
+      packs: [{ n: 'Inicial', h: 4, p: 3680, dev: false }, { n: 'Básico', h: 25, p: 19550, dev: false }, { n: 'Estándar', h: 50, p: 38080, dev: true },
+        { n: 'Personalizado', h: 100, p: 68000, dev: true }, { n: 'Profesional', h: 200, p: 136000, dev: true }]
+    };
+    var TARIFA = { consultoria: 700, desarrollo: 1000 }, IVA = 0.16;
+    var mxn = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+    function valor(n) { var el = root.querySelector('[name="' + n + '"]:checked') || root.querySelector('[name="' + n + '"]'); return el ? el.value : ''; }
+    function entero(n) { return Math.max(0, parseInt(valor(n), 10) || 0); }
+    function poner(k, v) { root.querySelectorAll('[data-out="' + k + '"]').forEach(function (e) { e.textContent = v; }); }
+    root.querySelectorAll('[data-pair]').forEach(function (r) {
+      var n = root.querySelector('#' + r.getAttribute('data-pair'));
+      r.addEventListener('input', function () { n.value = r.value; calcular(); });
+      n.addEventListener('input', function () { r.value = Math.min(+r.max, Math.max(+r.min, parseInt(n.value, 10) || 0)); calcular(); });
+      n.addEventListener('change', function () { n.value = r.value; calcular(); });
+    });
+    root.addEventListener('change', calcular);
+    function calcular() {
+      var plan = valor('plan'), cobro = valor('cobro'), u = Math.max(1, entero('usuarios'));
+      var sh = plan === 'personalizado' && valor('alojamiento') === 'sh';
+      root.querySelector('[data-only="personalizado"]').hidden = plan !== 'personalizado';
+      root.querySelector('[data-only="sh"]').hidden = !sh;
+      root.querySelector('[data-row="hosting"]').hidden = !sh;
+      var P = ODOO[plan], lic = P[cobro] * u, desc = P.desc[cobro] * u;
+      var host = sh ? Math.max(1, entero('workers')) * ODOO.sh.worker[cobro] + Math.max(1, entero('gb')) * ODOO.sh.gb[cobro] + entero('staging') * ODOO.sh.staging[cobro] : 0;
+      var hc = entero('h_consultoria'), hd = entero('h_desarrollo'), impl = hc * TARIFA.consultoria + hd * TARIFA.desarrollo;
+      var anio1 = (lic - desc + host) * 12 + impl;
+      poner('usuarios', u); poner('lic', mxn.format(lic)); poner('desc', '−' + mxn.format(desc)); poner('hosting', mxn.format(host));
+      poner('mes1', mxn.format(lic - desc + host)); poner('mes2', mxn.format(lic + host));
+      poner('hc', hc); poner('hd', hd); poner('impc', mxn.format(hc * TARIFA.consultoria)); poner('impd', mxn.format(hd * TARIFA.desarrollo));
+      poner('impl', mxn.format(impl)); poner('anio1', mxn.format(anio1)); poner('anio1iva', mxn.format(anio1 * (1 + IVA)));
+      root.querySelector('[data-aviso="estandar"]').hidden = !(hd > 0 && !sh);
+      var horas = hc + hd, pack = null;
+      ODOO.packs.forEach(function (p) { if (!pack && p.h >= horas && (!hd || p.dev)) { pack = p; } });
+      var cmp = root.querySelector('[data-compare]');
+      cmp.hidden = horas === 0;
+      cmp.querySelector('[data-has-pack]').hidden = !pack;
+      cmp.querySelector('[data-no-pack]').hidden = !!pack;
+      if (pack) { poner('pack', pack.n + ' de ' + pack.h + ' h'); poner('packp', mxn.format(pack.p)); }
+      poner('nuestro', mxn.format(impl)); poner('nuestro2', mxn.format(impl));
+    }
+    calcular();
+  })();
+
+  /* TÍTULOS palabra por palabra: cada palabra sube desde una máscara, escalonada, al entrar el título en pantalla */
+  (function titulosPorPalabra() {
+    if (reduceMotion || !('IntersectionObserver' in window)) { return; }
+    var n = 0;
+    function partir(nodo) {
+      [].slice.call(nodo.childNodes).forEach(function (hijo) {
+        if (hijo.nodeType === 3) {
+          var partes = hijo.nodeValue.split(/(\s+)/), frag = document.createDocumentFragment();
+          partes.forEach(function (p) {
+            if (!p) { return; }
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+            var w = document.createElement('span'), wi = document.createElement('span');
+            w.className = 'w'; wi.className = 'wi'; wi.style.setProperty('--i', n++); wi.textContent = p;
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          nodo.replaceChild(frag, hijo);
+        } else if (hijo.nodeType === 1 && hijo.tagName !== 'BR') { partir(hijo); }
+      });
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    document.querySelectorAll('main h2').forEach(function (h) {
+      n = 0; partir(h); h.classList.add('split-ready'); io.observe(h);
+    });
+  })();
+
+  /* PILA de secciones: cada tarjeta se fija arriba (o por su borde de abajo si es más alta que la pantalla),
+     y se encoge y oscurece un poco mientras la siguiente la cubre */
+  (function pila() {
+    var cards = [].slice.call(document.querySelectorAll('[data-stack] > .stack-card'));
+    if (cards.length < 2) { return; }
+    var raf = 0, alto = [];
+    function header() { return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 72; }
+    function medir() {
+      var vh = window.innerHeight, hh = header();
+      cards.forEach(function (c, i) { alto[i] = Math.min(hh, vh - c.offsetHeight); c.style.setProperty('--stick', alto[i] + 'px'); });
+      pintar();
+    }
+    function pintar() {
+      raf = 0;
+      if (reduceMotion) { return; }
+      var vh = window.innerHeight;
+      cards.forEach(function (c, i) {
+        var n = cards[i + 1];
+        if (!n) { c.style.setProperty('--p', 0); return; }
+        var t = n.getBoundingClientRect().top, p = (vh - t) / Math.max(1, vh - alto[i + 1]);
+        c.style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(3));
+      });
+    }
+    window.addEventListener('scroll', function () { if (!raf) { raf = requestAnimationFrame(pintar); } }, { passive: true });
+    window.addEventListener('resize', medir);
+    window.addEventListener('load', medir);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(medir); }
+    if ('ResizeObserver' in window) { var ro = new ResizeObserver(function () { medir(); }); cards.forEach(function (c) { ro.observe(c); }); }
+    medir();
+  })();
+
+  /* CARRUSEL de servicios: desplazamiento nativo con scroll-snap (teclado y dedo), botones, puntos y arrastre con ratón */
+  (function carruseles() {
+    document.querySelectorAll('[data-carousel]').forEach(function (root) {
+      var track = root.querySelector('.carousel-track');
+      var prev = root.querySelector('[data-prev]'), next = root.querySelector('[data-next]');
+      var dots = root.querySelector('.carousel-dots');
+      if (!track || !prev || !next) { return; }
+      var slides = [].slice.call(track.children);
+      slides.forEach(function () { dots.appendChild(document.createElement('span')); });
+      var tick = 0;
+      function actualizar() {
+        tick = 0;
+        var max = track.scrollWidth - track.clientWidth, x = track.scrollLeft, idx = 0, best = 1e9;
+        prev.disabled = x <= 2; next.disabled = x >= max - 2;
+        slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft - x); if (d < best) { best = d; idx = i; } });
+        if (x >= max - 2) { idx = slides.length - 1; }
+        [].forEach.call(dots.children, function (d, i) { d.classList.toggle('is-on', i === idx); });
+        slides.forEach(function (s, i) { s.classList.toggle('is-active', i === idx); });
+      }
+      function ir(dir) {
+        var paso = slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+        track.scrollBy({ left: dir * paso, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      prev.addEventListener('click', function () { ir(-1); });
+      next.addEventListener('click', function () { ir(1); });
+      track.addEventListener('scroll', function () { if (!tick) { tick = requestAnimationFrame(actualizar); } }, { passive: true });
+      window.addEventListener('resize', actualizar);
+      // Arrastre con ratón (el táctil ya se desplaza solo)
+      var down = false, moved = false, sx = 0, sl = 0;
+      track.addEventListener('pointerdown', function (e) {
+        if (e.pointerType !== 'mouse' || e.button !== 0) { return; }
+        down = true; moved = false; sx = e.clientX; sl = track.scrollLeft;
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!down) { return; }
+        var dx = e.clientX - sx;
+        if (!moved && Math.abs(dx) > 5) { moved = true; track.classList.add('is-drag'); }
+        if (moved) { track.scrollLeft = sl - dx; }
+      });
+      window.addEventListener('pointerup', function () {
+        if (!down) { return; }
+        down = false; track.classList.remove('is-drag');
+      });
+      track.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+      // Inclinación 3D de la tarjeta hacia el cursor (solo ratón y con movimiento permitido)
+      if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        slides.forEach(function (s) {
+          s.addEventListener('pointermove', function (e) {
+            var r = s.getBoundingClientRect();
+            s.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 8).toFixed(2) + 'deg');
+            s.style.setProperty('--rx', ((0.5 - (e.clientY - r.top) / r.height) * 6).toFixed(2) + 'deg');
+          });
+          s.addEventListener('pointerleave', function () { s.style.setProperty('--rx', '0deg'); s.style.setProperty('--ry', '0deg'); });
+        });
+      }
+      actualizar();
+    });
+  })();
+
+  /* PORTADA: los hologramas se desplazan con la posición del cursor (solo ratón y con movimiento permitido) */
+  (function portadaHologramas() {
+    var hero = document.querySelector('.hero');
+    if (!hero || reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) { return; }
+    var raf = 0, x = 0, y = 0;
+    hero.addEventListener('pointermove', function (e) {
+      var r = hero.getBoundingClientRect();
+      x = ((e.clientX - r.left) / r.width - 0.5) * 2; y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      if (!raf) { raf = requestAnimationFrame(function () { raf = 0; hero.style.setProperty('--px', x.toFixed(3)); hero.style.setProperty('--py', y.toFixed(3)); }); }
+    });
+    hero.addEventListener('pointerleave', function () { hero.style.setProperty('--px', 0); hero.style.setProperty('--py', 0); });
+  })();
+
+  /* ORBE GUÍA: una carita y un holograma pequeños acompañan la lectura según la sección visible (solo ≥1100 px) */
+  (function orbeGuia() {
+    var guia = document.querySelector('[data-guia]');
+    var wide = window.matchMedia('(min-width: 1100px)');
+    if (!guia || !('IntersectionObserver' in window)) { return; }
+    var cara = guia.querySelector('.guia-cara'), holo = guia.querySelector('.guia-holo');
+    var secciones = [].slice.call(document.querySelectorAll('main > section, main > .stack > section'));
+    var ratios = new Map(), actual = '';
+    function evaluar() {
+      var mejor = null, r = 0;
+      secciones.forEach(function (s) { var v = ratios.get(s) || 0; if (v > r) { r = v; mejor = s; } });
+      // En la pila, la tarjeta de encima es la última con buena parte a la vista
+      secciones.forEach(function (s) { if ((ratios.get(s) || 0) >= 0.35) { mejor = s; } });
+      var c = mejor && wide.matches ? mejor.getAttribute('data-guia-cara') : null;
+      if (!c) { guia.classList.remove('is-on'); actual = ''; return; }
+      var h = mejor.getAttribute('data-guia-holo');
+      if (actual !== c + h) {
+        actual = c + h;
+        cara.src = 'assets/img/orbe/' + c + '.webp'; holo.src = 'assets/img/orbe/holo-' + h + '.webp';
+      }
+      guia.classList.add('is-on');
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { ratios.set(e.target, e.isIntersecting ? e.intersectionRatio : 0); });
+      evaluar();
+    }, { threshold: [0, 0.15, 0.3, 0.5, 0.7, 1] });
+    secciones.forEach(function (s) { io.observe(s); });
+    wide.addEventListener('change', evaluar);
+  })();
+
+  /* CARPETA DE CRISTAL del cerebro: se inclina con el cursor, se abre con clic, Enter o Espacio y se cierra con Escape o al tocar fuera */
+  (function carpeta() {
+    document.querySelectorAll('[data-folder]').forEach(function (root) {
+      var hit = root.querySelector('.gf-hit'), files = root.querySelector('.gf-files');
+      if (!hit || !files) { return; }
+      function abrir(si) {
+        root.toggleAttribute('data-open', si);
+        hit.setAttribute('aria-expanded', String(si));
+        hit.setAttribute('aria-label', (si ? 'Cerrar' : 'Abrir') + ' la carpeta del cerebro: juntas, decisiones y procesos');
+        files.toggleAttribute('inert', !si);
+      }
+      files.toggleAttribute('inert', true);
+      hit.addEventListener('click', function () { abrir(!root.hasAttribute('data-open')); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.hasAttribute('data-open')) { abrir(false); hit.focus(); } });
+      document.addEventListener('pointerdown', function (e) { if (root.hasAttribute('data-open') && !root.contains(e.target)) { abrir(false); } });
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(function () { root.style.setProperty('--k', (root.clientWidth / 340).toFixed(4)); }).observe(root);
+      }
+      if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        var raf = 0, px = 0, py = 0;
+        function escribir() { raf = 0; root.style.setProperty('--gf-px', px.toFixed(3)); root.style.setProperty('--gf-py', py.toFixed(3)); }
+        root.addEventListener('pointermove', function (e) {
+          var r = root.getBoundingClientRect();
+          px = ((e.clientX - r.left) / r.width) * 2 - 1; py = ((e.clientY - r.top) / r.height) * 2 - 1;
+          if (!raf) { raf = requestAnimationFrame(escribir); }
+        });
+        root.addEventListener('pointerleave', function () { px = 0; py = 0; if (!raf) { raf = requestAnimationFrame(escribir); } });
+      }
+    });
+  })();
+
   /* 8. METODOLOGÍA: cada etapa se enciende al entrar en pantalla ------------ */
   (function metodologia() {
     var steps = document.querySelector('[data-steps]');
     if (!steps) { return; }
-    var items = steps.querySelectorAll('.step');
-    if (!('IntersectionObserver' in window) || reduceMotion) {
-      steps.classList.add('is-visible');
-      items.forEach(function (el) { el.classList.add('is-visible'); });
-      return;
+    var items = [].slice.call(steps.querySelectorAll('.step'));
+    function todo() {
+      steps.style.setProperty('--p', 1); steps.classList.add('is-visible');
+      items.forEach(function (el) { el.classList.add('is-visible', 'is-on'); });
     }
-    steps.style.setProperty('--steps-w', steps.clientWidth + 'px');
-    window.addEventListener('resize', function () { steps.style.setProperty('--steps-w', steps.clientWidth + 'px'); });
+    if (!('IntersectionObserver' in window) || reduceMotion) { todo(); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) { return; }
@@ -265,6 +582,24 @@
     }, { threshold: 0.3, rootMargin: '0px 0px -6% 0px' });
     items.forEach(function (el, i) { el.style.transitionDelay = (i * 0.1) + 's'; io.observe(el); });
     io.observe(steps);
+    // La línea se llena al desplazarte y cada etapa se enciende cuando la línea la alcanza
+    var cerca = false, raf = 0;
+    function medir() {
+      raf = 0;
+      var r = steps.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.max(0, Math.min(1, (vh * 0.8 - r.top) / (r.height + vh * 0.25)));
+      steps.style.setProperty('--p', p.toFixed(3));
+      var vertical = getComputedStyle(steps).gridTemplateColumns.split(' ').length === 1;
+      items.forEach(function (el) {
+        var umbral = vertical ? (el.offsetTop + 14) / steps.offsetHeight : (el.offsetLeft + 12) / steps.offsetWidth;
+        el.classList.toggle('is-on', p >= umbral);
+      });
+    }
+    function pedir() { if (!raf) { raf = requestAnimationFrame(medir); } }
+    new IntersectionObserver(function (e) { cerca = e[0].isIntersecting; if (cerca) { pedir(); } }, { rootMargin: '200px' }).observe(steps);
+    window.addEventListener('scroll', function () { if (cerca) { pedir(); } }, { passive: true });
+    window.addEventListener('resize', pedir);
+    medir();
   })();
 
   /* ---------- Spotlight de las tarjetas del bento ---------- */
@@ -285,6 +620,18 @@
     if (!root) return;
     var tabEls = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
     var panels = tabEls.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    // Indicador que se desliza entre pestañas (decorativo)
+    var listaTabs = root.querySelector('[role="tablist"]'), pill = document.createElement('span');
+    pill.className = 'tab-pill'; pill.setAttribute('aria-hidden', 'true');
+    listaTabs.insertBefore(pill, listaTabs.firstChild); listaTabs.classList.add('has-pill');
+    function moverPill() {
+      var on = tabEls.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+      if (!on || !on.offsetHeight) { return; }
+      pill.style.setProperty('--y', on.offsetTop + 'px'); pill.style.setProperty('--h', on.offsetHeight + 'px');
+    }
+    window.addEventListener('resize', moverPill);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(moverPill); }
+    setTimeout(moverPill, 0);
 
     function select(index, focus) {
       tabEls.forEach(function (t, i) {
@@ -294,6 +641,7 @@
         panels[i].hidden = !on;
       });
       if (focus) tabEls[index].focus();
+      moverPill();
     }
     tabEls.forEach(function (t, i) {
       t.addEventListener('click', function () { select(i, false); });
@@ -352,7 +700,7 @@
     var DATA = {
       ai: {
         t: 'Ai: Inteligencia Artificial',
-        p: 'Claude Code trabaja con nosotros: acelera el desarrollo, la documentación y la revisión de cada entrega. Toda modificación a tus datos la aprueba una persona.'
+        p: 'La Ai es de los dos socios y de nuestra IA, Claude Code, que propone, ejecuta y documenta cada entrega. Toda modificación a tus datos la aprueba una persona.'
       },
       bi: {
         t: 'Bi: Inteligencia de Negocios y operación',
@@ -402,7 +750,7 @@
     function token(n, fb) { return (css.getPropertyValue(n) || fb).trim() || fb; }
     var C = {
       ink: token('--deep', '#131F35'),
-      light: token('--btn', '#E9EFF6'),
+      light: token('--btn', '#E9E4FF'),
       navy: token('--navy', '#2B3A5F'),
       steel: token('--steel', '#8CA6BC'),
       steelDeep: token('--steel-deep', '#5A6E86'),
@@ -416,6 +764,17 @@
       bi: ['#C3D4E3', C.steel, C.steelDeep],
       ti: ['#B5BBC6', '#7E8696', '#4A4F5C']
     };
+
+    // Paleta de cada nodo, del reposo al "hover" (patrón gradient-button de 21st.dev con la paleta oficial)
+    var NODEPAL = {
+      ai: { rest: ['#16213A', '#2C3E63', '#6E55D9', '#8B6CF0', '#A996F2'], hover: ['#E9E4FF', '#A996F2', '#8B6CF0', '#2C3E63', '#16213A'] },
+      bi: { rest: ['#16213A', '#2C3E63', '#5A6E86', '#8FA9C2', '#C3D4E3'], hover: ['#F4F6F9', '#C3D4E3', '#8FA9C2', '#2C3E63', '#16213A'] },
+      ti: { rest: ['#111A2E', '#2C3E63', '#5A6E86', '#A996F2', '#E9E4FF'], hover: ['#E9E4FF', '#8FA9C2', '#A996F2', '#2C3E63', '#111A2E'] }
+    };
+    var STOP_REST = [37.35, 61.36, 78.42, 89.52, 100], STOP_HOVER = [0, 8.8, 21.44, 71.34, 85.76];
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function rgb(hex) { var n = parseInt(hex.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+    function mix(a, b, t) { var x = rgb(a), y = rgb(b); return 'rgb(' + Math.round(lerp(x[0], y[0], t)) + ',' + Math.round(lerp(x[1], y[1], t)) + ',' + Math.round(lerp(x[2], y[2], t)) + ')'; }
 
     var MAIN = [
       { id: 'ai', label: 'Ai', role: 'Inteligencia artificial', x: 0.36, y: 0.28 },
@@ -546,8 +905,8 @@
       for (i = 0; i < 3; i++) {
         var p = mains[i], q = mains[(i + 1) % 3], c = ctrl(p, q);
         var grad = ctx.createLinearGradient(p.x, p.y, q.x, q.y);
-        grad.addColorStop(0, 'rgba(157,184,206,0.8)');
-        grad.addColorStop(1, 'rgba(233,239,246,0.85)');
+        grad.addColorStop(0, 'rgba(143,169,194,0.85)');
+        grad.addColorStop(1, 'rgba(169,150,242,0.9)');
         ctx.strokeStyle = grad;
         ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.quadraticCurveTo(c.x, c.y, q.x, q.y); ctx.stroke();
       }
@@ -557,7 +916,7 @@
         for (i = 3; i < nodes.length; i++) {
           var dd = Math.hypot(nodes[i].x - pointer.x, nodes[i].y - pointer.y);
           if (dd < 120) {
-            ctx.strokeStyle = 'rgba(233,239,246,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
+            ctx.strokeStyle = 'rgba(233,228,255,' + ((1 - dd / 120) * 0.5).toFixed(3) + ')';
             ctx.lineWidth = 1;
             ctx.beginPath(); ctx.moveTo(pointer.x, pointer.y); ctx.lineTo(nodes[i].x, nodes[i].y); ctx.stroke();
           }
@@ -570,8 +929,8 @@
         var curved = g.from < 3 && g.to < 3;
         var head = pointOn(a, b, g.t, curved), tail = pointOn(a, b, Math.max(0, g.t - 0.14), curved);
         var tg = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
-        tg.addColorStop(0, 'rgba(233,239,246,0)');
-        tg.addColorStop(1, 'rgba(233,239,246,0.95)');
+        tg.addColorStop(0, 'rgba(233,228,255,0)');
+        tg.addColorStop(1, 'rgba(233,228,255,0.95)');
         ctx.strokeStyle = tg; ctx.lineWidth = 2.4;
         ctx.beginPath(); ctx.moveTo(tail.x, tail.y); ctx.lineTo(head.x, head.y); ctx.stroke();
         ctx.fillStyle = C.light;
@@ -581,7 +940,7 @@
       /* Nodos ambientales */
       for (i = 3; i < nodes.length; i++) {
         var n = nodes[i];
-        ctx.fillStyle = n.glow > 0.05 ? 'rgba(233,239,246,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(180,192,210,0.55)');
+        ctx.fillStyle = n.glow > 0.05 ? 'rgba(233,228,255,' + (0.6 + n.glow * 0.35).toFixed(2) + ')' : (n.tone ? 'rgba(140,166,188,0.95)' : 'rgba(180,192,210,0.55)');
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.8, 0, 6.2832); ctx.fill();
       }
 
@@ -590,24 +949,41 @@
         var m = mains[i];
         var breathe = 1 + Math.sin(now * 0.0016 + m.ph) * 0.035;
         var R = m.r * breathe, f = FILL[m.id];
-        ctx.strokeStyle = 'rgba(157,184,206,' + (0.25 + m.glow * 0.3).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(169,150,242,' + (0.28 + m.glow * 0.3).toFixed(3) + ')';
         ctx.lineWidth = 1;
         ctx.beginPath(); ctx.arc(m.x, m.y, R + 12 + Math.sin(now * 0.0012 + m.ph) * 3, 0, 6.2832); ctx.stroke();
 
-        var rg = ctx.createRadialGradient(m.x - R * 0.3, m.y - R * 0.35, R * 0.1, m.x, m.y, R);
-        rg.addColorStop(0, f[0]); rg.addColorStop(0.55, f[1]); rg.addColorStop(1, f[2]);
+        // Degradado radial animado: del reposo al hover según el brillo del nodo (m.glow)
+        var th = Math.max(0, Math.min(1, m.glow * 1.1)), pal = NODEPAL[m.id], cols = [], sts = [];
+        for (var k = 0; k < 5; k++) { cols.push(mix(pal.rest[k], pal.hover[k], th)); sts.push(lerp(STOP_REST[k], STOP_HOVER[k], th) / 100); }
         ctx.save();
         ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 16; ctx.shadowOffsetY = 7;
-        ctx.fillStyle = rg;
+        ctx.fillStyle = cols[1];
         ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.fill();
         ctx.restore();
-        ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.5;
-        ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.stroke();
+        ctx.save();
+        ctx.beginPath(); ctx.arc(m.x, m.y, R, 0, 6.2832); ctx.clip();
+        ctx.translate(m.x - R + 2 * R * lerp(0.1114, 0, th), m.y - R + 2 * R * lerp(1.4, 0.9151, th));
+        ctx.scale(2 * R * lerp(1.5, 1.2024, th), 2 * R * lerp(1.8006, 1.0318, th));
+        var rg = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+        for (k = 0; k < 5; k++) { rg.addColorStop(Math.max(0, Math.min(1, sts[k])), cols[k]); }
+        ctx.fillStyle = rg; ctx.fillRect(-12, -12, 24, 24);
+        ctx.restore();
+        // Borde con degradado lineal que gira (20° a 190°)
+        var ang = lerp(20, 190, th) * Math.PI / 180, dx = Math.sin(ang), dy = -Math.cos(ang);
+        var bg = ctx.createLinearGradient(m.x - dx * R, m.y - dy * R, m.x + dx * R, m.y + dy * R);
+        bg.addColorStop(0, 'rgba(255,255,255,' + lerp(0.35, 0.95, th).toFixed(2) + ')');
+        bg.addColorStop(1, 'rgba(169,150,242,' + lerp(0.95, 0.4, th).toFixed(2) + ')');
+        ctx.strokeStyle = bg; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.arc(m.x, m.y, R - 1.2, 0, 6.2832); ctx.stroke();
 
-        ctx.fillStyle = m.id === 'bi' ? C.ink : '#FFFFFF';
+        ctx.save();
+        ctx.shadowColor = 'rgba(0,0,0,0.4)'; ctx.shadowBlur = 8;
+        ctx.fillStyle = '#FFFFFF';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.font = '700 ' + Math.round(R * 0.74) + 'px ' + C.display;
+        ctx.font = '800 ' + Math.round(R * 0.74) + 'px ' + C.display;
         ctx.fillText(m.label, m.x, m.y + 1);
+        ctx.restore();
         ctx.fillStyle = C.muted;
         ctx.font = '600 ' + Math.max(12, Math.round(R * 0.32)) + 'px ' + C.display;
         ctx.fillText(m.role, m.x, m.y + R + 26);
@@ -647,7 +1023,7 @@
     resize();
     start();
     if (document.fonts && document.fonts.load) {
-      document.fonts.load("700 24px Geist").then(function () { if (!running) { frame(performance.now(), true); } });
+      document.fonts.load("800 24px Montserrat").then(function () { if (!running) { frame(performance.now(), true); } });
     }
   })();
 })();

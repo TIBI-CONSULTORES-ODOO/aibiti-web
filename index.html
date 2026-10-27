@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AiBiTi Consulting | Odoo, IA, BI y TI para empresas en México</title>
   <meta name="description" content="Implementamos y desarrollamos Odoo 19 para México (CFDI 4.0) y unimos IA, BI y TI en un solo equipo. Agenda un diagnóstico de 30 minutos.">
-  <meta name="theme-color" content="#202B48">
+  <meta name="theme-color" content="#16213A">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://aibiti.com.mx/">
 
@@ -16,10 +16,10 @@
   <meta property="og:title" content="AiBiTi Consulting | Odoo, IA, BI y TI para empresas en México">
   <meta property="og:description" content="Odoo 19 para México, inteligencia artificial, inteligencia de negocios y TI, con un solo equipo responsable.">
   <meta property="og:url" content="https://aibiti.com.mx/">
-  <meta property="og:image" content="https://aibiti.com.mx/assets/img/og-image.jpg">
+  <meta property="og:image" content="https://aibiti.com.mx/assets/img/og-banner.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Logotipo de AiBiTi Consulting">
+  <meta property="og:image:alt" content="Banner de AiBiTi Consulting: Transformación Digital y Consultoría Tecnológica, aibiti.com.mx">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Iconos -->
@@ -28,9 +28,9 @@
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <link rel="preload" href="assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261013f">
-  <script>document.documentElement.classList.add('js');</script>
+  <link rel="preload" href="assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261022c">
+  <script>(function(d){d.classList.add('js');var m=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],q=/[?&]mes=([a-z]{3})/.exec(location.search);d.setAttribute('data-mes',q&&m.indexOf(q[1])>-1?q[1]:m[new Date().getMonth()]);})(document.documentElement);</script>
 
   <!-- Datos estructurados (sin dirección: se agrega cuando exista) -->
   <script type="application/ld+json">
@@ -44,7 +44,13 @@
         "url": "https://aibiti.com.mx/",
         "logo": "https://aibiti.com.mx/assets/img/logo-aibiti.png",
         "email": "contacto@aibiti.com.mx",
-        "telephone": "+525641340392"
+        "telephone": "+525641340392",
+        "sameAs": [
+          "https://www.instagram.com/aibiti.consulting",
+          "https://www.linkedin.com/company/aibiti-consulting",
+          "https://www.facebook.com/aibiticonsulting",
+          "https://www.tiktok.com/@aibiti.consulting"
+        ]
       },
       {
         "@type": "ProfessionalService",
@@ -83,7 +89,7 @@
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#inicio" aria-label="AiBiTi Consulting, ir al inicio">
-        <img class="brand-mark" src="assets/img/aibiti-mark-light.png" width="640" height="516" alt="" aria-hidden="true">
+        <img class="brand-mark" src="assets/img/aibiti-mark-dark.png?v=2" width="160" height="129" alt="" aria-hidden="true">
         <span class="brand-text"><span class="brand-name" aria-hidden="true">Ai<span class="dim">B</span>i<span class="dim">T</span>i</span>
         <span class="brand-sub" aria-hidden="true">Consulting</span></span>
       </a>
@@ -97,6 +103,7 @@
         <a href="#servicios">Servicios</a>
         <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
+        <a href="#precios">Precios</a>
         <a href="#contacto">Contacto</a>
         <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico</a>
       </nav>
@@ -109,11 +116,15 @@
     <section id="inicio" class="hero" aria-labelledby="titulo-hero">
       <div class="hero-viz" id="hero-viz">
         <canvas id="red-neuronal" aria-hidden="true"></canvas>
+        <img class="hero-orbe" src="assets/img/orbe/neutral-l.webp" width="384" height="384" alt="" aria-hidden="true">
+        <img class="hero-holo hero-holo--a" style="--d:30" src="assets/img/orbe/holo-factura.webp" width="200" height="155" alt="" aria-hidden="true">
+        <img class="hero-holo hero-holo--b" style="--d:-22" src="assets/img/orbe/holo-grafica.webp" width="200" height="155" alt="" aria-hidden="true">
+        <img class="hero-holo hero-holo--c" style="--d:18" src="assets/img/orbe/holo-proyectos.webp" width="200" height="155" alt="" aria-hidden="true">
       </div>
       <p class="sr-only">Visualización decorativa: tres nodos conectados, Ai de inteligencia artificial, Bi de inteligencia de negocios y Ti de tecnologías de la información, intercambiando señales como una red neuronal.</p>
 
       <div class="container hero-copy">
-        <h1 id="titulo-hero">Odoo, datos e IA como un solo sistema</h1>
+        <h1 id="titulo-hero">Odoo, datos e IA como <span class="kw">un solo sistema</span></h1>
         <p class="lead">Implementamos y desarrollamos Odoo para México y lo conectamos con analítica de negocio, inteligencia artificial y TI.</p>
         <div class="hero-actions">
           <a class="btn btn--primary" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -125,16 +136,54 @@
       </div>
     </section>
 
+    <!-- ============================ ¿TE SUENA? ============================ -->
+    <section id="problemas" class="bg-mes section section--pain" aria-labelledby="titulo-problemas">
+      <div class="container pain">
+        <div class="pain-guide reveal">
+          <img class="orbe" data-orbe-guia src="assets/img/orbe/nocuadra.webp" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+        </div>
+        <div class="pain-body">
+          <div class="section-head reveal">
+            <h2 id="titulo-problemas">¿Te <span class="kw">suena</span>?</h2>
+            <p>Son los problemas que más vemos en las empresas que usan Odoo, o que todavía no lo usan.</p>
+          </div>
+          <div class="pain-list">
+            <article class="pain-item reveal" data-cara="nocuadra">
+              <img class="holo" src="assets/img/orbe/holo-factura.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>Las facturas no se timbran</h3>
+              <p>Aparece un rechazo del PAC o del SAT y nadie sabe por qué. La factura se queda en el limbo.</p>
+            </article>
+            <article class="pain-item reveal" data-cara="confundido">
+              <img class="holo" src="assets/img/orbe/holo-inventario.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>El inventario no cuadra</h3>
+              <p>Lo que dice el sistema no es lo que hay en el almacén, y no se sabe en qué momento se descuadró.</p>
+            </article>
+            <article class="pain-item reveal" data-cara="mareado">
+              <img class="holo" src="assets/img/orbe/holo-archivos.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>Todo vive en Excel</h3>
+              <p>Archivos que se copian, versiones que se pisan y reportes armados a mano cada semana.</p>
+            </article>
+          </div>
+          <p class="pain-cta reveal">Si te suena alguna, la revisamos contigo en el diagnóstico de 30 minutos. <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pila de tarjetas: cada sección se queda fija y la siguiente la cubre al desplazarte -->
+    <div class="stack" data-stack>
+
     <!-- ============================ SERVICIOS ============================ -->
-    <section id="servicios" class="section" aria-labelledby="titulo-servicios">
+    <section id="servicios" data-guia-cara="pensando" data-guia-holo="contabilidad" class="bg-acero stack-card section" aria-labelledby="titulo-servicios">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-servicios">Cinco frentes sobre un mismo modelo de datos</h2>
           <p>Del ERP a los reportes y la inteligencia artificial, nada queda aislado y un solo equipo responde por todo.</p>
         </div>
 
-        <div class="bento">
-          <article class="tile tile--odoo reveal">
+        <div class="carousel reveal" data-carousel>
+          <div class="carousel-track" tabindex="0" role="group" aria-roledescription="carrusel" aria-label="Servicios de AiBiTi">
+          <article class="tile tile--odoo">
+            <img class="holo" src="assets/img/orbe/holo-compras.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
             <h3>Odoo 19 para México</h3>
             <p>Implementamos Odoo con la localización mexicana como punto de partida, módulo por módulo y con tu equipo.</p>
             <ul class="ticks">
@@ -145,31 +194,42 @@
             </ul>
           </article>
 
-          <article class="tile tile--dev reveal">
+          <article class="tile tile--dev">
+            <img class="holo" src="assets/img/orbe/holo-web.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
             <h3>Desarrollo a la medida</h3>
             <p>Módulos pequeños, probados y documentados cuando lo estándar no alcanza.</p>
           </article>
 
-          <article class="tile tile--bi reveal">
+          <article class="tile tile--bi">
+            <img class="holo" src="assets/img/orbe/holo-grafica.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
             <h3>Business Intelligence</h3>
             <p>Reportes de ventas, inventario y cobranza dentro de Odoo, y resúmenes automáticos por correo para Dirección.</p>
           </article>
 
-          <article class="tile tile--ai reveal">
+          <article class="tile tile--ai">
+            <img class="holo" src="assets/img/orbe/holo-lupa.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
             <h3>Inteligencia Artificial aplicada</h3>
             <p>Automatización de tareas repetitivas y limpieza de contactos y datos, siempre con revisión humana. Primero solo lectura; una persona revisa antes de modificar datos.</p>
           </article>
 
-          <article class="tile tile--ti reveal">
+          <article class="tile tile--ti">
+            <img class="holo" src="assets/img/orbe/holo-soporte.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
             <h3>TI y optimización operativa</h3>
             <p>Microsoft 365 con permisos claros, integraciones entre sistemas y gestión de proyectos de TI.</p>
           </article>
+          </div>
+          <div class="carousel-ctrl">
+            <button class="carousel-btn carousel-btn--prev" type="button" data-prev aria-label="Servicio anterior"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <span class="carousel-dots" aria-hidden="true"></span>
+            <button class="carousel-btn" type="button" data-next aria-label="Servicio siguiente"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+            <span class="carousel-hint" aria-hidden="true">Desliza →</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============================ DESARROLLO ODOO ============================ -->
-    <section id="desarrollo" class="section section--tinted" aria-labelledby="titulo-desarrollo">
+    <section id="desarrollo" data-guia-cara="neutral" data-guia-holo="fabricacion" class="bg-noche stack-card section section--tinted" aria-labelledby="titulo-desarrollo">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-desarrollo">Lo que Odoo no trae de fábrica, lo construimos</h2>
@@ -253,14 +313,14 @@
     </section>
 
     <!-- ============================ EQUIPO ============================ -->
-    <section id="equipo" class="section" aria-labelledby="titulo-equipo">
+    <section id="equipo" data-guia-cara="guino" data-guia-holo="empleados" class="bg-aurora stack-card section" aria-labelledby="titulo-equipo">
       <div class="container team">
         <div class="team-copy reveal">
           <h2 id="titulo-equipo">Tres nodos, un solo cerebro</h2>
           <p>AiBiTi nace de la suma de tres capacidades que se alimentan entre sí. Elige un nodo.</p>
           <div class="team-detail" data-team-detail aria-live="polite">
             <h3 data-team-title>Ai: Inteligencia Artificial</h3>
-            <p data-team-text>Claude Code trabaja con nosotros: acelera el desarrollo, la documentación y la revisión de cada entrega. Toda modificación a tus datos la aprueba una persona.</p>
+            <p data-team-text>La Ai es de los dos socios y de nuestra IA, Claude Code, que propone, ejecuta y documenta cada entrega. Toda modificación a tus datos la aprueba una persona.</p>
           </div>
         </div>
 
@@ -292,7 +352,7 @@
     </section>
 
     <!-- ============================ COMPROMISOS ============================ -->
-    <section id="por-que-nosotros" class="section section--tinted" aria-labelledby="titulo-porque">
+    <section id="por-que-nosotros" data-guia-cara="feliz" data-guia-holo="palomita" class="stack-card section section--light" aria-labelledby="titulo-porque">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-porque">Cuatro compromisos que no negociamos</h2>
@@ -308,7 +368,7 @@
     </section>
 
     <!-- ============================ METODOLOGÍA ============================ -->
-    <section id="metodologia" class="section" aria-labelledby="titulo-metodo">
+    <section id="metodologia" data-guia-cara="neutral" data-guia-holo="calendario" class="bg-violeta stack-card section" aria-labelledby="titulo-metodo">
       <div class="container">
         <div class="section-head reveal">
           <h2 id="titulo-metodo">Cuatro etapas, cada una con un entregable</h2>
@@ -324,30 +384,236 @@
       </div>
     </section>
 
-    <!-- ============================ CONTACTO ============================ -->
-    <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
+    <!-- ============================ CEREBRO DE EMPRESA ============================ -->
+    <section id="cerebro" class="bg-turquesa stack-card section section--tinted" aria-labelledby="titulo-cerebro">
+      <div class="container pain">
+        <div class="pain-guide pain-guide--video reveal">
+          <img class="orbe" src="assets/img/orbe/yaquedo-l.webp" width="384" height="384" alt="" aria-hidden="true" loading="lazy">
+          <!-- Carpeta de cristal: se inclina al pasar el cursor y se abre con clic, Enter o Espacio. Adaptada de un patrón de 21st.dev a HTML y CSS sin dependencias. -->
+          <div class="gf" data-folder>
+            <div class="gf-stage"><div class="gf-tilt">
+              <div class="gf-shadow" aria-hidden="true"></div>
+              <div class="gf-back" aria-hidden="true"><div class="gf-back-sheen"></div></div>
+              <svg class="gf-rim gf-back-rim" viewBox="0 0 340 272" aria-hidden="true"><path d="M0 56A22 22 0 0 1 22 34L146 34C170 34 172 0 198 0L318 0A22 22 0 0 1 340 22L340 250A22 22 0 0 1 318 272L22 272A22 22 0 0 1 0 250Z"/></svg>
+              <div class="gf-files" role="list" aria-label="Contenido del cerebro: juntas, decisiones y procesos">
+              <div class="gf-sheet" role="listitem" style="--gf-slot:-1;--gf-depth:2;z-index:1">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-calendario.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Juntas</span><span class="gf-sheet-meta">minutas</span></span>
+              </div>
+              <div class="gf-sheet" role="listitem" style="--gf-slot:0;--gf-depth:1;z-index:2">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-firma.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Decisiones</span><span class="gf-sheet-meta">qué y por qué</span></span>
+              </div>
+              <div class="gf-sheet" role="listitem" style="--gf-slot:1;--gf-depth:0;z-index:3">
+                <img class="gf-sheet-art" src="assets/img/orbe/holo-proyectos.webp" width="200" height="155" alt="" loading="lazy">
+                <span class="gf-sheet-head"><span class="gf-sheet-name">Procesos</span><span class="gf-sheet-meta">cómo se hace</span></span>
+              </div>
+              </div>
+              <div class="gf-front">
+                <div class="gf-tint" aria-hidden="true"></div>
+                <div class="gf-spec" aria-hidden="true"></div>
+                <svg class="gf-rim gf-front-rim" viewBox="0 0 340 198" aria-hidden="true"><defs><linearGradient id="gf-rim-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".35" stop-color="#fff" stop-opacity=".3"/><stop offset="1" stop-color="#fff" stop-opacity=".1"/></linearGradient></defs><path d="M0 22A22 22 0 0 1 22 0L118 0C144 0 146 32 172 32L318 32A22 22 0 0 1 340 54L340 176A22 22 0 0 1 318 198L22 198A22 22 0 0 1 0 176Z" stroke="url(#gf-rim-g)"/></svg>
+                <button class="gf-hit" type="button" aria-expanded="false" aria-label="Abrir la carpeta del cerebro: juntas, decisiones y procesos"></button>
+                <div class="gf-label"><span class="gf-title">Tu cerebro</span><span class="gf-meta">3 carpetas</span></div>
+              </div>
+            </div></div>
+          </div>
+        </div>
+        <div class="pain-body">
+          <div class="section-head reveal">
+            <h2 id="titulo-cerebro">Odoo guarda tus números. El <span class="kw">cerebro</span> guarda el porqué.</h2>
+            <p>Además de implementar, documentamos cada junta, decisión y proceso de tu empresa como notas conectadas entre sí, en un repositorio privado. Así cualquier persona, o una IA, entiende cómo trabajas sin depender de la memoria de una sola persona.</p>
+          </div>
+          <div class="pain-list">
+            <article class="pain-item reveal">
+              <img class="holo" src="assets/img/orbe/holo-reporte.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>Odoo: los datos vivos</h3>
+              <p>Ventas, inventario, facturas y contabilidad, siempre en un solo lugar y al día.</p>
+            </article>
+            <article class="pain-item reveal">
+              <img class="holo" src="assets/img/orbe/holo-firma.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>El cerebro: el contexto</h3>
+              <p>Qué se decidió, por qué y quién lo aprobó. Procesos y juntas convertidos en notas.</p>
+            </article>
+            <article class="pain-item reveal">
+              <img class="holo" src="assets/img/orbe/holo-proyectos.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+              <h3>La IA: lee los dos</h3>
+              <p>Responde con tus datos y tu contexto. Una persona revisa antes de modificar cualquier dato.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ DESPUÉS DEL ARRANQUE ============================ -->
+    <section id="seguimiento" data-guia-cara="pensando" data-guia-holo="campana" class="bg-mes stack-card section" aria-labelledby="titulo-seguimiento">
       <div class="container">
-        <div class="contact-intro reveal">
-          <h2 id="titulo-contacto">Empecemos por un diagnóstico</h2>
-          <p>En 30 minutos entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio. Sin compromiso.</p>
+        <div class="section-head reveal">
+          <h2 id="titulo-seguimiento">Después del arranque, <span class="kw">seguimos contigo</span></h2>
+          <p>Un Odoo vivo necesita cuidado. Dos formas de mantenerlo sano, con el alcance acordado por escrito.</p>
+        </div>
+        <div class="pain-list pain-list--2">
+          <article class="pain-item reveal">
+            <img class="holo" src="assets/img/orbe/holo-mantenimiento.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+            <h3>Health check de tu Odoo</h3>
+            <p>Una revisión de solo lectura de tu base: contactos, automatizaciones, módulos, CFDI y contabilidad. Recibes un informe priorizado con lo que conviene corregir primero.</p>
+            <p class="pain-foot">Se cotiza según el tamaño de tu base.</p>
+          </article>
+          <article class="pain-item reveal">
+            <img class="holo" src="assets/img/orbe/holo-suscripciones.webp" width="200" height="155" alt="" aria-hidden="true" loading="lazy">
+            <h3>Acompañamiento mensual</h3>
+            <p>Una bolsa de horas cada mes para soporte y mejoras, más un reporte de lo que se hizo. Pensado para después de la implementación.</p>
+            <p class="pain-foot">Horas y alcance a la medida de tu operación.</p>
+          </article>
+        </div>
+        <p class="pain-cta reveal">¿Cuál te conviene? Lo vemos en el diagnóstico de 30 minutos. <a class="btn btn--primary btn--sm" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+      </div>
+    </section>
+
+    </div>
+
+    <!-- ============================ COTIZADOR ============================ -->
+    <!-- Precios de lista de Odoo para México (sin IVA) consultados el 21-oct-2026 en odoo.com/es/pricing-configurator y /pricing-packs.
+         Se actualizan en assets/js/main.js (ODOO y TARIFA, módulo cotizador). -->
+    <section id="precios" data-guia-cara="guino" data-guia-holo="grafica" class="section section--tinted" aria-labelledby="titulo-precios">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="titulo-precios">Estima tu <span class="kw">inversión</span></h2>
+          <p>La suscripción de Odoo, con sus precios de lista para México, más nuestra implementación. Es una estimación: la cifra final sale del diagnóstico.</p>
         </div>
 
-        <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, la columna del calendario queda oculta y el formulario ocupa todo el ancho. -->
-        <div class="contact-cols contact-cols--solo" data-contact-cols>
-          <div class="contact-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
+        <div class="calc" data-calc>
+          <form class="calc-form" onsubmit="return false" aria-label="Datos para estimar la inversión">
+            <fieldset class="calc-group">
+              <legend>1. Plan de Odoo</legend>
+              <div class="calc-opts">
+                <label class="calc-opt"><input type="radio" name="plan" value="estandar" checked><span class="calc-opt-title">Estándar</span><span class="calc-opt-desc">Todas las aplicaciones en Odoo Online. Sin Studio ni módulos a la medida.</span></label>
+                <label class="calc-opt"><input type="radio" name="plan" value="personalizado"><span class="calc-opt-title">Personalizado</span><span class="calc-opt-desc">Studio, API externa, multiempresa y módulos a la medida (en Odoo.sh).</span></label>
+              </div>
+              <div class="calc-opts calc-opts--sm">
+                <label class="calc-opt"><input type="radio" name="cobro" value="anual" checked><span class="calc-opt-title">Pago anual</span><span class="calc-opt-desc">Unos 20 % menos.</span></label>
+                <label class="calc-opt"><input type="radio" name="cobro" value="mensual"><span class="calc-opt-title">Pago mensual</span><span class="calc-opt-desc">Sin compromiso anual.</span></label>
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="usuarios">Usuarios</label><span><input class="calc-num" type="number" id="usuarios" name="usuarios" min="1" max="150" step="1" value="5" inputmode="numeric"> usuarios</span></div>
+                <input type="range" min="1" max="150" step="1" value="5" data-pair="usuarios" aria-hidden="true" tabindex="-1">
+              </div>
+            </fieldset>
+
+            <fieldset class="calc-group" data-only="personalizado" hidden>
+              <legend>2. Alojamiento</legend>
+              <div class="calc-opts calc-opts--sm">
+                <label class="calc-opt"><input type="radio" name="alojamiento" value="online"><span class="calc-opt-title">Odoo Online</span><span class="calc-opt-desc">Incluido. Sin módulos propios.</span></label>
+                <label class="calc-opt"><input type="radio" name="alojamiento" value="sh" checked><span class="calc-opt-title">Odoo.sh</span><span class="calc-opt-desc">Para módulos a la medida, con staging.</span></label>
+              </div>
+              <div data-only="sh">
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="workers">Workers</label><span><input class="calc-num" type="number" id="workers" name="workers" min="1" max="8" step="1" value="1" inputmode="numeric"> </span></div>
+                <input type="range" min="1" max="8" step="1" value="1" data-pair="workers" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="gb">Almacenamiento</label><span><input class="calc-num" type="number" id="gb" name="gb" min="1" max="200" step="1" value="5" inputmode="numeric"> GB</span></div>
+                <input type="range" min="1" max="200" step="1" value="5" data-pair="gb" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="staging">Entornos de prueba (staging)</label><span><input class="calc-num" type="number" id="staging" name="staging" min="0" max="5" step="1" value="1" inputmode="numeric"> </span></div>
+                <input type="range" min="0" max="5" step="1" value="1" data-pair="staging" aria-hidden="true" tabindex="-1">
+              </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="calc-group">
+              <legend>3. Implementación con AiBiTi</legend>
+              <p class="calc-help">Paquetes de horas del tamaño que necesites, desde el primero. Ajustes y personalizaciones más allá de lo estándar desde el primer alcance.</p>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="h_consultoria">Consultoría: configuración, importación de datos y capacitación ($700 + IVA / h)</label><span><input class="calc-num" type="number" id="h_consultoria" name="h_consultoria" min="0" max="300" step="1" value="25" inputmode="numeric"> h</span></div>
+                <input type="range" min="0" max="300" step="1" value="25" data-pair="h_consultoria" aria-hidden="true" tabindex="-1">
+              </div>
+              <div class="calc-range">
+                <div class="calc-range-head"><label for="h_desarrollo">Desarrollo: módulos, addendas, reportes e integraciones ($1,000 + IVA / h)</label><span><input class="calc-num" type="number" id="h_desarrollo" name="h_desarrollo" min="0" max="300" step="1" value="10" inputmode="numeric"> h</span></div>
+                <input type="range" min="0" max="300" step="1" value="10" data-pair="h_desarrollo" aria-hidden="true" tabindex="-1">
+              </div>
+              <p class="calc-warn" data-aviso="estandar" hidden>Los desarrollos a la medida necesitan el plan Personalizado con Odoo.sh. Cámbialo arriba para ver el costo real.</p>
+            </fieldset>
+          </form>
+
+          <aside class="calc-sum" aria-label="Resumen de la estimación">
+            <h3>Suscripción de Odoo</h3>
+            <div class="sum-row"><span>Licencias (<span data-out="usuarios">5</span> usuarios)</span><strong data-out="lic">—</strong></div>
+            <div class="sum-row"><span>Descuento del primer año</span><strong data-out="desc">—</strong></div>
+            <div class="sum-row" data-row="hosting" hidden><span>Odoo.sh</span><strong data-out="hosting">—</strong></div>
+            <div class="sum-row sum-row--em"><span>Al mes, primer año</span><strong data-out="mes1">—</strong></div>
+            <div class="sum-row"><span>Al mes, desde el segundo año</span><strong data-out="mes2">—</strong></div>
+
+            <h3>Implementación AiBiTi <small>(pago por paquete)</small></h3>
+            <div class="sum-row"><span>Consultoría · <span data-out="hc">25</span> h × $700 + IVA</span><strong data-out="impc">—</strong></div>
+            <div class="sum-row"><span>Desarrollo · <span data-out="hd">10</span> h × $1,000 + IVA</span><strong data-out="impd">—</strong></div>
+            <div class="sum-row sum-row--em"><span>Implementación (+ IVA)</span><strong data-out="impl">—</strong></div>
+
+            <div class="sum-total" aria-live="polite"><span>Primer año, estimado (+ IVA)</span><strong data-out="anio1">—</strong><small>más IVA · <span data-out="anio1iva">—</span> con IVA</small></div>
+
+            <div class="calc-compare" data-compare>
+              <p data-has-pack>Referencia: con un paquete de éxito de Odoo, esas horas equivalen al paquete <strong data-out="pack">—</strong> (<strong data-out="packp">—</strong> para clientes nuevos). Con AiBiTi pagas solo tus horas: <strong data-out="nuestro">—</strong>.</p>
+              <p data-no-pack hidden>Para más de 200 horas, Odoo cotiza por días de consultoría. Con AiBiTi sigues pagando por hora: <strong data-out="nuestro2">—</strong>.</p>
+            </div>
+            <a class="btn btn--primary calc-cta" href="#contacto" data-agendar>Validar mi estimación <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </aside>
+        </div>
+
+        <div class="calc-notes reveal">
+          <p><strong>¿Por qué con nosotros?</strong> En los paquetes de éxito de Odoo, las personalizaciones entran desde el paquete de 25 horas y los desarrollos a la medida desde el de 50 horas. Con AiBiTi, los ajustes y personalizaciones mayores a los estándar van desde el primer alcance, y la consultoría cuesta $700 + IVA la hora y el desarrollo $1,000 + IVA la hora, desde el primer paquete de horas, del tamaño que sea.</p>
+          <p class="calc-fine">Cifras en pesos mexicanos, más IVA (16 %) salvo donde se indica. Nuestras tarifas son $700 + IVA por hora de consultoría y $1,000 + IVA por hora de desarrollo. Los precios de Odoo son su lista pública para México al 21 de octubre de 2026: los fija Odoo y pueden cambiar. Las horas son una estimación; el alcance y el costo final se acuerdan por escrito después del diagnóstico. AiBiTi es Partner de Odoo; el servicio de implementación lo presta AiBiTi, no Odoo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ FRANJA DE CIERRE ============================ -->
+    <section class="cta-band" aria-labelledby="titulo-cta">
+      <div class="container cta-band-in">
+        <div class="cta-band-copy">
+          <h2 id="titulo-cta">¿Hablamos de tu caso?</h2>
+          <p>30 minutos, sin costo y sin compromiso.</p>
+          <a class="btn btn--light" href="#contacto" data-agendar>Agendar diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <img class="cta-orbe" src="assets/img/orbe/feliz.webp" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+      </div>
+    </section>
+
+    <!-- ============================ CONTACTO ============================ -->
+    <section id="contacto" class="section section--contact" aria-labelledby="titulo-contacto">
+      <div class="container lp-grid">
+        <div class="lp-copy reveal">
+          <img class="orbe orbe--lp" data-orbe-contacto src="assets/img/orbe/guino.webp" width="256" height="256" alt="" aria-hidden="true" loading="lazy">
+          <h2 id="titulo-contacto" class="lp-title">Un diagnóstico de 30 minutos, <span class="kw">sin costo</span> y sin compromiso</h2>
+          <p class="lead">Entendemos cómo operas hoy y te decimos, con franqueza, dónde está el mayor beneficio: Odoo, reportes, automatización o TI.</p>
+          <ul class="ticks">
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Una llamada de 30 minutos y una revisión de solo lectura de tu operación o de tu Odoo actual</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Te decimos qué conviene hacer primero y qué no vale la pena</li>
+            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Si después quieres avanzar, preparamos una propuesta técnica con alcance, tiempos y costo</li>
+          </ul>
+          <p class="lp-note">Odoo 19 · CFDI 4.0 · Staging primero · Nada toca producción sin tu autorización</p>
+        </div>
+
+        <div class="lp-form">
+          <!-- Sin JavaScript, o mientras CONFIG.calLink no esté configurado, el calendario queda oculto y solo se ve el formulario. -->
+          <div class="contact-cal lp-cal" id="agendar" role="region" aria-labelledby="titulo-agendar" hidden>
             <h3 id="titulo-agendar">Elige tu horario · 30 min</h3>
             <div class="cal-embed" id="cal-embed"><p class="cal-loading">Cargando calendario…</p></div>
           </div>
-
-          <div class="contact-write">
-            <h3>¿Prefieres que te escribamos?</h3>
-            <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
+          <h3 data-form-titulo>Cuéntanos qué necesitas</h3>
+          <form class="form reveal" id="form-contacto" method="post" action="https://api.web3forms.com/submit" aria-describedby="estado-form">
               <!-- Sin JavaScript el formulario envía por POST y redirige a gracias.html. Con JavaScript, main.js
                    valida y envía por fetch. La clave es pública y debe coincidir con CONFIG.web3formsKey en main.js. -->
               <input type="hidden" name="access_key" value="cb075f15-5f40-48ce-afd1-38ef0a3283c8">
               <input type="hidden" name="redirect" value="https://aibiti.com.mx/gracias.html">
               <input type="hidden" name="subject" value="Nuevo contacto desde aibiti.com.mx">
               <input type="hidden" name="from_name" value="Sitio AiBiTi">
+              <input type="hidden" name="utm_source" data-utm>
+              <input type="hidden" name="utm_medium" data-utm>
+              <input type="hidden" name="utm_campaign" data-utm>
+              <input type="hidden" name="utm_content" data-utm>
+              <input type="hidden" name="utm_term" data-utm>
+              <input type="hidden" name="pagina" value="inicio">
               <div class="hp" aria-hidden="true"><label>No llenar este campo <input type="checkbox" name="botcheck" tabindex="-1"></label></div>
 
               <div class="field">
@@ -361,8 +627,8 @@
                 <span class="field-error" id="err-correo"></span>
               </div>
               <div class="field field--full">
-                <label for="mensaje">Mensaje</label>
-                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Cuéntanos brevemente qué necesitas resolver."></textarea>
+                <label for="mensaje">¿Qué te gustaría resolver?</label>
+                <textarea id="mensaje" name="mensaje" required aria-describedby="err-mensaje" placeholder="Por ejemplo: facturas que no se timbran, inventario que no cuadra o reportes en Excel."></textarea>
                 <span class="field-error" id="err-mensaje"></span>
               </div>
 
@@ -399,21 +665,12 @@
               <span class="field-error field-error--full" id="err-consentimiento"></span>
 
               <div class="form-actions">
-                <button class="btn btn--primary" type="submit" id="btn-enviar">Enviar solicitud <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+                <button class="btn btn--primary" type="submit" id="btn-enviar">Quiero mi diagnóstico <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></button>
               </div>
               <p class="form-status" id="estado-form" role="status" aria-live="polite"></p>
             </form>
-          </div>
-        </div>
-
-        <div class="contact-direct reveal">
-          <ul class="contact-list">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg><a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></li>
-          </ul>
           <!-- TODO: el número de WhatsApp se configura en assets/js/main.js (CONFIG.whatsapp) -->
-          <a class="btn btn--ghost" id="btn-whatsapp" href="mailto:contacto@aibiti.com.mx" rel="noopener">
-            <svg class="icon" aria-hidden="true"><use href="#i-chat"/></svg> WhatsApp
-          </a>
+          <p class="lp-alt">¿Prefieres escribirnos? <a id="btn-whatsapp" href="mailto:contacto@aibiti.com.mx" rel="noopener">WhatsApp</a> o <a href="mailto:contacto@aibiti.com.mx">contacto@aibiti.com.mx</a></p>
         </div>
       </div>
     </section>
@@ -424,8 +681,11 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img class="footer-logo" src="assets/img/logo-aibiti-light.png" width="1100" height="1152" alt="Logotipo de AiBiTi Consulting: una A con tres nodos conectados que forman Ai, Bi y Ti" loading="lazy">
+          <img class="footer-logo" src="assets/img/logo-aibiti-dark.png" width="800" height="840" alt="Logotipo de AiBiTi Consulting: una A con tres nodos conectados que forman Ai, Bi y Ti" loading="lazy">
           <p>Inteligencia artificial, inteligencia de negocios, tecnologías de la información y Odoo para empresas en México.</p>
+          <ul class="footer-redes" data-redes aria-label="Redes sociales" hidden></ul>
+          <p class="footer-partner"><span>AiBiTi · Partner de Odoo</span><img src="assets/img/odoo-logo-inverted.svg" width="110" height="59" alt="Odoo" loading="lazy"></p>
+          <p class="footer-note">El servicio lo presta AiBiTi Consulting, empresa independiente; no lo presta Odoo. Odoo es una marca de Odoo S.A.</p>
         </div>
         <div>
           <h3>Navegación</h3>
@@ -433,6 +693,7 @@
             <li><a href="#servicios">Servicios</a></li>
             <li><a href="#equipo">Equipo</a></li>
             <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#precios">Precios</a></li>
             <li><a href="#contacto">Contacto</a></li>
           </ul>
         </div>
@@ -449,6 +710,12 @@
     </div>
   </footer>
 
-  <script src="assets/js/main.js?v=20261013f" defer></script>
+  <!-- Orbe guía (solo escritorio ancho): cambia de cara y de holograma según la sección. Decorativo, no habla. -->
+  <div class="guia" data-guia aria-hidden="true">
+    <img class="guia-holo" alt="" width="52" height="40">
+    <img class="guia-cara" alt="" width="56" height="56">
+  </div>
+
+  <script src="assets/js/main.js?v=20261022c" defer></script>
 </body>
 </html>
